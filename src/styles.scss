@@ -1,1 +1,56 @@
-/* You can add global styles to this file, and also import other style files */
+  @import "./assets/css/normalize.css";
+
+  html {
+    box-sizing: border-box; /* padding not alter the size of the elements */
+    //font-size: 62.5%; /* 1rem = 10px */
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  body{
+    font-family: var(--font-family);
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+
+  /* Global styles */
+  h1,h2,h3,h4,h5,h6{
+    font-family: var(--font-family);
+    color: var(--text-color);
+    margin: 0 0 5rem 0;
+  }
+  h1{
+    font-size: 4rem;
+  }
+  h2{
+    font-size: 3rem;
+  }
+  h3{
+    font-size: 2rem;
+  }   
+  h4{
+    font-size: 1.6rem;
+  }
+  h5{
+    font-size: 1.4rem;
+  }
+  h6
+  {
+    font-size: 1.2rem;
+  }
+
+  .container {
+    max-width: 75rem;
+    margin: 0 auto;
+  }
+  img{
+    max-width: 100%;
+    display: block;
+  }
+  /* Utilility classes */
+  .text-center{
+    text-align: center;
+  }
+  
+  

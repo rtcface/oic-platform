@@ -1,0 +1,33 @@
+
+.header-container{
+    display: flex;
+    //flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    logo-left {
+        width: 50%;
+        margin: 0 auto;            
+    }
+    logo-right {
+        width: 50%;
+        margin: 0 auto;
+    }
+
+    h6{
+        text-align: center;       
+        text-transform: uppercase;
+        margin-top: 5rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    span
+    {    
+        color: var(--text-color-secondary);
+    }
+
+    img {
+        border-end-start-radius: 35px; 
+        border-start-end-radius: 35px;
+    }
+     
+}
