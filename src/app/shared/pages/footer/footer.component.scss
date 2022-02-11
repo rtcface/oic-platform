@@ -1,36 +1,66 @@
 
-.footer-main{   
-    border-top: 0.1rem solid var(--c-border);
-    margin-top: 5rem;
-    padding-top: 5rem; 
-    h6{ 
-      margin-bottom: 0.1rem;
-    }
-  }
- 
-  .footer-main-container{
-    display: grid;
-    grid-template-columns: repeat(3,1fr);    
-  }
-  
-  .footer-menu a{
-    display: block;
-  }
-  
-  .copyright{
-    text-align: center;
-    padding-top: 5rem;    
-  }
+.footer{ 
+    padding-top: 2rem;
+    height: 20rem;
+    background-image: url(../../../../assets/img/footer.jpg);
+    background-size: cover;
+    background-position: bottom bottom;
+    background-repeat: no-repeat;
 
-  .about-content{
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-    gap: 4rem; 
-  }
-  
-  .about-info{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
+
+  
   }
+
+  .titulo{
+    font-size: 15rem;
+    color: var(--text-color-secondary);
+    text-align: center;
+    margin-top: 5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .logotipo{   
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .barra{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+ 
+  .contacto{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    
+    a{
+      color: var(--text-color-secondary);
+      text-decoration: none;
+      margin-left: 1rem;
+    }
+  }
+
+  .phone{
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  .phone::before{
+    content: '';
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    background-image: url(../../../../assets/img/phone.png);
+
+  }
+  

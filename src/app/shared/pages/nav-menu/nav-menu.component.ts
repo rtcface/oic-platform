@@ -14,7 +14,7 @@ export class NavMenuComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       {
-          label: 'Home',
+          label: 'Inicio',
           icon: 'pi pi-fw pi-home',
           routerLink: '/oic/home'
       },
