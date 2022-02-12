@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "demoangular-5bde2": {
+      "hosting": {
+        "oic": [
+          "demoangular-5bde2"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "demoangular-5bde2"
+  }
+}
