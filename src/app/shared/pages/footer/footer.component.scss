@@ -1,26 +1,26 @@
 
 .footer{ 
     padding-top: 2rem;
-    height: 20rem;
+    height: 25rem;
     background-image: url(../../../../assets/img/footer.jpg);
     background-size: cover;
     background-position: bottom bottom;
     background-repeat: no-repeat;
-
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-
-  
+    justify-content: flex-end;  
   }
 
   .titulo{
-    font-size: 15rem;
-    color: var(--text-color-secondary);
-    text-align: center;
+    text-align: center;       
+    text-transform: uppercase;
     margin-top: 5rem;
     margin-left: 1rem;
     margin-right: 1rem;
+    span
+    {    
+        color: var(--text-color-secondary);
+    }
   }
 
   .logotipo{   
@@ -32,7 +32,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    align-items: center;
+    align-items: bottom;
     margin-top: 2rem;
     margin-left: 1rem;
     margin-right: 1rem;
@@ -52,15 +52,31 @@
   }
 
   .phone{
+    display: flex;
     margin-left: 1rem;
     margin-right: 1rem;
   }
   .phone::before{
     content: '';
     display: block;
-    width: 4rem;
-    height: 4rem;
+    margin-right: .6rem;
+    width: 3rem;
+    height: 3rem;
     background-image: url(../../../../assets/img/phone.png);
-
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-end-start-radius: 1rem; 
+    border-start-end-radius: 1rem;    
   }
   
+  .copyright{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: var(--color-primary);
+  }
