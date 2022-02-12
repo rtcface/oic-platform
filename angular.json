@@ -19,7 +19,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "options": {
+          "options": {            
             "outputPath": "dist/oic",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -28,7 +28,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "_redirects"
             ],
             "styles": [
               "src/styles.scss",
