@@ -26,18 +26,18 @@
     {    
         color: var(--text-color-secondary);
     }
+      
+}
 
-    img {
-        border-end-start-radius: 2rem; 
+.border-logo{
+    border-end-start-radius: 2rem; 
         border-start-end-radius: 2rem;
-    }
-     
 }
 
 .header{
-    min-height: 20rem;
-    height: 20rem;
-    background-image: url(../../../../assets/img/footer.jpg);
+    min-height: 32rem;
+    height: 32rem;
+    background-image: url(../../../../assets/img/footer.png);
     background-size: cover;
     background-position: top top;
     background-repeat: no-repeat;
@@ -54,4 +54,21 @@
         }
     }
 
+}
+
+.header-bar{
+    display: flex;   
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 5rem;
+}
+
+.item-hb{
+    height: 8rem;
+    width: 8rem;
+    display: flex;
+    margin-left: 2rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
 }

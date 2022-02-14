@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddComponent } from './pages/add/add.component';
-import { FindComponent } from './pages/find/find.component';
+import { DatosGeneralesComponent } from './pages/datos-generales/datos-generales.component';
+
 import { HomeComponent } from './pages/home/home.component';
 import { KpisComponent } from './pages/kpis/kpis.component';
 import { OicHomeComponent } from './pages/oic-home/oic-home.component';
-import { OicListComponent } from './pages/oic-list/oic-list.component';
+import { PlanTrabajoComponent } from './pages/plan-trabajo/plan-trabajo.component';
+
 
 
 const routes: Routes = [
@@ -18,16 +19,12 @@ const routes: Routes = [
         component: OicHomeComponent
       },
       {
-        path: 'oic-list',
-        component:OicListComponent
+        path: 'datos-generales',
+        component: DatosGeneralesComponent
       },
       {
-        path:'find',
-        component: FindComponent
-      },
-      {
-        path:'add',
-        component: AddComponent
+        path: 'plan-trabajo',
+        component: PlanTrabajoComponent
       },
       {
         path:'kpis',
@@ -35,7 +32,7 @@ const routes: Routes = [
       },
       {
         path:'**',
-        redirectTo: 'find'
+        redirectTo: 'home'
       }      
     ]
   }

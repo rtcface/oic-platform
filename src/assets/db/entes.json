@@ -1,0 +1,329 @@
+{
+    "data":[
+        {
+          "id": 91,
+          "nombre_ente": "SECRETARIA EJECUTIVA DEL SISTEMA ANTICORRUPCION DEL ESTADO DE TLAXCALA",
+          "siglas_ente": "SESAET"
+        },
+        {
+          "id": 92,
+          "nombre_ente": "MUNICIPIO DE APIZACO",
+          "siglas_ente": "APIZACO"
+        },
+        {
+          "id": 93,
+          "nombre_ente": "MUNICIPIO TLAXCALA",
+          "siglas_ente": "TLAXCALA"
+        },
+        {
+          "id": 94,
+          "nombre_ente": "MUNICIPIO TETLA DE LA SOLIDARIDAD",
+          "siglas_ente": "TETLA"
+        },
+        {
+          "id": 95,
+          "nombre_ente": "MUNICIPIO LAZARO CARDENAS",
+          "siglas_ente": "LAZAROCARDENAS"
+        },
+        {
+          "id": 96,
+          "nombre_ente": "MUNICIPIO APETATITLAN DE ANTONIO CARVAJAL",
+          "siglas_ente": "APETATITLAN"
+        },
+        {
+          "id": 98,
+          "nombre_ente": "MUNICIPIO TEPETITLA DE LARDIZABAL",
+          "siglas_ente": "TEPETITLA"
+        },
+        {
+          "id": 99,
+          "nombre_ente": "MUNICIPIO MAZATECOCHCO DE JOSE MARIA MORELOS",
+          "siglas_ente": "MAZATECHOCO"
+        },
+        {
+          "id": 100,
+          "nombre_ente": "MUNICIPIO SANTA CRUZ TLAXCALA",
+          "siglas_ente": "SANTACRUZ"
+        },
+        {
+          "id": 101,
+          "nombre_ente": "MUNICIPIO SAN PABLO DEL MONTE",
+          "siglas_ente": "SANPABLO"
+        },
+        {
+          "id": 102,
+          "nombre_ente": "MUNICIO CONTLA DE JUAN CUAMATZI",
+          "siglas_ente": "CONTLA"
+        },
+        {
+          "id": 103,
+          "nombre_ente": "MUNICIPIO CUAXOMULCO",
+          "siglas_ente": "CUAXOMULCO"
+        },
+        {
+          "id": 104,
+          "nombre_ente": "MUNICIPIO XICOHTZINCO",
+          "siglas_ente": "XICOHTZINCO"
+        },
+        {
+          "id": 105,
+          "nombre_ente": "MUNICIPIO SANTA ISABEL XILOXOXTLA",
+          "siglas_ente": "XILOXOXTLA"
+        },
+        {
+          "id": 106,
+          "nombre_ente": "MUNICIPIO SAN LUCAS TECOPILCO",
+          "siglas_ente": "TECOPILCO"
+        },
+        {
+          "id": 107,
+          "nombre_ente": "MUNICIPIO ATLANGATEPEC",
+          "siglas_ente": "ATLANGATEPEC"
+        },
+        {
+          "id": 109,
+          "nombre_ente": "MUNICIPIO TEPEYANCO",
+          "siglas_ente": "TEPEYANCO"
+        },
+        {
+          "id": 108,
+          "nombre_ente": "MUNICIPIO EL CARMEN TEQUEXQUITLA",
+          "siglas_ente": "TEQUEXQUITLA"
+        },
+        {
+          "id": 110,
+          "nombre_ente": "MUNICIPIO NANACAMILPA DE MARIANO ARISTA",
+          "siglas_ente": "NANACAMILPA"
+        },
+        {
+          "id": 112,
+          "nombre_ente": "MUNICIPIO SAN DAMIAN TEXOLOC",
+          "siglas_ente": "TEXOLOC"
+        },
+        {
+          "id": 113,
+          "nombre_ente": "INSTITUTO TLAXCALTECA DE ELECCIONES",
+          "siglas_ente": "ITE"
+        },
+        {
+          "id": 114,
+          "nombre_ente": "UNIVERSIDAD AUTONOMA DE TLAXCALA",
+          "siglas_ente": "UAT"
+        },
+        {
+          "id": 115,
+          "nombre_ente": "MUNICIPIO XALOZTOC",
+          "siglas_ente": "XALOZTOC"
+        },
+        {
+          "id": 116,
+          "nombre_ente": "COLEGIO DE BACHILLERES DEL ESTADO DE TLAXCALA",
+          "siglas_ente": "COBAT"
+        },
+        {
+          "id": 117,
+          "nombre_ente": "MUNICIPIO SANTA ANA NOPALUCAN",
+          "siglas_ente": "NOPALUCAN"
+        },
+        {
+          "id": 118,
+          "nombre_ente": "MUNICIPIO SANTA ANA CHIAUHTEMPAN",
+          "siglas_ente": "CHIAUTEMPAN"
+        },
+        {
+          "id": 119,
+          "nombre_ente": "MUNICIPIO SAN FRANCISCO TETLANOHCAN",
+          "siglas_ente": "TETLANOHCAN"
+        },
+        {
+          "id": 120,
+          "nombre_ente": "MUNICIPIO SAN LUIS TEOLOCHOLCO",
+          "siglas_ente": "TEOLOCHOLCO"
+        },
+        {
+          "id": 121,
+          "nombre_ente": "COMISIÓN ESTATAL DE DERECHOS HUMANOS",
+          "siglas_ente": "CEHD"
+        },
+        {
+          "id": 122,
+          "nombre_ente": "MUNICIPIO PAPALOTLA DE XICOTENCATL",
+          "siglas_ente": "MPX"
+        },
+        {
+          "id": 123,
+          "nombre_ente": "MUNICIPIO TLAXCO",
+          "siglas_ente": "TLAXCO"
+        },
+        {
+          "id": 125,
+          "nombre_ente": "MUNICIPIO SAN LORENZO AXOCOMANITLA",
+          "siglas_ente": "AXOCOMANITLA"
+        },
+        {
+          "id": 126,
+          "nombre_ente": "MUNICIPIO DE TERRENATE",
+          "siglas_ente": "TERRENATE"
+        },
+        {
+          "id": 127,
+          "nombre_ente": "MUNICIPIO DE SANCTORUM DE LAZARO CARDENAS",
+          "siglas_ente": "SANCTORUM"
+        },
+        {
+          "id": 128,
+          "nombre_ente": "MUNICIPIO DE TOCATLAN",
+          "siglas_ente": "TOCATLAN"
+        },
+        {
+          "id": 129,
+          "nombre_ente": "AMAXAC DE GUERRERO",
+          "siglas_ente": "AMAXAC"
+        },
+        {
+          "id": 130,
+          "nombre_ente": "MUNICIPO DE ZACATELCO",
+          "siglas_ente": "ZACATELCO"
+        },
+        {
+          "id": 131,
+          "nombre_ente": "MUNICIPIO DE TETLATLAHUCA",
+          "siglas_ente": "TETLATLAHUCA"
+        },
+        {
+          "id": 132,
+          "nombre_ente": "MUNICIPIO DE ATLTZAYANCA",
+          "siglas_ente": "ATLTZAYANCA"
+        },
+        {
+          "id": 133,
+          "nombre_ente": "MUNICIPIO DE MUÑOZ DE DOMINGO ARENAS",
+          "siglas_ente": "DOMINGO ARENAS"
+        },
+        {
+          "id": 134,
+          "nombre_ente": "MUNICIPIO DE IXTENCO",
+          "siglas_ente": "IXTENCO"
+        },
+        {
+          "id": 135,
+          "nombre_ente": "MUNICIPIO DE TZOMPANTEPEC",
+          "siglas_ente": "TZOMPANTEPEC"
+        },
+        {
+          "id": 136,
+          "nombre_ente": "MUNICIPIO DE HUEYOTLIPAN",
+          "siglas_ente": "HUEYOTLIPAN"
+        },
+        {
+          "id": 137,
+          "nombre_ente": "MUNICIPIO DE BENITO JUAREZ",
+          "siglas_ente": "BENITO JUAREZ"
+        },
+        {
+          "id": 138,
+          "nombre_ente": "MUNICIPIO ALTZAYANCA",
+          "siglas_ente": "ALTZAYANCA"
+        },
+        {
+          "id": 139,
+          "nombre_ente": "MUNICIPIO DE SAN JUAN HUACTZINCO",
+          "siglas_ente": "HUACTZINCO"
+        },
+        {
+          "id": 140,
+          "nombre_ente": "COMISION DE AGUA POTABLE Y ALCANTARILLADO DEL MUNICIPIO DE APIZACO",
+          "siglas_ente": "CAPAMA"
+        },
+        {
+          "id": 141,
+          "nombre_ente": "MUNICIPIO DE SAN JOSE TEACALCO",
+          "siglas_ente": "TEACALCO"
+        },
+        {
+          "id": 142,
+          "nombre_ente": "MUNICIPIO DE XALTOCAN",
+          "siglas_ente": "XALTOCAN"
+        },
+        {
+          "id": 143,
+          "nombre_ente": "MUNICIPIO DE LA MAGDALENA TLALTELULCO",
+          "siglas_ente": "TLALTELULCO"
+        },
+        {
+          "id": 144,
+          "nombre_ente": "COMISION DE AGUA POTABLE Y ALCATARILLADO DEL MUNICIPIO DE HUAMANTLA",
+          "siglas_ente": "CAPAMH"
+        },
+        {
+          "id": 145,
+          "nombre_ente": "MUNICIPIO DE IXTACUIXTLA DE MARIANO MATAMOROS",
+          "siglas_ente": "IXTACUIXTLA"
+        },
+        {
+          "id": 146,
+          "nombre_ente": "MUNICIPIO SAN JERONIMO ZACUALPAN",
+          "siglas_ente": "ZACUALPAN"
+        },
+        {
+          "id": 147,
+          "nombre_ente": "MUNICIPIO DE SANTA CATARINA AYOMETLA",
+          "siglas_ente": "AYOMETLA"
+        },
+        {
+          "id": 148,
+          "nombre_ente": "MUNICIPIO DE HUAMATLA",
+          "siglas_ente": "HUAMATLA"
+        },
+        {
+          "id": 149,
+          "nombre_ente": "MUNICIPIO DE SANTA CRUZ QUILEHTLA",
+          "siglas_ente": "QUILEHTLA"
+        },
+        {
+          "id": 150,
+          "nombre_ente": "MUNICIPIO DE PANOTLA",
+          "siglas_ente": "PANOTLA"
+        },
+        {
+          "id": 151,
+          "nombre_ente": "MUNICIPIO DE ESPAÑITA",
+          "siglas_ente": "ESPAITA"
+        },
+        {
+          "id": 152,
+          "nombre_ente": "MUNICIPIO DE ZILTLALTÉPEC DE TRINIDAD SÁNCHEZ SANTOS",
+          "siglas_ente": "ZILTLALTEPEC"
+        },
+        {
+          "id": 153,
+          "nombre_ente": "MUNICIPIO DE NATIVITAS",
+          "siglas_ente": "NATIVITAS"
+        },
+        {
+          "id": 154,
+          "nombre_ente": "MUNICIPIO DE TOTOLAC",
+          "siglas_ente": "TOTOLAC"
+        },
+        {
+          "id": 155,
+          "nombre_ente": "MUNICIPIO DE CALPULALPAN",
+          "siglas_ente": "CALPULALPAN"
+        },
+        {
+          "id": 156,
+          "nombre_ente": "MUNICIPIO DE EMILIANO ZAPATA",
+          "siglas_ente": "EMILIANO ZAPATA"
+        },
+        {
+          "id": 157,
+          "nombre_ente": "MUNICIPIO DE SANTA APOLONIA TEACALCO",
+          "siglas_ente": "TEACALCO"
+        },
+        {
+          "id": 158,
+          "nombre_ente": "MUNICIPIO DE CUAPIAXTLA",
+          "siglas_ente": "CUAPIAXTLA"
+        }
+      ]
+}

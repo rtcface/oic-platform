@@ -19,17 +19,17 @@ export class NavMenuComponent implements OnInit {
           routerLink: '/oic/home'
       },
       {
-          label: 'OIC Buscador',
+          label: 'Datos del OIC',
           icon: 'pi pi-fw pi-search',
-          routerLink: '/oic/find'
+          routerLink: '/oic/datos-generales'
       },
       {
-          label: 'OIC Listado',
+          label: 'Plan de Trabajo',
           icon: 'pi pi-fw pi-list',
-          routerLink: '/oic/list'
+          routerLink: '/oic/plan-trabajo'
       },
       {
-          label: 'OIC Dashboard',
+          label: 'Estadisticas de Procesos',
           icon: 'pi pi-fw pi-chart-bar',
           routerLink: '/oic/kpis'
       }

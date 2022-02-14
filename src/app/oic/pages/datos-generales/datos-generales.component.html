@@ -1,0 +1,43 @@
+
+<div class="datos-generales">  
+
+  <form class="search-form">
+    <div class="label-buscar">
+      <label for="buscar"> Buscador de Organos Internos de Control</label>
+    </div>
+    <div id="buscar" class="p-fluid">
+        <p-autoComplete 
+          [suggestions]="filteredOic"  
+          [dropdown]="true"
+          [multiple]="true"
+          (completeMethod)="filterOic($event)"
+          field="nombre_ente" 
+          [minLength]="1"
+          placeholder="Buscar Entes Públicos"
+          >
+        </p-autoComplete>       
+    </div>
+  </form>
+
+  <p-divider layout="vertical" align="center">
+    <i class="pi pi-user mr-2"></i>
+  </p-divider>
+  
+  <p-panel header="Datos del Organo Interno de Control">
+    <p-organizationChart [value]="data" selectionMode="single"
+    styleClass="company">
+    <ng-template let-node pTemplate="person">
+        <div class="node-header p-corner-top">{{node.label}}</div>
+        <div class="node-content">
+            <div>{{node.data.name}}</div>
+        </div>
+    </ng-template>
+    <ng-template let-node pTemplate="department">
+        {{node.label}}
+    </ng-template>
+    </p-organizationChart>
+  </p-panel>
+
+</div>
+
+

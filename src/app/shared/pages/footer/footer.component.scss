@@ -1,8 +1,8 @@
 
 .footer{ 
     padding-top: 2rem;
-    height: 25rem;
-    background-image: url(../../../../assets/img/footer.jpg);
+    height: 30rem;
+    background-image: url(../../../../assets/img/footer.png);
     background-size: cover;
     background-position: bottom bottom;
     background-repeat: no-repeat;
@@ -70,13 +70,11 @@
     border-start-end-radius: 1rem;    
   }
   
-  .copyright{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    background-color: var(--color-primary);
+  .copyright{    
+    background-color: #CEAA95;
+    text-align: center;
+    margin: 5rem 0 0 0;    
+    color: var(--text-color-primary);
+    padding: 1rem;
+    font-size: 0.8rem;
   }
