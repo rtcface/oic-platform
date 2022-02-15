@@ -17,6 +17,7 @@ export class DatosGeneralesComponent implements OnInit {
   oics?: OicInterface[];
   data: TreeNode[]=[];
   
+  
   constructor(
     private filterService: FilterService,
     private oic: GetOicService
@@ -36,29 +37,29 @@ export class DatosGeneralesComponent implements OnInit {
       type: 'person',
       styleClass: 'p-person',
       expanded: true,
-      data: {name:'Walter White', 'avatar': 'oic.png'},
+      data: {name:'Ramon Diaz Soler', avatar: 'oic.png'},
       children: [
           {
-              label: 'Analista',
+              label: 'Analista A',
               type: 'person',
               styleClass: 'p-person',
               expanded: true,
-              data: {name:'Saul Goodman', 'avatar': 'saul.jpg'},
+              data: {name:'Alan Diaz Soler', avatar: 'saul.jpg'},
           },
           {
-              label: 'Asistente Administrativo A',
+              label: 'Asistente B',
               type: 'person',
               styleClass: 'p-person',
               expanded: true,
-              data: {name:'Mike E.', 'avatar': 'mike.jpg'},
+              data: {name:'Jose Peregrino Alva', avatar: 'mike.jpg'},
              
           },
           {
-              label: 'Asistente Administrativo B',
+              label: 'Asistente C',
               type: 'person',
               styleClass: 'p-person',
               expanded: true,
-              data: {name:'Jesse Pinkman', 'avatar': 'jesse.jpg'},
+              data: {name:'Raul Lima Juarez', avatar: 'jesse.jpg'},
               
           }
       ]
@@ -85,6 +86,15 @@ export class DatosGeneralesComponent implements OnInit {
       this.filteredOic = filtered;
     }
    
-    
+    display: boolean = false;
+
+    showDialog() {
+        this.display = true;
+        console.log(this.display);
+    }
+
+    onNodeSelect(event:any) {
+      this.display = true;
+  }
 
 }
