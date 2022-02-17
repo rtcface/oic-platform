@@ -15,7 +15,7 @@ export class PlanTrabajoComponent implements OnInit {
 
   filteredOic!: OicInterface[];
   oics?: OicInterface[];
-  files?: tree[]=[];
+  files!: TreeNode[];
 
   constructor(
     private filterService: FilterService,

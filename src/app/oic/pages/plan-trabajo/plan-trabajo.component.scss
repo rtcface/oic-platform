@@ -9,7 +9,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 45rem;    
+    width: 35rem;    
 }
 
 .txt{
@@ -22,4 +22,9 @@
     color: var(--text-color-secondary);
     font-weight: bold;
     padding-bottom: 1rem;
+}
+
+.p-plan-trabajo{
+    width: 35rem;
+    max-width: 35rem;
 }

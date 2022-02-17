@@ -1,1 +1,29 @@
-<p>kpis works!</p>
+<div class="kpis">
+
+      <form class="search-form">
+        <div class="label-buscar">
+          <label for="buscar"> Buscador De Organos Internos De Control</label>
+        </div>
+        <div id="buscar" class="p-fluid">
+            <p-autoComplete 
+              [suggestions]="filteredOic"  
+              [dropdown]="true"
+              [multiple]="true"
+              (completeMethod)="filterOic($event)"
+              field="nombre_ente" 
+              [minLength]="1"
+              placeholder="Buscar Entes Públicos"
+              >
+            </p-autoComplete>       
+        </div>
+      </form>
+    
+      <p-divider layout="vertical" align="center">
+        <i class="pi pi-user mr-2"></i>
+      </p-divider>
+
+      <p-panel header="Estadisticas de Procesos" class="p-kpis">
+       
+      </p-panel>
+
+</div>
