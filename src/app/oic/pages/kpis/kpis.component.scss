@@ -9,7 +9,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 45rem;    
+    width: 35rem;    
 }
 
 .label-buscar{
@@ -17,4 +17,9 @@
     color: var(--text-color-secondary);
     font-weight: bold;
     padding-bottom: 1rem;
+}
+
+.p-kpis{
+    width: 25rem;
+    max-width: 25rem;
 }

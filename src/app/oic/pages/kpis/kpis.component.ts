@@ -13,6 +13,7 @@ export class KpisComponent implements OnInit {
   selectedOic?: OicInterface;
   filteredOic!: OicInterface[];
   oics?: OicInterface[];
+  data: any;
   
   constructor(
     private filterService: FilterService,
@@ -25,6 +26,8 @@ export class KpisComponent implements OnInit {
       <OicInterface[]> resp.data
       this.oics = resp.data;
     });
+
+    this.genChart();
   }
 
   filterOic(event: any) {
@@ -39,6 +42,31 @@ export class KpisComponent implements OnInit {
     }
 
     this.filteredOic = filtered;
+  }
+
+  genChart()
+  {
+    this.data = {
+      labels: [
+        'Procedimientos Iniciados',
+        'Procedimientos Concluidos',
+        'Procedimientos Canalizados a la fiscalía'
+        ],
+      datasets: [
+          {
+              data: [300, 50, 100],
+              backgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56"
+              ],
+              hoverBackgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56"
+              ]
+          }]    
+      };
   }
 
 }
