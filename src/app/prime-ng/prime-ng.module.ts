@@ -10,6 +10,7 @@ import { OrganizationChartModule } from 'primeng/organizationchart';
 import { PanelModule } from 'primeng/panel';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
+import { TreeModule } from 'primeng/tree';
 
 
 
@@ -25,7 +26,8 @@ import { ButtonModule } from 'primeng/button';
     DividerModule,
     OrganizationChartModule,
     PanelModule,
-    ButtonModule
+    ButtonModule,
+    TreeModule
   ]
 })
 export class PrimeNgModule { }
