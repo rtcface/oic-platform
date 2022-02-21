@@ -11,21 +11,21 @@
                     "data": "Work Folder",
                     "expandedIcon": "pi pi-folder-open",
                     "collapsedIcon": "pi pi-folder",
-                    "children": [{"label": "Plan de traba.doc", "icon": "pi pi-file", "RouterLink": "Expenses Document"}]
+                    "children": [{"label": "Plan de trabajo.doc", "icon": "pi pi-file", "RouterLink": "Expenses Document"}]
                 },
                 {
                     "label": "Año 2021",
                     "data": "Home Folder",
                     "expandedIcon": "pi pi-folder-open",
                     "collapsedIcon": "pi pi-folder",
-                    "children": [{"label": "Plan de traba.doc", "icon": "pi pi-file", "data": "Invoices for this month"}]
+                    "children": [{"label": "Plan de trabajo.doc", "icon": "pi pi-file", "data": "Invoices for this month"}]
                 },
                 {
                     "label": "Año 2022",
                     "data": "Home Folder",
                     "expandedIcon": "pi pi-folder-open",
                     "collapsedIcon": "pi pi-folder",
-                    "children": [{"label": "Plan de traba.doc", "icon": "pi pi-file", "data": "Invoices for this month"}]
+                    "children": [{"label": "Plan de trabajo.doc", "icon": "pi pi-file", "data": "Invoices for this month"}]
                 }]
                 
         }        

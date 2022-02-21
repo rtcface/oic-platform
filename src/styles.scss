@@ -2,7 +2,7 @@
 
   html {
     box-sizing: border-box; /* padding not alter the size of the elements */
-    //font-size: 62.5%; /* 1rem = 10px */
+    font-size: 62.5%; /* 1rem = 10px */
   }
   *, *:before, *:after {
     box-sizing: inherit;
@@ -41,7 +41,7 @@
   }
 
   .container {
-    max-width: 100rem;
+    max-width: 120rem;
     margin: 0 auto;
   }
   img{

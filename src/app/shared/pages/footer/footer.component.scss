@@ -1,14 +1,18 @@
 
 .footer{ 
     padding-top: 2rem;
-    height: 30rem;
+    height: 40rem;
     background-image: url(../../../../assets/img/footer.png);
     background-size: cover;
     background-position: bottom bottom;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;  
+    justify-content: flex-end;
+    @media (max-width: 768px) {
+      height: 50rem;
+    } 
+    
   }
 
   .titulo{
@@ -29,18 +33,23 @@
   }
 
   .barra{
-    display: flex;
-    flex-direction: row;
+    display: flex;   
     justify-content: flex-end;
     align-items: bottom;
     margin-top: 2rem;
     margin-left: 1rem;
     margin-right: 1rem;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      font-size: 3rem;
+      justify-content: center;
+      align-items: center;
+    
+  }
   }
  
   .contacto{
-    display: flex;
-    flex-direction: row;
+    display: flex;   
     justify-content: flex-end;
     align-items: center;
     
@@ -49,6 +58,16 @@
       text-decoration: none;
       margin-left: 1rem;
     }
+    @media (max-width: 768px) {
+      display: flex;   
+      justify-content: flex-end;
+      align-items: center;
+      flex-direction: column;
+      font-size: 3rem;
+      justify-content: center;
+      align-items: center;    
+  }
+
   }
 
   .phone{

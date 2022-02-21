@@ -1,0 +1,80 @@
+.container-login{
+    padding-top: 2rem;
+    height: 100vh; 
+    width:100vw;
+    background-image: url(../../../../assets/img/footer.png);
+    background-size: cover;
+    background-position: bottom right; 
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;  
+   
+}
+
+.login-form{
+    height: 30rem;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    animation-duration: 1s;
+    animation-name: slidein;
+}
+
+
+@keyframes slidein {
+    from {
+      margin-block-end: 100%;
+      width: 300%
+    }
+  
+    to {
+      margin-block-end: 0%;
+      width: 100%;
+    }
+  }
+
+
+.login-container{
+    display:flex ;
+    justify-content: center;
+    align-items: center ;
+    height: 100%;
+    width: 100%;
+}
+
+.item-form{
+    padding: 1rem;
+}
+
+
+.login-img{
+    width: 10rem;
+    height: 10rem;
+}
+
+.bg-p{
+    background: rgb(118,102,109);
+    // background: rgb(183,183,176);
+    background: linear-gradient(to top, rgba(118,102,109,0) 0%,transparent 0.1%, rgba(172,123,111,10%) 0%, rgba(104,78,70,1) 100%);
+    // background: linear-gradient(360deg,rgba(183,183,176,1) 0%,transparent 50%, rgba(2,2,92,1) 100%);  
+    background-color: rgba(237,237,237,0.4); /* Black w/opacity/see-through */
+    position: absolute;
+    border: 0.9px solid rgba(104,78,70,1);  
+    border-radius: 2rem;
+    height: 30rem;
+    width: 30rem;
+    // filter: blur(2px);
+    // -webkit-filter: blur(2px);
+    box-shadow: 3px 3px 4px 4px rgba(104,78,70,1);
+}
+
+.box-content{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}

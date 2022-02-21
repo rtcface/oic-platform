@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="container-login">
+    <div class="login-container">
+        <form class="login-form">
+            <div class="bg-p">                           
+            </div>
+            <div class="box-content">
+                <div class="avatar">
+                    <img src="../../../../assets/img/user.webp" alt="user" class="login-img">
+                </div>
+                <div class="item-form">
+                    <span class="p-float-label ">
+                        <input type="text" id="inputtext-left" pInputText [(ngModel)]="loginValue"> 
+                        <label for="inputtext-left">Usuario</label>
+                    </span>
+                </div>
+                <div class="item-form">
+                    <span class="p-float-label">
+                        <p-password inputId="password" [(ngModel)]="loginValue" ></p-password>
+                        <label for="password">Password</label>
+                    </span> 
+                </div>
+                <div class="login-button">
+                    <button pButton
+                        type="button" 
+                        label="Iniciar Sesion"
+                        class="p-button-raised p-button-rounded p-button-outlined">
+                        </button>
+                </div> 
+            </div> 
+        </form>
+    </div>
+</div>
