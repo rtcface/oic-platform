@@ -18,8 +18,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center;    
     animation-duration: 1s;
     animation-name: slidein;
 }
@@ -52,8 +51,8 @@
 
 
 .login-img{
-    width: 10rem;
-    height: 10rem;
+    width: 9rem;
+    height: 9rem;
 }
 
 .bg-p{
@@ -65,8 +64,8 @@
     position: absolute;
     border: 0.9px solid rgba(104,78,70,1);  
     border-radius: 2rem;
-    height: 30rem;
-    width: 30rem;
+    height: 25rem;
+    width: 25rem;
     // filter: blur(2px);
     // -webkit-filter: blur(2px);
     box-shadow: 3px 3px 4px 4px rgba(104,78,70,1);
@@ -77,4 +76,26 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+}
+
+.login-button{
+    background: #fff;
+    border: 0.9px solid rgba(104,78,70,1);  
+    border-radius: 2rem;
+    height: 3rem;
+    width: 15rem;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgba(104,78,70,1);
+    box-shadow: 3px 3px 4px 4px rgba(104,78,70,1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    a {
+        text-decoration: none;
+        color: rgba(104,78,70,1);
+        
+    }
 }
