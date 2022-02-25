@@ -6,19 +6,13 @@
     background-size: cover;
     background-position: bottom right; 
     background-repeat: no-repeat;
-    display: flex;
+    display:flex ;
     flex-direction: column;
-    justify-content: flex-end;  
-   
+    justify-content: center;
+    align-items: center ;
 }
 
 .login-form{
-    height: 30rem;
-    width: 30rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;    
     animation-duration: 1s;
     animation-name: slidein;
 }
@@ -36,54 +30,33 @@
     }
   }
 
-
-.login-container{
-    display:flex ;
-    justify-content: center;
-    align-items: center ;
-    height: 100%;
-    width: 100%;
-}
-
 .item-form{
-    padding: 1rem;
+    padding: .8rem;    
 }
 
 
 .login-img{
-    width: 9rem;
-    height: 9rem;
+    width: 10rem;
+    height: 10rem;
 }
 
 .bg-p{
-    background: rgb(118,102,109);
-    // background: rgb(183,183,176);
-    background: linear-gradient(to top, rgba(118,102,109,0) 0%,transparent 0.1%, rgba(172,123,111,10%) 0%, rgba(104,78,70,1) 100%);
-    // background: linear-gradient(360deg,rgba(183,183,176,1) 0%,transparent 50%, rgba(2,2,92,1) 100%);  
-    background-color: rgba(237,237,237,0.4); /* Black w/opacity/see-through */
-    position: absolute;
-    border: 0.9px solid rgba(104,78,70,1);  
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,0.19509802211900384) 48%, rgba(206,170,149,0.38837533304337357) 98%); 
     border-radius: 2rem;
     height: 25rem;
-    width: 25rem;
-    // filter: blur(2px);
-    // -webkit-filter: blur(2px);
+    width: 25rem;   
     box-shadow: 3px 3px 4px 4px rgba(104,78,70,1);
 }
 
-.box-content{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-}
+
 
 .login-button{
     background: #fff;
     border: 0.9px solid rgba(104,78,70,1);  
     border-radius: 2rem;
     height: 3rem;
-    width: 15rem;
+    width: 12rem;
     margin-top: 1rem;
     font-size: 1.2rem;
     font-weight: bold;
@@ -101,4 +74,23 @@ align-items: center;
 }
 .pointer {
 	cursor: pointer;
+}
+
+.avatar {
+   
+    i{
+        font-size: 3rem;
+        color: rgba(104,78,70,1);
+    }
+}
+
+.tag-input{
+    font-size: rem;
+}
+
+.box-login{   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
