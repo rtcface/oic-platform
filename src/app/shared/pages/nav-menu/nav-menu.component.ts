@@ -42,6 +42,11 @@ export class NavMenuComponent implements OnInit {
           label: 'Iniciar Sesión',
           icon: 'pi pi-fw pi-power-off',
           routerLink: '/auth/'
+      },
+      {
+          label: 'Cerrar Sesión',
+          icon: 'pi pi-fw pi-power-off',
+          routerLink: '/auth/'
       }
   ];
 }
