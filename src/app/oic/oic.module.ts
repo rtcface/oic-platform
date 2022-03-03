@@ -8,8 +8,6 @@ import { OicHomeComponent } from './pages/oic-home/oic-home.component';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { DatosGeneralesComponent } from './pages/datos-generales/datos-generales.component';
 import { PlanTrabajoComponent } from './pages/plan-trabajo/plan-trabajo.component';
-import { CapturaResultadosComponent } from './pages/captura-resultados/captura-resultados.component';
-
 
 @NgModule({
   declarations: [
@@ -17,8 +15,7 @@ import { CapturaResultadosComponent } from './pages/captura-resultados/captura-r
     KpisComponent,    
     OicHomeComponent, 
     DatosGeneralesComponent, 
-    PlanTrabajoComponent, 
-    CapturaResultadosComponent
+    PlanTrabajoComponent
   ],
   imports: [
     CommonModule,

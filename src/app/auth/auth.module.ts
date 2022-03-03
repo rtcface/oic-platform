@@ -7,12 +7,14 @@ import { RegisterComponent } from './pages/register/register.component';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { LoginMainComponent } from './pages/login-main/login-main.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginMainComponent
   ],
   imports: [
     CommonModule,

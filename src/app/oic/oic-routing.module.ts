@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdmWorkplanComponent } from '../protected/pages/adm-workplan/adm-workplan.component';
 import { DatosGeneralesComponent } from './pages/datos-generales/datos-generales.component';
 
 import { HomeComponent } from './pages/home/home.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path:'kpis',
         component: KpisComponent
+      },
+      {
+        path: 'adm-workplan',
+        component: AdmWorkplanComponent      
       },
       {
         path:'**',

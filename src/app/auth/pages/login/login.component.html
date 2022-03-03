@@ -1,34 +1,33 @@
-<div class="container-login login-form">
-    <form>
-        <div class="box-login bg-p">
-        <div class="avatar">
-            <i class="pi pi-user"></i>
-        </div>                  
-        <div class="item-form">
-            <span class="p-float-label ">
-                <input type="text" class="p-inputtext-sm" id="inputtext-left" pInputText [(ngModel)]="loginValue"> 
-                <label for="inputtext-left">Usuario</label>
-            </span>
-        </div>
-        <div class="item-form">
-            <span class="p-float-label">
-                <p-password 
-                inputId="password" 
-                class="p-inputtext-sm" 
-                [(ngModel)]="loginValue"
-                [toggleMask]="true" >
-                
-            </p-password>
-                <label for="password">Contraseña</label>
-            </span> 
-        </div>
-        <div class="login-button pointer">
-            <a href="#">Iniciar Sesión</a>
-        </div>
-        <div class="login-button pointer">
-            <a href="#">Registrarse</a>       
-        </div>
-        </div>
-    </form>   
-    
-</div>
+
+<form>
+    <div class="box-login bg-p">
+    <div class="avatar">
+        <i class="pi pi-user"></i>
+    </div>                  
+    <div class="item-form">
+        <span class="p-float-label ">
+            <input type="text" class="p-inputtext-sm" id="inputtext-left" pInputText [(ngModel)]="loginValue"> 
+            <label for="inputtext-left">Usuario</label>
+        </span>
+    </div>
+    <div class="item-form">
+        <span class="p-float-label">
+            <p-password 
+            inputId="password" 
+            class="p-inputtext-sm" 
+            [(ngModel)]="loginValue"
+            [toggleMask]="true" >
+            
+        </p-password>
+            <label for="password">Contraseña</label>
+        </span> 
+    </div>
+    <div class="login-button pointer">
+        <a href="#">Iniciar Sesión</a> 
+    </div>
+    <div class="login-button pointer">
+        <a [routerLink]="[ '/auth/register']">Register</a>
+             
+    </div>
+    </div>
+</form>   

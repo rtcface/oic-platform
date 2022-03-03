@@ -1,0 +1,31 @@
+.container-login{
+    padding-top: 2rem;
+    height: 100vh; 
+    width:100vw;
+    background-image: url(../../../../assets/img/footer.png);
+    background-size: cover;
+    background-position: bottom right; 
+    background-repeat: no-repeat;
+    display:flex ;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center ;
+}
+
+.login-form{
+    animation-duration: 1s;
+    animation-name: slidein;
+}
+
+
+@keyframes slidein {
+    from {
+      margin-block-end: 100%;
+      width: 300%
+    }
+  
+    to {
+      margin-block-end: 0%;
+      width: 100%;
+    }
+  }

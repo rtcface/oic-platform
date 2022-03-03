@@ -34,9 +34,14 @@ export class NavMenuComponent implements OnInit {
           routerLink: '/oic/kpis'
       },
       {
+          label: 'demo',
+          icon: 'pi pi-fw pi-chart-bar',
+          routerLink: '/oic/adm-workplan'
+      },
+      {
           label: 'Iniciar Sesión',
           icon: 'pi pi-fw pi-power-off',
-          routerLink: '/auth/login'
+          routerLink: '/auth/'
       }
   ];
 }
