@@ -2,6 +2,8 @@
     <div class="nav-menu">
         <p-menubar [model]="items">
             <ng-template pTemplate="end">
+                <span>{{ isLoggedIn?.login?.user?.name }}</span>
+                <button pButton type="button" (click)="logout()" label="Logout"></button>
                 <p-avatar
                 shape="circle" 
                 pBadge value="5"     

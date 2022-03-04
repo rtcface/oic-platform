@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
 
   loginValue?:string;
   userValue?:string;
+ 
   constructor( private router:Router,
     private authService:AuthService
     ) { }
@@ -22,12 +23,13 @@ export class LoginComponent implements OnInit {
     console.log(this.loginValue);
     console.log(this.userValue);
     this.authService.login(this.loginValue,this.userValue).subscribe(
-      (data)=>{
-        console.log(data);
-        //this.router.navigate(['/']);
+     
+      data => {
+        data
+        this.router.navigate(['./home']);
       }
     );
-    //this.router.navigate(['./home']);
+    //
   }
 
 

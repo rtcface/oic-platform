@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
+import { AuthService } from '../../../auth/services/auth.service';
+
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
@@ -9,9 +11,16 @@ import { MenuItem } from 'primeng/api';
 export class NavMenuComponent implements OnInit {
 
   items: MenuItem[]=[];
-  constructor() { }
+  constructor( private authService:AuthService ) { }
+
+  get isLoggedIn() {    
+      return this.authService.isLoggedIn;
+
+    }
 
   ngOnInit(): void {
+     //console.log(this.isLoggedIn?.user.name); 
+     
     this.items = [
       {
           label: 'Inicio',
@@ -42,13 +51,13 @@ export class NavMenuComponent implements OnInit {
           label: 'Iniciar Sesión',
           icon: 'pi pi-fw pi-power-off',
           routerLink: '/auth/'
-      },
-      {
-          label: 'Cerrar Sesión',
-          icon: 'pi pi-fw pi-power-off',
-          routerLink: '/auth/'
       }
   ];
+}
+
+logout(){
+    localStorage.removeItem('token');
+    //this.router.navigate(['/auth']);
 }
   
 

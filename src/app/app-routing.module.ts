@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/guards/auth.guard';
 import { ProtectedModule } from './protected/protected.module';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/oic',
-    pathMatch: 'full'
+    pathMatch: 'full',
+       
   },
   {
     path: 'oic',
@@ -22,7 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'protected',
-    loadChildren: () => import('./protected/protected.module').then(m => m.ProtectedModule)
+    loadChildren: () => import('./protected/protected.module').then(m => m.ProtectedModule),
+   
   },
   {
     path: '**',
