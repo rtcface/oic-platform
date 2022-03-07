@@ -19,10 +19,7 @@ export class AuthService {
   }
 
 
-
-
-  constructor( private apollo:Apollo  ) { 
-   
+  constructor( private apollo:Apollo  ) {    
   }
 
   logout() {
@@ -51,7 +48,7 @@ export class AuthService {
       mutation: LOGIN_POST,
       variables: {
         "input": {
-          "email": "rtcface@gmail.com",
+          "email": "rtc12586@gmail.com",
           "password": "123456"
         }
       }     
@@ -69,6 +66,8 @@ export class AuthService {
       if(!localStorage.getItem('token')){
         return of(false);
       }
+
+      //return of(true);
       
       const VERIFY_AUTENTICATION = gql` query { verify_authentication }`;
   

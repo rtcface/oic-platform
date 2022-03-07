@@ -5,6 +5,9 @@ import { ProtectedRoutingModule } from './protected-routing.module';
 import { AdmWorkplanComponent } from './pages/adm-workplan/adm-workplan.component';
 import { AdmUsersComponent } from './pages/adm-users/adm-users.component';
 import { AdmKpisComponent } from './pages/adm-kpis/adm-kpis.component';
+import { AdmHomeComponent } from './pages/adm-home/adm-home.component';
+import { SharedModule } from '../shared/shared.module';
+import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 
 
 @NgModule({
@@ -12,11 +15,14 @@ import { AdmKpisComponent } from './pages/adm-kpis/adm-kpis.component';
   
     AdmWorkplanComponent,
        AdmUsersComponent,
-       AdmKpisComponent
+       AdmKpisComponent,
+       AdmHomeComponent
   ],
   imports: [
     CommonModule,
-    ProtectedRoutingModule
+    ProtectedRoutingModule,
+    SharedModule,
+    PrimeNgModule
   ]
 })
 export class ProtectedModule { }

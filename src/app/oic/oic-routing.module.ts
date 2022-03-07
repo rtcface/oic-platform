@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../auth/guards/auth.guard';
 import { AdmWorkplanComponent } from '../protected/pages/adm-workplan/adm-workplan.component';
 import { DatosGeneralesComponent } from './pages/datos-generales/datos-generales.component';
 

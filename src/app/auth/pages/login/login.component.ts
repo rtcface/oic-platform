@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
      
       data => {
         data
-        this.router.navigate(['./home']);
+        console.log(data);
+        this.router.navigate(['./protected']);
       }
     );
 

@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 
 import { AuthService } from '../../../auth/services/auth.service';
+import { SharedService } from '../../services/shared.service';
+import { tap } from 'rxjs/operators';
+import { items } from '../../models/menu_interface';
 
 @Component({
   selector: 'app-nav-menu',
@@ -14,9 +17,8 @@ export class NavMenuComponent implements OnInit {
   items: MenuItem[]=[];
   constructor( 
       private authService:AuthService,
-      private router:Router
-    
-      
+      private router:Router,
+      private shared:SharedService      
       ) { }
 
   get isLoggedIn() {    
@@ -25,40 +27,45 @@ export class NavMenuComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+    this.items = this.shared.get_menu().items;
+    console.log(this.shared.get_menu().items); 
+
+
      //console.log(this.isLoggedIn?.user.name); 
      
-    this.items = [
-      {
-          label: 'Inicio',
-          icon: 'pi pi-fw pi-home',
-          routerLink: '/oic/home'
-      },
-      {
-          label: 'Datos del OIC',
-          icon: 'pi pi-fw pi-search',
-          routerLink: '/oic/datos-generales'
-      },
-      {
-          label: 'Plan de Trabajo',
-          icon: 'pi pi-fw pi-list',
-          routerLink: '/oic/plan-trabajo'
-      },
-      {
-          label: 'Estadisticas de Procesos',
-          icon: 'pi pi-fw pi-chart-bar',
-          routerLink: '/oic/kpis'
-      },
-      {
-          label: 'demo',
-          icon: 'pi pi-fw pi-chart-bar',
-          routerLink: '/oic/adm-workplan'
-      },
-      {
-          label: 'Iniciar Sesión',
-          icon: 'pi pi-fw pi-power-off',
-          routerLink: '/auth/'
-      }
-  ];
+//     this.items = [
+//       {
+//           label: 'Inicio',
+//           icon: 'pi pi-fw pi-home',
+//           routerLink: '/oic/home'
+//       },
+//       {
+//           label: 'Datos del OIC',
+//           icon: 'pi pi-fw pi-search',
+//           routerLink: '/oic/datos-generales'
+//       },
+//       {
+//           label: 'Plan de Trabajo',
+//           icon: 'pi pi-fw pi-list',
+//           routerLink: '/oic/plan-trabajo'
+//       },
+//       {
+//           label: 'Estadisticas de Procesos',
+//           icon: 'pi pi-fw pi-chart-bar',
+//           routerLink: '/oic/kpis'
+//       },
+//       {
+//           label: 'demo',
+//           icon: 'pi pi-fw pi-chart-bar',
+//           routerLink: '/oic/adm-workplan'
+//       },
+//       {
+//           label: 'Iniciar Sesión',
+//           icon: 'pi pi-fw pi-power-off',
+//           routerLink: '/auth/'
+//       }
+//   ];
 }
 
 logout(){

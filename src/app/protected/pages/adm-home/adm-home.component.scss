@@ -1,0 +1,10 @@
+.master-body
+{
+    height: 40rem;
+    padding: 1rem 1rem;
+    @media (max-width: 768px) {
+        height: 65rem;
+        padding: 1rem 1rem;
+    }
+}
+
