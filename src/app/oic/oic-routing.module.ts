@@ -34,7 +34,8 @@ const routes: Routes = [
       },
       {
         path: 'adm-workplan',
-        component: AdmWorkplanComponent ,       
+        component: AdmWorkplanComponent , 
+            
       },
       {
         path:'**',

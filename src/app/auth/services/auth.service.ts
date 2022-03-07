@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Apollo, gql, graphql} from 'apollo-angular';
+import { tap, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+
+import {Apollo, gql} from 'apollo-angular';
+
 import { login, data } from '../interfaces/user_token.interface';
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,17 @@ export class AuthService {
     return { ...this._user_token! };
   }
 
-  constructor( private apollo:Apollo  ) { }
+
+
+
+  constructor( private apollo:Apollo  ) { 
+   
+  }
+
+  logout() {
+    this._user_token = undefined;
+    this.apollo.client.resetStore();
+  }
 
   login(email?: string, password?: string) {
     const LOGIN_POST = gql`mutation login($input: LoginAuthInput!) 
@@ -38,16 +51,48 @@ export class AuthService {
       mutation: LOGIN_POST,
       variables: {
         "input": {
-          "email": "rtc12586@gmail.com",
+          "email": "rtcface@gmail.com",
           "password": "123456"
         }
       }     
     }).pipe(
-      tap( resp => {        
-        this._user_token = resp.data!;
-        console.log("desde el servicio",this._user_token.login);
-      })
+      tap( auth => { this._user_token = auth.data!; }),
+      tap( auth => { localStorage.setItem('token', this._user_token?.login!.token!); }),
     );
+  }
+
+
+  verify_authentication():Observable<boolean>{
+
+    try {
+
+      if(!localStorage.getItem('token')){
+        return of(false);
+      }
+      
+      const VERIFY_AUTENTICATION = gql` query { verify_authentication }`;
+  
+      return this.apollo.query<{verify_authentication:boolean}>({
+        query: VERIFY_AUTENTICATION,
+        errorPolicy: 'all'
+      }).pipe(
+        map( auth => { 
+          console.log(auth.data);
+          console.log(auth.data.verify_authentication);
+          
+          if(auth.data.verify_authentication)
+            return true;
+          else
+            return false;         
+        })
+      );
+  
+      
+    } catch (error) {
+      console.log('catch in try',error);
+      return of(false);
+    }   
+  
   }
   
 }
