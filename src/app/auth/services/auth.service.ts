@@ -34,6 +34,7 @@ export class AuthService {
     this._user_token = undefined;
     this.apollo.client.resetStore();
     this._menu = [];
+    this.sharedService.clean_menu();
   }
 
    login(email?: string, password?: string) {
@@ -49,7 +50,9 @@ export class AuthService {
                                   id
                                   name
                                   email
-                                  password                                    
+                                  password
+                                  avatar  
+                                                                    
                                   }
                                 }
                             }`;   

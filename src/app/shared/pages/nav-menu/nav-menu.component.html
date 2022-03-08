@@ -2,14 +2,17 @@
     <div class="nav-menu">
         <p-menubar [model]="items">
             <ng-template pTemplate="end">
-                <span>{{ isLoggedIn?.login?.user?.name }}</span>
-                <button pButton type="button" (click)="logout()" label="Logout"></button>
-                <p-avatar
-                shape="circle" 
-                pBadge value="5"     
-                size="large" class="p-avatar-large" >
-                <img src="/assets/img/oic.png" alt="avatar"  />
-                </p-avatar>
+                <p-overlayPanel [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #op [dismissable]="true" [showCloseIcon]="true">
+                    <ng-template pTemplate>
+                        <app-card></app-card>
+                    </ng-template>
+                </p-overlayPanel>
+                    <p-avatar
+                    shape="circle" 
+                    pBadge value="5"     
+                    size="large" class="p-avatar-large" >                    
+                    <img src="{{ isLoggedIn?.login?.user?.avatar }}" alt="avatar" (click)="op.toggle($event)"  />                   
+                    </p-avatar>                     
             </ng-template>
         </p-menubar>
     </div>

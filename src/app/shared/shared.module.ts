@@ -5,6 +5,7 @@ import { FooterComponent } from './pages/footer/footer.component';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { NavMenuComponent } from './pages/nav-menu/nav-menu.component';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
+import { CardComponent } from './pages/card/card.component';
 
 
 
@@ -13,7 +14,8 @@ import { PrimeNgModule } from '../prime-ng/prime-ng.module';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    CardComponent
   ],
   imports: [
     CommonModule,

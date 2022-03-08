@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-
 import { AuthService } from '../../../auth/services/auth.service';
-import { SharedService } from '../../services/shared.service';
+
 
 
 @Component({
@@ -16,7 +14,7 @@ export class NavMenuComponent implements OnInit {
   items: MenuItem[]=[];
   constructor( 
       private authService:AuthService,
-      private router:Router,
+      
            
       ) { }
 
@@ -68,12 +66,4 @@ export class NavMenuComponent implements OnInit {
 //       }
 //   ];
 }
-
-logout(){
-    localStorage.removeItem('token');
-    this.authService.logout();
-    this.router.navigate(['/auth']);
-}
-  
-
 }

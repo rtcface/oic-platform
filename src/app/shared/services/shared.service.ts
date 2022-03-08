@@ -15,6 +15,10 @@ export class SharedService {
   get menuitems():items[]{
     return this.items;
   }
+  
+  clean_menu(){
+    this.items = [];
+  }
 
   constructor( private apollo:Apollo) { }
 
@@ -32,13 +36,15 @@ export class SharedService {
       fetchPolicy: 'no-cache'
     }).pipe().subscribe(({data})=>{      
      console.log(data.items);
-      data.items.forEach(element => {
-        this.items.push({
-          label: element.label,
-          icon: element.icon,
-          routerLink: element.routerLink
-        });        
-      });
+      if(this.items.length === 0){
+        data.items.forEach(element => {
+          this.items.push({
+            label: element.label,
+            icon: element.icon,
+            routerLink: element.routerLink
+          });        
+        });
+      }     
       });
 
     return this.items;
