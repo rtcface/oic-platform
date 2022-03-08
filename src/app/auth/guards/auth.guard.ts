@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { SharedService } from '../../shared/services/shared.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class AuthGuard implements  CanLoad, CanActivate{
   
   constructor( 
     private authSevice:AuthService,
-    private router:Router
+    private router:Router,
+    private sharedService:SharedService
     ) { }
  
     canActivate(
@@ -22,6 +24,7 @@ export class AuthGuard implements  CanLoad, CanActivate{
         .pipe( tap( isLoggedIn => {
           if(!isLoggedIn){
             this.router.navigate(['./auth/login']);
+
           }
         }) );
   }
@@ -32,6 +35,7 @@ export class AuthGuard implements  CanLoad, CanActivate{
       .pipe( tap( isLoggedIn => {
         if(!isLoggedIn){
           this.router.navigate(['./auth/login']);
+          
         }
       }) );
     

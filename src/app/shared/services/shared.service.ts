@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
-import { MenuItem } from 'primeng/api';
 
-import { items } from '../models/menu_interface';
+import { tap } from 'rxjs/operators';
+
+import { items, menu } from '../models/menu_interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
 
+  private items:items[] = [];
+
+  get menuitems():items[]{
+    return this.items;
+  }
+
   constructor( private apollo:Apollo) { }
 
-  get_menu():any{
+   get_menu():items[]{
     const GET_MENU = gql`query{
                            items{
                               label
@@ -19,15 +26,22 @@ export class SharedService {
                               routerLink
                             }
                           }`;
-     this.apollo.query<items>({
+
+     this.apollo.query<menu>({
       query: GET_MENU,
       fetchPolicy: 'no-cache'
-    }).pipe((data) => {
-      return data;
-      }).subscribe(({data}) => {
-        console.log(" DATA DESDE GRAPHQL",data);
+    }).pipe().subscribe(({data})=>{      
+     console.log(data.items);
+      data.items.forEach(element => {
+        this.items.push({
+          label: element.label,
+          icon: element.icon,
+          routerLink: element.routerLink
+        });        
+      });
       });
 
+    return this.items;
   
 
     

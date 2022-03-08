@@ -3,3 +3,7 @@ export interface items {
     icon: string;
     routerLink: string;
 }
+
+export interface menu {
+    items: items[];
+}

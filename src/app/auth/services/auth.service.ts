@@ -5,6 +5,8 @@ import { Observable, of } from 'rxjs';
 import {Apollo, gql} from 'apollo-angular';
 
 import { login, data } from '../interfaces/user_token.interface';
+import { SharedService } from '../../shared/services/shared.service';
+import { items } from 'src/app/shared/models/menu_interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +15,29 @@ export class AuthService {
 
   
   private _user_token: login | undefined;
+  private _menu:items[] = [];
 
   get isLoggedIn(): login | undefined {
     return { ...this._user_token! };
   }
 
+  get dmenu():items[]{
+    return this._menu;
+  }
 
-  constructor( private apollo:Apollo  ) {    
+
+  constructor( private apollo:Apollo,
+    private sharedService:SharedService  ) {    
   }
 
   logout() {
     this._user_token = undefined;
     this.apollo.client.resetStore();
+    this._menu = [];
   }
 
-  login(email?: string, password?: string) {
+   login(email?: string, password?: string) {
+    this._menu =  this.sharedService.get_menu();
     const LOGIN_POST = gql`mutation login($input: LoginAuthInput!) 
                             {
                               login(input:$input)
@@ -56,6 +66,8 @@ export class AuthService {
       tap( auth => { this._user_token = auth.data!; }),
       tap( auth => { localStorage.setItem('token', this._user_token?.login!.token!); }),
     );
+
+    
   }
 
 
@@ -78,20 +90,20 @@ export class AuthService {
         map( auth => { 
           console.log(auth.data);
           console.log(auth.data.verify_authentication);
-          
+          this._menu =  this.sharedService.get_menu();
           if(auth.data.verify_authentication)
             return true;
           else
             return false;         
         })
       );
-  
+      
       
     } catch (error) {
       console.log('catch in try',error);
       return of(false);
     }   
-  
+   
   }
   
 }

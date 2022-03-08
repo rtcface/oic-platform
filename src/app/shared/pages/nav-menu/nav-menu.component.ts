@@ -4,8 +4,7 @@ import { MenuItem } from 'primeng/api';
 
 import { AuthService } from '../../../auth/services/auth.service';
 import { SharedService } from '../../services/shared.service';
-import { tap } from 'rxjs/operators';
-import { items } from '../../models/menu_interface';
+
 
 @Component({
   selector: 'app-nav-menu',
@@ -18,7 +17,7 @@ export class NavMenuComponent implements OnInit {
   constructor( 
       private authService:AuthService,
       private router:Router,
-      private shared:SharedService      
+           
       ) { }
 
   get isLoggedIn() {    
@@ -28,8 +27,10 @@ export class NavMenuComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.items = this.shared.get_menu().items;
-    console.log(this.shared.get_menu().items); 
+    if(this.items.length === 0){      
+        this.items = this.authService.dmenu;
+      }
+    //console.log("oN INIT",this.shared.get_menu()); 
 
 
      //console.log(this.isLoggedIn?.user.name); 
