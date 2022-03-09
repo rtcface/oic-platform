@@ -14,17 +14,16 @@ export class NavMenuComponent implements OnInit {
   items: MenuItem[]=[];
   constructor( 
       private authService:AuthService,
-      
            
       ) { }
 
-  get isLoggedIn() {    
+  get isLoggedIn() {         
       return this.authService.isLoggedIn;
-
     }
 
   ngOnInit(): void {
 
+   
     if(this.items.length === 0){      
         this.items = this.authService.dmenu;
       }

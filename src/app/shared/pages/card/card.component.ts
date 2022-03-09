@@ -13,6 +13,7 @@ export class CardComponent implements OnInit {
 
  
   get isLoggedIn() {    
+    console.log("from card",this.authService.isLoggedIn?.login);
     return this.authService.isLoggedIn;
   }
 
@@ -23,6 +24,7 @@ export class CardComponent implements OnInit {
 }
 
   ngOnInit(): void {
+    
   }
 
 }

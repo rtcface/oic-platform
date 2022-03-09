@@ -22,20 +22,21 @@ export class AuthGuard implements  CanLoad, CanActivate{
      
       return this.authSevice.verify_authentication()
         .pipe( tap( isLoggedIn => {
+          console.log('canActivate->isLoggedIn', isLoggedIn);
           if(!isLoggedIn){
             this.router.navigate(['./auth/login']);
-
           }
         }) );
   }
 
   canLoad( route: Route, segments: UrlSegment[]): Observable<boolean> | boolean  {
    
+
     return this.authSevice.verify_authentication()
       .pipe( tap( isLoggedIn => {
+        console.log('CanLoad->isLoggedIn', isLoggedIn);
         if(!isLoggedIn){
-          this.router.navigate(['./auth/login']);
-          
+          this.router.navigate(['./auth/login']);          
         }
       }) );
     

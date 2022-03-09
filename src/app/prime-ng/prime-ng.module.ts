@@ -13,6 +13,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PanelModule } from 'primeng/panel';
 import { PasswordModule } from 'primeng/password';
 import { ToolbarModule } from 'primeng/toolbar';
+import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 
 
@@ -34,6 +35,7 @@ import { TreeModule } from 'primeng/tree';
     PanelModule,
     PasswordModule,
     ToolbarModule,
+    TooltipModule,
     TreeModule,
   ]
 })

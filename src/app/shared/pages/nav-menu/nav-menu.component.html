@@ -10,8 +10,8 @@
                     <p-avatar
                     shape="circle" 
                     pBadge value="5"     
-                    size="large" class="p-avatar-large" >                    
-                    <img src="{{ isLoggedIn?.login?.user?.avatar }}" alt="avatar" (click)="op.toggle($event)"  />                   
+                    size="large" class="p-avatar-large" pTooltip="Perfil del usuario" tooltipPosition="left">                    
+                    <img src="{{ isLoggedIn?.verify_authentication?.user?.avatar}}" alt="avatar" (click)="op.toggle($event)"  />                   
                     </p-avatar>                     
             </ng-template>
         </p-menubar>
