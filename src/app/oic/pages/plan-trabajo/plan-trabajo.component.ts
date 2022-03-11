@@ -51,4 +51,29 @@ export class PlanTrabajoComponent implements OnInit {
     this.filteredOic = filtered;
   }
 
+  filterTree(event: any) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    let filtered: any[] = [];
+    let query = event.query;
+    for (let i = 0; i < this.files!.length; i++) {
+      let fileItem = this.files![i];
+      if (fileItem.label!.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(fileItem);
+      }
+    }
+
+    this.files = filtered;
+  }
+
+  nodeSelect(event: any) {
+   
+    event.node.url ? this.redirect(event.node.url) : null;
+
+    console.log(event.node.data);
+  }
+
+  redirect(url: string) {
+    window.open(url, '_blank');
+  }
+
 }

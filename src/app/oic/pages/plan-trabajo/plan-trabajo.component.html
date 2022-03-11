@@ -22,8 +22,18 @@
         <i class="pi pi-user mr-2"></i>
       </p-divider>
 
-      <p-panel header="Plan de Trabajo por año" class="p-plan-trabajo">
-        <p-tree [value]="files"></p-tree>
+      <p-panel 
+        header="Plan de Trabajo por año" 
+        class="p-plan-trabajo">
+        <p-tree 
+          [value]="files" 
+          selectionMode="single" 
+          [(selection)]="filterTree"
+          (onNodeSelect)="nodeSelect($event)"
+          (onNodeUnselect)="nodeSelect($event)"
+          
+          >        
+        </p-tree>
       </p-panel>
 
 </div>
