@@ -31,7 +31,7 @@ export class PlanTrabajoComponent implements OnInit {
       });
       this.oic.getMenu()
         .subscribe( resp => {
-          console.log(resp);
+          //console.log(resp);
           <tree[]> resp.data
           this.files = resp.data;
         });
@@ -69,7 +69,7 @@ export class PlanTrabajoComponent implements OnInit {
    
     event.node.url ? this.redirect(event.node.url) : null;
 
-    console.log(event.node.data);
+    //console.log(event.node.data);
   }
 
   redirect(url: string) {

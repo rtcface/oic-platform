@@ -13,7 +13,7 @@ export class CardComponent implements OnInit {
 
  
   get isLoggedIn() {    
-    console.log("from card",this.authService.isLoggedIn?.login);
+   // console.log("from card",this.authService.isLoggedIn?.login);
     return this.authService.isLoggedIn;
   }
 

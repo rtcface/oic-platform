@@ -40,5 +40,7 @@
         <a [routerLink]="[ '/auth/register']">Register</a>
              
     </div>
+    <span> <p-message severity="error" text="Usuario y/o contraseña incorrectos" *ngIf="haveError"></p-message></span>   
     </div>
+   
 </form>   

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GraphQLResult } from 'src/app/graphql/interfaces/GraphQLResul.interface';
+
 import { AuthService } from '../../services/auth.service';
 import { data } from '../../interfaces/user_token.interface';
 
@@ -22,7 +22,9 @@ export class LoginComponent implements OnInit {
   passwordValue:  ['',[Validators.required, Validators.minLength(3)]]
   });
 
- 
+
+  haveError : boolean = false;
+   
  
   constructor( 
     private fb : FormBuilder,
@@ -45,14 +47,19 @@ export class LoginComponent implements OnInit {
 
     const {loginValue,passwordValue} = this.myForm.value;
 
-   
-  const res = await this.authService.login(loginValue,passwordValue).subscribe(    
+   try {
+    const res = await this.authService.login(loginValue,passwordValue).subscribe(
       data => {
-         //data.errors ? console.log('Esto es el error en el login',data.errors) : this.router.navigate(['/protected']);
+        // console.log('login',data);   
+        data.errors?.length === 0 ? this.haveError = false : this.haveError = true;     
+        this.router.navigate(['/protected']);
       }
-    );
+    ); 
 
-    console.log('Valor de res',res);
+    this.haveError = true;
+   } catch (error) {
+     console.log('error',error);
+   }
     
     
   }
@@ -60,6 +67,15 @@ export class LoginComponent implements OnInit {
   validateField(field: string) {
     return this.myForm.get(field)?.invalid && this.myForm.get(field)?.touched;
   }
+
+  getErrorMessage(field: string) {
+    return this.myForm.get(field)?.hasError('required') ? 'You must enter a value' :
+      this.myForm.get(field)?.hasError('email') ? 'Not a valid email' :
+        this.myForm.get(field)?.hasError('minlength') ? 'Min length 3' :
+          '';
+  }
+
+
 
 
 

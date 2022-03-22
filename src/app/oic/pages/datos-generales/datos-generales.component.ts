@@ -90,7 +90,7 @@ export class DatosGeneralesComponent implements OnInit {
 
     showDialog() {
         this.display = true;
-        console.log(this.display);
+        // console.log(this.display);
     }
 
     onNodeSelect(event:any) {

@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { tap, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
-import {Apollo, gql} from 'apollo-angular';
+import {Apollo, gql, MutationResult} from 'apollo-angular';
 
 import {data} from '../interfaces/user_token.interface';
 import { SharedService } from '../../shared/services/shared.service';
@@ -38,9 +38,12 @@ export class AuthService {
     this.sharedService.clean_menu();
   }
 
-   login(email?: string, password?: string) {
+   login(email?: string, password?: string): Observable<MutationResult<data>> {
     
+    let res = new Observable<MutationResult<data>>();
+    try {
     this._menu =  this.sharedService.get_menu();
+
     const LOGIN_POST = gql`mutation login($input: LoginAuthInput!) 
                             {
                               login(input:$input)
@@ -58,8 +61,7 @@ export class AuthService {
                                   }
                                 }
                             }`;
-
-    const input = this.apollo.mutate<data>({
+     res = this.apollo.mutate<data>({
       mutation: LOGIN_POST,
       variables: {
         "input": {
@@ -67,16 +69,18 @@ export class AuthService {
           "password": password
         }
       }     
-    }).pipe(     
+    }).pipe(       
       tap( auth => { this._user_token = auth.data!; }),
       tap( auth => {       
         localStorage.setItem('token', this._user_token?.login.token!); 
+        
       }),
     );
-
-
-    console.log("Result de Input",input);
-    return input;
+    return res;
+  } catch (error) {
+      console.log('catch in try',error);
+      return res;
+    }
   }
 
 
@@ -116,41 +120,14 @@ export class AuthService {
           {            
           this._user_token = auth.data!;
           this._menu = this.sharedService.get_menu();
-          console.log("from auth.service",this._user_token);
+         
           return !auth.data?.verify_authentication.haveError;
           }else
           {
             return false;
           }
         }),
-      );
-      
-      // .pipe(       
-      //   map( auth => {
-      //     console.log("In the MAP->",auth.data);
-      //     if(auth.data!.login!.haveError){
-      //       this.logout();
-      //       return false;
-      //     }
-      //     return true;
-      //   })
-      // );
-      
-
-      // map( auth => {          
-      //   this._user_token = auth.data!;
-      //   // console.log("token en el auth",auth.data);
-      //   // console.log("error",auth.data.verify_authentication);
-      //   //localStorage.setItem('token', auth.data.login.token);
-      //   this._menu =  this.sharedService.get_menu();
-      //   if(!this._user_token?.verify_authentication!.haveError!)
-      //     return true;
-      //   else
-      //     return false;         
-      // })
-
-
-     
+      );     
       
     } catch (error) {
       console.log('catch in try',error);

@@ -2,6 +2,7 @@ import { user_register } from ".";
 
 export interface data {
     login:content;
+    errors:string[];
     verify_authentication:content;
 }
 

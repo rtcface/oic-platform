@@ -22,7 +22,7 @@ export class AuthGuard implements  CanLoad, CanActivate{
      
       return this.authSevice.verify_authentication()
         .pipe( tap( isLoggedIn => {
-          console.log('canActivate->isLoggedIn', isLoggedIn);
+          // console.log('canActivate->isLoggedIn', isLoggedIn);
           if(!isLoggedIn){
             this.router.navigate(['./auth/login']);
           }
@@ -34,7 +34,7 @@ export class AuthGuard implements  CanLoad, CanActivate{
 
     return this.authSevice.verify_authentication()
       .pipe( tap( isLoggedIn => {
-        console.log('CanLoad->isLoggedIn', isLoggedIn);
+        // console.log('CanLoad->isLoggedIn', isLoggedIn);
         if(!isLoggedIn){
           this.router.navigate(['./auth/login']);          
         }

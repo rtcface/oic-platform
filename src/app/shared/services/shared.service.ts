@@ -35,7 +35,7 @@ export class SharedService {
       query: GET_MENU,
       fetchPolicy: 'no-cache'
     }).pipe().subscribe(({data})=>{      
-     console.log(data.items);
+     //console.log(data.items);
       if(this.items.length === 0){
         data.items.forEach(element => {
           this.items.push({
