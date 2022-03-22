@@ -5,7 +5,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { LoginMainComponent } from './pages/login-main/login-main.component';
 
@@ -20,7 +20,7 @@ import { LoginMainComponent } from './pages/login-main/login-main.component';
     CommonModule,
     AuthRoutingModule,
     PrimeNgModule,
-    FormsModule,
+    ReactiveFormsModule,
     InputTextModule
   ]
 })

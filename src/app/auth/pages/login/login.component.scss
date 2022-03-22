@@ -1,7 +1,8 @@
 
 
 .item-form{
-    padding: .8rem;    
+    padding: .6rem;  
+      
 }
 
 
@@ -63,4 +64,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.Input{
+    width: 20rem;
+    height: 3rem;
+    border-radius: .5rem;
+    box-shadow: 3px 3px 4px 4px rgba(104,78,70,1);
+    margin-top: .5rem;
 }

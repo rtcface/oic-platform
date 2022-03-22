@@ -1,37 +1,64 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GraphQLResult } from 'src/app/graphql/interfaces/GraphQLResul.interface';
 import { AuthService } from '../../services/auth.service';
+import { data } from '../../interfaces/user_token.interface';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styles: [`
+  :host ::ng-deep .p-password input {
+    width: 15rem;
+  }
+`],
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  loginValue?:string;
-  userValue?:string;
+  myForm : FormGroup = this.fb.group({
+  loginValue: ['',[Validators.required, Validators.email, Validators.minLength(3)]],
+  passwordValue:  ['',[Validators.required, Validators.minLength(3)]]
+  });
+
  
-  constructor( private router:Router,
+ 
+  constructor( 
+    private fb : FormBuilder,
+    private router:Router,
     private authService:AuthService
     ) { }
 
   ngOnInit(): void {
   }
 
-  login(){
-    console.log(this.loginValue);
-    console.log(this.userValue);
-    this.authService.login(this.loginValue,this.userValue).subscribe(
-     
+  async login(){
+
+    if(this.myForm.invalid){
+
+      this.myForm.markAllAsTouched();      
+      return;
+
+   
+    }
+
+    const {loginValue,passwordValue} = this.myForm.value;
+
+   
+  const res = await this.authService.login(loginValue,passwordValue).subscribe(    
       data => {
-        data
-        console.log(data);
-        this.router.navigate(['./protected']);
+         //data.errors ? console.log('Esto es el error en el login',data.errors) : this.router.navigate(['/protected']);
       }
     );
 
+    console.log('Valor de res',res);
     
+    
+  }
+
+  validateField(field: string) {
+    return this.myForm.get(field)?.invalid && this.myForm.get(field)?.touched;
   }
 
 

@@ -8,13 +8,14 @@ import {data} from '../interfaces/user_token.interface';
 import { SharedService } from '../../shared/services/shared.service';
 import { items } from 'src/app/shared/models/menu_interface';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
   
-  private _user_token: data |undefined;
+  private _user_token: data |undefined;  
   private _menu:items[] = [];
 
   get isLoggedIn(): data |undefined  {
@@ -38,6 +39,7 @@ export class AuthService {
   }
 
    login(email?: string, password?: string) {
+    
     this._menu =  this.sharedService.get_menu();
     const LOGIN_POST = gql`mutation login($input: LoginAuthInput!) 
                             {
@@ -55,24 +57,26 @@ export class AuthService {
                                                                     
                                   }
                                 }
-                            }`;   
+                            }`;
 
-    return this.apollo.mutate<data>({
+    const input = this.apollo.mutate<data>({
       mutation: LOGIN_POST,
       variables: {
         "input": {
-          "email": "rtc12586@gmail.com",
-          "password": "123456"
+          "email": email,
+          "password": password
         }
       }     
-    }).pipe(
+    }).pipe(     
       tap( auth => { this._user_token = auth.data!; }),
-      tap( auth => {
-        console.log(this._user_token,'from auth.service'); 
-        localStorage.setItem('token', this._user_token?.login.token!); }),
+      tap( auth => {       
+        localStorage.setItem('token', this._user_token?.login.token!); 
+      }),
     );
 
-    
+
+    console.log("Result de Input",input);
+    return input;
   }
 
 

@@ -15,6 +15,8 @@ import { PasswordModule } from 'primeng/password';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 
 
@@ -37,6 +39,8 @@ import { TreeModule } from 'primeng/tree';
     ToolbarModule,
     TooltipModule,
     TreeModule,
+    MessageModule,
+    MessagesModule
   ]
 })
 export class PrimeNgModule { }
