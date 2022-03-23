@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
-import { data } from '../../interfaces/user_token.interface';
+import { ValidatorsService } from '../../../shared/services/validators.service';
+import { timeInterval, timer, timestamp } from 'rxjs';
+
 
 @Component({
   selector: 'app-login',
@@ -18,8 +20,8 @@ import { data } from '../../interfaces/user_token.interface';
 export class LoginComponent implements OnInit {
 
   myForm : FormGroup = this.fb.group({
-  loginValue: ['',[Validators.required, Validators.email, Validators.minLength(3)]],
-  passwordValue:  ['',[Validators.required, Validators.minLength(3)]]
+  loginValue: ['',[Validators.required, Validators.pattern(this.vs.emailPattern), Validators.minLength(3)]],
+  passwordValue:  ['',[Validators.required]]
   });
 
 
@@ -29,7 +31,8 @@ export class LoginComponent implements OnInit {
   constructor( 
     private fb : FormBuilder,
     private router:Router,
-    private authService:AuthService
+    private authService:AuthService,
+    private vs:ValidatorsService
     ) { }
 
   ngOnInit(): void {
@@ -45,22 +48,33 @@ export class LoginComponent implements OnInit {
    
     }
 
-    const {loginValue,passwordValue} = this.myForm.value;
+   const {loginValue,passwordValue} = this.myForm.value;
 
    try {
-    const res = await this.authService.login(loginValue,passwordValue).subscribe(
-      data => {
-        // console.log('login',data);   
-        data.errors?.length === 0 ? this.haveError = false : this.haveError = true;     
+    const res = await this.authService.login(loginValue,passwordValue).subscribe({
+      next: (data) => {       
+       
+      },
+      error: (err) => {
+        this.haveError = true;
+      },
+      complete: () => {
+       
         this.router.navigate(['/protected']);
       }
-    ); 
 
-    this.haveError = true;
-   } catch (error) {
-     console.log('error',error);
-   }
+    });
+
+    timer(5000).subscribe(() => {
+      this.haveError = false;
+    }
+    );
     
+   } catch (error) {
+     console.log("Este es el error:===>",error);
+   }
+  
+   
     
   }
 
@@ -69,9 +83,9 @@ export class LoginComponent implements OnInit {
   }
 
   getErrorMessage(field: string) {
-    return this.myForm.get(field)?.hasError('required') ? 'You must enter a value' :
-      this.myForm.get(field)?.hasError('email') ? 'Not a valid email' :
-        this.myForm.get(field)?.hasError('minlength') ? 'Min length 3' :
+    return this.myForm.get(field)?.hasError('required') ? 'Campo requerido' :
+      this.myForm.get(field)?.hasError('pattern') ? 'correo no valido' :
+        this.myForm.get(field)?.hasError('minlength') ? 'minimo 3 caracteres' :
           '';
   }
 
@@ -81,3 +95,7 @@ export class LoginComponent implements OnInit {
 
 
 }
+
+
+
+

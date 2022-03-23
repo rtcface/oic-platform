@@ -9,15 +9,12 @@
         <div class="p-inputgroup">
             <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
             <input type="text" 
-            pInputText placeholder="user@example.com" 
-            formControlName="loginValue" pInputText>
-            <p-message 
-            *ngIf="validateField('loginValue')" 
-            severity="error"></p-message>                          
+            pInputText placeholder="correo@registrado.com" 
+            formControlName="loginValue" pInputText>                                     
         </div>
-       
-       
-       
+        <p-message 
+        *ngIf="validateField('loginValue')" 
+        severity="error" [text]="getErrorMessage('loginValue')"></p-message>       
     </div>
     <div class="item-form">
         <div class="p-inputgroup">
@@ -25,21 +22,17 @@
             <input type="password"  
             pInputText 
             formControlName="passwordValue"
-            placeholder="Password">
-            <p-message 
-            *ngIf="validateField('loginValue')" 
-            severity="error"></p-message>          
+            placeholder="Contraseña">                     
         </div>
-    
-       
+
+        <p-message 
+        *ngIf="validateField('passwordValue')" 
+        severity="error" [text]="getErrorMessage('passwordValue')"></p-message>        
     </div>
-    <button class="login-button pointer" [formGroup]="myForm" (click)="login()">
+    <button class="login-button pointer" [formGroup]="myForm" type="submit">
         Iniciar Sesión
     </button>    
-    <div class="login-button pointer">
-        <a [routerLink]="[ '/auth/register']">Register</a>
-             
-    </div>
+    
     <span> <p-message severity="error" text="Usuario y/o contraseña incorrectos" *ngIf="haveError"></p-message></span>   
     </div>
    
