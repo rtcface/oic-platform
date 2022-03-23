@@ -6,13 +6,9 @@ import { AuthGuard } from './auth/guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/oic',
+    redirectTo: 'oic',
     pathMatch: 'full',       
-  },
-  {
-    path: 'oic',
-    loadChildren: () => import('./oic/oic.module').then(m => m.OicModule)
-  },
+  },  
   {
     path: '404',
     loadChildren: () => import('./notfound/notfound.module').then(m => m.NotfoundModule)
@@ -26,6 +22,10 @@ const routes: Routes = [
     loadChildren: () => import('./protected/protected.module').then(m => m.ProtectedModule),
     canLoad: [ AuthGuard ],
     canActivate: [ AuthGuard ] 
+  },
+  {
+    path: 'oic',
+    loadChildren: () => import('./oic/oic.module').then(m => m.OicModule)
   },
   {
     path: '**',

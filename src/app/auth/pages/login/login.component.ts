@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { ValidatorsService } from '../../../shared/services/validators.service';
-import { timeInterval, timer, timestamp } from 'rxjs';
+import { timer } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 
 @Component({
@@ -26,13 +27,14 @@ export class LoginComponent implements OnInit {
 
 
   haveError : boolean = false;
-   
+ 
  
   constructor( 
     private fb : FormBuilder,
     private router:Router,
     private authService:AuthService,
-    private vs:ValidatorsService
+    private vs:ValidatorsService,
+    private sharedService:SharedService
     ) { }
 
   ngOnInit(): void {
@@ -58,8 +60,7 @@ export class LoginComponent implements OnInit {
       error: (err) => {
         this.haveError = true;
       },
-      complete: () => {
-       
+      complete: () => {       
         this.router.navigate(['/protected']);
       }
 

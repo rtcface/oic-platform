@@ -5,8 +5,9 @@ import { Observable, of } from 'rxjs';
 import {Apollo, gql, MutationResult} from 'apollo-angular';
 
 import {data} from '../interfaces/user_token.interface';
-import { SharedService } from '../../shared/services/shared.service';
+
 import { items } from 'src/app/shared/models/menu_interface';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 
 @Injectable({
@@ -17,6 +18,9 @@ export class AuthService {
   
   private _user_token: data |undefined;  
   private _menu:items[] = [];
+  private _defaultMenu:items[] = [];
+
+  public role:string = '';
 
   get isLoggedIn(): data |undefined  {
     return { ...this._user_token! };
@@ -26,9 +30,17 @@ export class AuthService {
     return this._menu;
   }
 
+  get menuDefault():items[]{
+    return this._defaultMenu = this.sharedService.get_menu('user');
+  }
 
-  constructor( private apollo:Apollo,
-    private sharedService:SharedService  ) {    
+  saveRole(role:string){
+    const SAVE_ROLE = role;
+    this.role = SAVE_ROLE;
+  }
+
+
+  constructor( private apollo:Apollo, private sharedService:SharedService  ) {    
   }
 
   logout() {
@@ -42,8 +54,7 @@ export class AuthService {
     
     let res = new Observable<MutationResult<data>>();
     try {
-    this._menu =  this.sharedService.get_menu();
-
+     
     const LOGIN_POST = gql`mutation login($input: LoginAuthInput!) 
                             {
                               login(input:$input)
@@ -57,7 +68,7 @@ export class AuthService {
                                   email
                                   password
                                   avatar  
-                                                                    
+                                  role                         
                                   }
                                 }
                             }`;
@@ -73,9 +84,10 @@ export class AuthService {
       tap( auth => { this._user_token = auth.data!; }),
       tap( auth => {       
         localStorage.setItem('token', this._user_token?.login.token!); 
-        
+        this.saveRole(this._user_token?.login.user.role!);
       }),
     );
+   
     return res;
   } catch (error) {
       console.log('catch in try',error);
@@ -103,7 +115,8 @@ export class AuthService {
                                                     name
                                                     email
                                                     password
-                                                    avatar                                                                                      
+                                                    avatar
+                                                    role                                                                                     
                                                     }
                                                   }
                                               }`;
@@ -118,9 +131,18 @@ export class AuthService {
         map( auth => {
           if(auth.data)
           {            
-          this._user_token = auth.data!;
-          this._menu = this.sharedService.get_menu();
-         
+          this._user_token = auth.data!; 
+          console.log('verify_authentication',this._user_token.verify_authentication.user.role);
+          this.saveRole(this._user_token.verify_authentication.user.role);
+          if(this.role)
+            {
+              console.log('role',this.role);
+            }else
+            {
+              this.role = 'user';
+              console.log('role-sin-Data',this.role);
+            }  
+            this._menu = this.sharedService.get_menu( this.role );     
           return !auth.data?.verify_authentication.haveError;
           }else
           {

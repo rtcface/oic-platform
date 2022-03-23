@@ -6,6 +6,8 @@ import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { NavMenuComponent } from './pages/nav-menu/nav-menu.component';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { CardComponent } from './pages/card/card.component';
+import { NavMenuDefaultComponent } from './pages/nav-menu-default/nav-menu-default.component';
+import { CardDefaultComponent } from './pages/card-default/card-default.component';
 
 
 
@@ -15,7 +17,9 @@ import { CardComponent } from './pages/card/card.component';
     FooterComponent,
     SidebarComponent,
     NavMenuComponent,
-    CardComponent
+    NavMenuDefaultComponent,
+    CardComponent,
+    CardDefaultComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +29,9 @@ import { CardComponent } from './pages/card/card.component';
     FooterComponent,
     HeaderComponent,
     SidebarComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    NavMenuDefaultComponent,
+    CardComponent,
   ]
 })
 export class SharedModule { }

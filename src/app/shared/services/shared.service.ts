@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 
-import { tap } from 'rxjs/operators';
-
 import { items, menu } from '../models/menu_interface';
 
 @Injectable({
@@ -20,19 +18,26 @@ export class SharedService {
     this.items = [];
   }
 
-  constructor( private apollo:Apollo) { }
+  constructor( private apollo:Apollo ) { }
 
-   get_menu():items[]{
-    const GET_MENU = gql`query{
-                           items{
-                              label
-                              icon
-                              routerLink
-                            }
-                          }`;
+    
+
+   get_menu(role:string):items[]{
+    const GET_MENU = gql`query getMenuForRole($role: String!)
+    {
+      items(role:$role)
+      {
+        label
+        icon
+        routerLink
+      }
+    }`;
 
      this.apollo.query<menu>({
       query: GET_MENU,
+      variables: {
+        role
+      },
       fetchPolicy: 'no-cache'
     }).pipe().subscribe(({data})=>{      
      //console.log(data.items);

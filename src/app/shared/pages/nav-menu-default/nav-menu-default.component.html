@@ -1,0 +1,22 @@
+<nav class="nav-bar container">
+    <div class="nav-menu">
+        <p-menubar [model]="items">
+            <ng-template pTemplate="end">
+                <p-overlayPanel [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #op [dismissable]="true" [showCloseIcon]="true">
+                    <ng-template pTemplate>
+                        <app-card-default></app-card-default>
+                    </ng-template>
+                </p-overlayPanel>
+                    <p-avatar
+                    shape="circle" 
+                    pBadge value="5"     
+                    size="large" class="p-avatar-large" pTooltip="Perfil del usuario" tooltipPosition="left">                    
+                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="avatar" (click)="op.toggle($event)"  />                   
+                    </p-avatar>                     
+            </ng-template>
+        </p-menubar>
+    </div>
+</nav>
+
+
+
