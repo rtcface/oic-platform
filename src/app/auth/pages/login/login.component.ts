@@ -42,6 +42,8 @@ export class LoginComponent implements OnInit {
 
   async login(){
 
+    this.authService.logout();
+
     if(this.myForm.invalid){
 
       this.myForm.markAllAsTouched();      

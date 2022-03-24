@@ -85,6 +85,7 @@ export class AuthService {
       tap( auth => {       
         localStorage.setItem('token', this._user_token?.login.token!); 
         this.saveRole(this._user_token?.login.user.role!);
+        this._menu = this.sharedService.get_menu( this.role ); 
       }),
     );
    
@@ -136,11 +137,11 @@ export class AuthService {
           this.saveRole(this._user_token.verify_authentication.user.role);
           if(this.role)
             {
-              console.log('role',this.role);
+              
             }else
             {
               this.role = 'user';
-              console.log('role-sin-Data',this.role);
+             
             }  
             this._menu = this.sharedService.get_menu( this.role );     
           return !auth.data?.verify_authentication.haveError;

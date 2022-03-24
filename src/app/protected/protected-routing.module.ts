@@ -24,7 +24,7 @@ const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: 'adm-workplan'
+        redirectTo: 'adm-users'
       }
     ]
   }

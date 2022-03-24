@@ -9,7 +9,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 })
 export class CardDefaultComponent implements OnInit {
 
-  constructor(  private router:Router ) { }
+  constructor(  private router:Router, private authService:AuthService ) { }
 
   // private authService:AuthService,
   // get isLoggedIn() {    
@@ -18,8 +18,8 @@ export class CardDefaultComponent implements OnInit {
   // }
 
   login(){
-    // localStorage.removeItem('token');
-    // this.authService.logout();
+    localStorage.removeItem('token');
+    this.authService.logout();
     this.router.navigate(['/auth']);
 }
 
