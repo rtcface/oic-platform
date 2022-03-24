@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
 
   haveError : boolean = false;
- 
+  role = 'user';
  
   constructor( 
     private fb : FormBuilder,
@@ -56,17 +56,31 @@ export class LoginComponent implements OnInit {
 
    try {
     const res = await this.authService.login(loginValue,passwordValue).subscribe({
-      next: (data) => {       
+      next: (data) => {  
+
+        this.role = data.data?.login?.user?.role!;
+        console.log("role desde next",this.role);
        
       },
       error: (err) => {
         this.haveError = true;
       },
-      complete: () => {       
-        this.router.navigate(['/protected']);
+      complete: () => {   
+        switch(this.role){
+          case 'user':
+            this.router.navigate(['/oic']);
+            break;
+          case 'admin':
+            this.router.navigate(['/protected-admin']);
+            break;
+          case 'contralor':
+            this.router.navigate(['/protected']);
+            break;
+          default:
+            this.router.navigate(['/oic']);
+            break;}
       }
-
-    });
+    });    
 
     timer(5000).subscribe(() => {
       this.haveError = false;

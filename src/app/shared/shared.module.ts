@@ -8,6 +8,7 @@ import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { CardComponent } from './pages/card/card.component';
 import { NavMenuDefaultComponent } from './pages/nav-menu-default/nav-menu-default.component';
 import { CardDefaultComponent } from './pages/card-default/card-default.component';
+import { TreeComponent } from './pages/tree/tree.component';
 
 
 
@@ -19,7 +20,8 @@ import { CardDefaultComponent } from './pages/card-default/card-default.componen
     NavMenuComponent,
     NavMenuDefaultComponent,
     CardComponent,
-    CardDefaultComponent
+    CardDefaultComponent,
+    TreeComponent
   ],
   imports: [
     CommonModule,

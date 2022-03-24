@@ -24,6 +24,12 @@ const routes: Routes = [
     canActivate: [ AuthGuard ] 
   },
   {
+    path: 'protected-admin',
+    loadChildren: () => import('./protected-admin/protected-admin.module').then(m => m.ProtectedAdminModule),
+    canLoad: [ AuthGuard ],
+    canActivate: [ AuthGuard ] 
+  },
+  {
     path: 'oic',
     loadChildren: () => import('./oic/oic.module').then(m => m.OicModule)
   },
