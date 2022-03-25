@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { AuthService } from '../../../auth/services/auth.service';
-import { data } from '../../../auth/interfaces/user_token.interface';
-import { Colaborador } from '../../models/colaborador.interface';
+import { GetColaboresTreeData } from '../../../auth/interfaces/user_token.interface';
+
 
 @Component({
   selector: 'app-tree',
@@ -19,52 +19,38 @@ export class TreeComponent implements OnInit {
 
   data: TreeNode[]=[];
 
-  constructor(private readonly as:AuthService ) { }
+  constructor(
+    private readonly as:AuthService  
+    ) { }
 
   ngOnInit(): void {
 
+    const { id  }=this.isLoggedIn?.verify_authentication.user!;
+
+    console.log("id desde tree",id);
+    const results = this.as.get_tree_colaboradores(id).subscribe({
+      next: (result) => {
+        
+       
+        //this.data = 
+        const tree:any = result.data!;
+
+        console.log("data------->",tree.getColaboresTreeData);    
+        this.data = [tree.getColaboresTreeData];
+        console.log("data------->",this.data);
+        
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('complete');
+      
+      }
+    });
    
 
-
-
-    const { avatar, charge, name,  }=this.isLoggedIn?.verify_authentication.user!;
-
-    const children = [
-      {
-          label: charge,
-          type: 'person',
-          styleClass: 'p-person',
-          expanded: true,
-          data: {name, avatar},
-      },
-      {
-          label: 'Asistente B',
-          type: 'person',
-          styleClass: 'p-person',
-          expanded: true,
-          data: {name:'Jose Peregrino Alva', avatar: 'mike.jpg'},
-         
-      },
-      {
-          label: 'Asistente C',
-          type: 'person',
-          styleClass: 'p-person',
-          expanded: true,
-          data: {name:'Raul Lima Juarez', avatar: 'jesse.jpg'},
-          
-      }
-  ]
-
-    this.data = [
-      {
-      label: 'Titular',
-      type: 'person',
-      styleClass: 'p-person',
-      expanded: true,
-      data: {name, avatar},
-      children: children
-  }
-];
+    //this.data = [];
 
 
   }

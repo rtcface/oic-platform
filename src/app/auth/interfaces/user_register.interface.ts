@@ -9,7 +9,7 @@ export interface user_register {
     phone: string;
     createdAt: Date;
     status: string;
-    
+    colaboradores: string[];
     role: string;
     createByGoogle: boolean;    
 }

@@ -12,3 +12,26 @@ export interface content{
     token: string;
     user: user_register;
 }
+
+export interface TreeColaboradores {
+    data: TreeColaboradoresData;
+}
+
+export interface TreeColaboradoresData {
+    getColaboresTreeData: GetColaboresTreeData;
+}
+
+export interface GetColaboresTreeData {
+    label:      string;
+    type:       string;
+    styleClass: string;
+    expanded:   boolean;
+    data:       GetColaboresTreeDataData;
+    children?:  GetColaboresTreeData[];
+}
+
+export interface GetColaboresTreeDataData {
+    name:   string;
+    avatar: string;
+}
+

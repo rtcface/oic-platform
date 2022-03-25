@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 
 import {Apollo, gql, MutationResult} from 'apollo-angular';
 
-import {data} from '../interfaces/user_token.interface';
+import {data, TreeColaboradores} from '../interfaces/user_token.interface';
 
 import { items } from 'src/app/shared/models/menu_interface';
 import { SharedService } from 'src/app/shared/services/shared.service';
@@ -68,7 +68,8 @@ export class AuthService {
                                   email
                                   password
                                   avatar  
-                                  role                         
+                                  role
+                                  colaboradores                         
                                   }
                                 }
                             }`;
@@ -117,7 +118,8 @@ export class AuthService {
                                                     email
                                                     password
                                                     avatar
-                                                    role                                                                                     
+                                                    role
+                                                    colaboradores                                                                                    
                                                     }
                                                   }
                                               }`;
@@ -156,6 +158,48 @@ export class AuthService {
       console.log('catch in try',error);
       return of(false);
     }   
+   
+  }
+
+   get_tree_colaboradores(boss:string):Observable<MutationResult<TreeColaboradores>>{
+    
+      const GET_TREE_COLABORADORES = gql` query getColaboresTreeData($boss:UserColaboradoresQueryInput!){
+        getColaboresTreeData(input:$boss){
+          label
+          type
+          styleClass
+          expanded
+          data{
+            name
+            avatar
+          }
+          children{     
+            label
+            type
+            styleClass
+            expanded
+            data{
+              name
+              avatar
+            }
+            
+          }
+        }
+      }`;
+      
+      const res = this.apollo.query<TreeColaboradores>({ 
+        query: GET_TREE_COLABORADORES,
+        variables: {
+          "boss": {
+            "boss": boss
+          }
+        },
+        errorPolicy: 'all'
+      });
+
+     
+    
+    return res;
    
   }
   
