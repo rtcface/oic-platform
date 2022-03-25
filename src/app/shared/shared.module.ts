@@ -34,6 +34,7 @@ import { TreeComponent } from './pages/tree/tree.component';
     NavMenuComponent,
     NavMenuDefaultComponent,
     CardComponent,
+    TreeComponent
   ]
 })
 export class SharedModule { }
