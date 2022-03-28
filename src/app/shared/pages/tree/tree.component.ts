@@ -14,6 +14,9 @@ export class TreeComponent implements OnInit {
   @Output() onShowMessage: EventEmitter<boolean> = new EventEmitter();
   // Inpu for tree component recive filterEnte or filterBoss
   @Input() filterData: filterBoss | filterEnte | null = null;
+  @Input() data: TreeNode[] = [];
+
+  
 
  
   get isLoggedIn() {
@@ -23,16 +26,13 @@ export class TreeComponent implements OnInit {
   get loadColaboradores() {    
     return this.loadTree(this.filterData!);
   }
-
-
-  data: TreeNode[] = [];
+  //data: TreeNode[] = [];
 
   loadTree(params: filterBoss | filterEnte) {
     this.purgeTree();
-    console.log(">>>>>>>>>>>desde el loadtree>>>>>>>>>>>>>>>>>>>>", params);
+    console.log(">>>>>>>>>>>CARGANDO INFORMACION DEL ARBOL>>>>>>>>>>>>>>>>>>>>", params);
     this.as.get_tree_colaboradores(params).subscribe({
       next: (result) => {
-
         const tree: any = result.data!;
         this.data = [tree.getColaboresTreeData];
 
@@ -65,25 +65,26 @@ export class TreeComponent implements OnInit {
       }
 
     } else {
-      console.log("no esta logueado");
-      this.loadTree(this.filterData!);
-      console.log("this.filterData", this.filterData);
+      // console.log("no esta logueado");
+      // this.loadTree(this.filterData!);
+      // console.log("this.filterData", this.filterData);
     }
 
   }
 
- results = this.loadColaboradores;
 
+
+ results = this.loadTree(this.filterData!);
+
+  // escucha el input de filterData y carga el tree
   
+ 
 
   display: boolean = false;
 
   onNodeSelect(event: any) {
     this.onShowMessage.emit(true);
   }
-
-
-  //purge tree
 
   purgeTree() {
     this.data = [];

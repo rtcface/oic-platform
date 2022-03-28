@@ -16,7 +16,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class FinderOicComponent implements OnInit {
 
-  fiderForm: FormGroup = this.fb.group({
+  finderForm: FormGroup = this.fb.group({
   "ente": ""});
 
   selectedOic?: OicInterface;
@@ -24,7 +24,7 @@ export class FinderOicComponent implements OnInit {
   oics?: OicInterfaceGql;
 
 
-  @Output() selectedOicChange = new EventEmitter<OicInterface>();
+  @Output() onSelectedOicChange = new EventEmitter<OicInterface>();
   @Output() onEnter = new EventEmitter<OicEnte>();
 
   constructor( 
@@ -107,10 +107,18 @@ export class FinderOicComponent implements OnInit {
   }  
 
   finderEnte(){   
-    const { ente } = this.fiderForm.value;  
-    this.onEnter.emit(this.fiderForm.value);    
+    //const { ente } = this.fiderForm.value;  
+    this.onEnter.emit(this.finderForm.value);    
+    console.log("Data emitida",this.finderForm.value);
     // clear the input
-    this.fiderForm.reset();
+    this.finderForm.reset();
+  }
+
+  onSelectOic(oic: OicInterface) {
+    this.selectedOic = oic;
+    this.onSelectedOicChange.emit(oic);
+    console.log("selectedOic",this.selectedOic);
+    this.finderForm.reset();
   }
 
 

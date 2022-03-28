@@ -1,4 +1,4 @@
-<form [formGroup]="fiderForm" class="search-form" (ngSubmit)="finderEnte()">
+<form [formGroup]="finderForm" class="search-form" (ngSubmit)="finderEnte()">
     <div class="label-buscar">
       <label for="buscar"> Buscador de Organos Internos de Control</label>
     </div>
@@ -10,7 +10,8 @@
           field="nombre_ente" 
           [minLength]="1"
           placeholder="Buscar Entes Públicos"
-          formControlName="ente"          
+          formControlName="ente"    
+          (onSelect)="onSelectOic($event)"      
           >
         </p-autoComplete>       
     </div>
