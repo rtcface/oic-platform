@@ -1,79 +1,17 @@
 
 <div class="datos-generales">  
-
-  <form class="search-form">
-    <div class="label-buscar">
-      <label for="buscar"> Buscador de Organos Internos de Control</label>
-    </div>
-    <div id="buscar" class="p-fluid">
-        <p-autoComplete 
-          [suggestions]="filteredOic"  
-          [dropdown]="true"
-          [multiple]="true"
-          (completeMethod)="filterOic($event)"
-          field="nombre_ente" 
-          [minLength]="1"
-          placeholder="Buscar Entes Públicos"
-          >
-        </p-autoComplete>       
-    </div>
-  </form>
+  
+  <app-finder-oic (onEnter)="loadTreefromFinder($event)"></app-finder-oic>
 
   <p-divider id="divider-user" layout="vertical" align="center">
     <i class="pi pi-user mr-2"></i>
   </p-divider>
   
-  <p-panel header="Datos del Organo Interno de Control">
-    <p-organizationChart 
-    [value]="data"
-    selectionMode="single"
-    styleClass="company"
-    (onNodeSelect)="onNodeSelect($event)">
-    <ng-template let-node pTemplate="person">
-        <div class="node-header p-corner-top">{{node.label}}</div>
-        <div class="node-content img-cont">
-            <img src="assets/img/user.webp" class="img-org">
-            <div><a (click)="showDialog"></a>{{node.data.name}}</div>
-        </div>
-    </ng-template>
-    <ng-template let-node pTemplate="department">
-        {{node.label}}
-    </ng-template>
-    </p-organizationChart>
-  </p-panel>
+
+  <app-tree [filterData]="loadTreeForEnte()"></app-tree>
 
 </div>
 
-<p-dialog header="Datos de contacto" [(visible)]="display">
-  <p-card header="Ramon Diaz Soler" subheader="Titular del Organo Interno de control" [style]="{width: '400px'}" styleClass="p-card-shadow">
-    <ng-template pTemplate="header">       
-        <img src="assets/img/user.webp" alt="Card" class="img-hearder-card">
-    </ng-template>
-    <div class="datos-gen">
-      <p>
-        <span class="label-datos">Nombre:</span>
-        <span class="datos">Ramon Diaz Soler</span>
-      </p>
-      <p>
-        <span class="label-datos">Cargo:</span>
-        <span class="datos">Titular del Organo Interno de control</span>
-      </p>
-      <p>
-        <span class="label-datos">Teléfono:</span>
-        <span class="datos">11-4444-4444 Ext:109</span>
-      </p>
-      <p>
-        <span class="label-datos">Email:contraloria@tlaxcala.org</span>         
-      </p>
-      <p>
-        <span class="redes-sociales"> 
-          <i class="pi pi-facebook" style="font-size: 2rem"></i>
-          <i class="pi pi-twitter" style="font-size: 2rem"></i>
-          <i class="pi pi-instagram" style="font-size: 2rem"></i>
-        </span>
-      </p>   
-    </div>   
-</p-card>
-</p-dialog>
+
 
 

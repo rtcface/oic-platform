@@ -9,6 +9,8 @@ import { CardComponent } from './pages/card/card.component';
 import { NavMenuDefaultComponent } from './pages/nav-menu-default/nav-menu-default.component';
 import { CardDefaultComponent } from './pages/card-default/card-default.component';
 import { TreeComponent } from './pages/tree/tree.component';
+import { FinderOicComponent } from './pages/finder-oic/finder-oic.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -21,11 +23,13 @@ import { TreeComponent } from './pages/tree/tree.component';
     NavMenuDefaultComponent,
     CardComponent,
     CardDefaultComponent,
-    TreeComponent
+    TreeComponent,
+    FinderOicComponent,
   ],
   imports: [
     CommonModule,
-    PrimeNgModule
+    PrimeNgModule,
+    ReactiveFormsModule,
   ],
   exports: [
     FooterComponent,
@@ -34,7 +38,8 @@ import { TreeComponent } from './pages/tree/tree.component';
     NavMenuComponent,
     NavMenuDefaultComponent,
     CardComponent,
-    TreeComponent
+    TreeComponent,
+    FinderOicComponent
   ]
 })
 export class SharedModule { }

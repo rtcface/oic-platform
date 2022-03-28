@@ -8,6 +8,7 @@ import {data, TreeColaboradores} from '../interfaces/user_token.interface';
 
 import { items } from 'src/app/shared/models/menu_interface';
 import { SharedService } from 'src/app/shared/services/shared.service';
+import { filterBoss, filterEnte } from 'src/app/oic/models/tree.interface';
 
 
 @Injectable({
@@ -161,7 +162,9 @@ export class AuthService {
    
   }
 
-   get_tree_colaboradores(boss:string):Observable<MutationResult<TreeColaboradores>>{
+   get_tree_colaboradores(boss: filterBoss | filterEnte):Observable<MutationResult<TreeColaboradores>>{
+
+     
     
       const GET_TREE_COLABORADORES = gql` query getColaboresTreeData($boss:UserColaboradoresQueryInput!){
         getColaboresTreeData(input:$boss){
@@ -189,11 +192,7 @@ export class AuthService {
       
       const res = this.apollo.query<TreeColaboradores>({ 
         query: GET_TREE_COLABORADORES,
-        variables: {
-          "boss": {
-            "boss": boss
-          }
-        },
+        variables: boss,
         errorPolicy: 'all'
       });
 

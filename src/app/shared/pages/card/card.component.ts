@@ -20,7 +20,7 @@ export class CardComponent implements OnInit {
   logout(){
     localStorage.removeItem('token');
     this.authService.logout();
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/oic']);
 }
 
   ngOnInit(): void {

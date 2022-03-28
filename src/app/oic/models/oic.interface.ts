@@ -1,7 +1,18 @@
 export interface OicInterface {
-    id: number;
+    id: string;
     nombre_ente: string;
     siglas_ente: string;
-    data: [];
+    data: []
+}
+
+export interface OicInterfaceGql {
+    id: string;
+    nombre_ente: string;
+    siglas_ente: string;
+    items:OicInterfaceGql[];   
+}
+
+export interface OicEnte{
+    ente: OicInterface;
 }
 

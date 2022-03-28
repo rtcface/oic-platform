@@ -24,3 +24,14 @@ export interface ChildChild {
     RouterLink?: string;
     data?:       string;
 }
+
+export interface filterEnte{
+    boss: {
+        ente: string
+    }
+}
+export interface filterBoss{
+    boss: {
+        boss: string
+    }
+}

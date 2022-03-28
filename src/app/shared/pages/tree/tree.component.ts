@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { AuthService } from '../../../auth/services/auth.service';
-import { GetColaboresTreeData } from '../../../auth/interfaces/user_token.interface';
+import { filterBoss, filterEnte } from 'src/app/oic/models/tree.interface';
 
 
 @Component({
@@ -9,56 +9,93 @@ import { GetColaboresTreeData } from '../../../auth/interfaces/user_token.interf
   templateUrl: './tree.component.html',
   styleUrls: ['./tree.component.scss']
 })
+
 export class TreeComponent implements OnInit {
+  @Output() onShowMessage: EventEmitter<boolean> = new EventEmitter();
+  // Inpu for tree component recive filterEnte or filterBoss
+  @Input() filterData: filterBoss | filterEnte | null = null;
 
-  @Output() onShowMessage: EventEmitter<boolean> = new EventEmitter(); 
-
-  get isLoggedIn() {         
+ 
+  get isLoggedIn() {
     return this.as.isLoggedIn;
   }
 
-  data: TreeNode[]=[];
+  get loadColaboradores() {    
+    return this.loadTree(this.filterData!);
+  }
 
-  constructor(
-    private readonly as:AuthService  
-    ) { }
 
-  ngOnInit(): void {
+  data: TreeNode[] = [];
 
-    const { id  }=this.isLoggedIn?.verify_authentication.user!;
-
-    console.log("id desde tree",id);
-    const results = this.as.get_tree_colaboradores(id).subscribe({
+  loadTree(params: filterBoss | filterEnte) {
+    this.purgeTree();
+    console.log(">>>>>>>>>>>desde el loadtree>>>>>>>>>>>>>>>>>>>>", params);
+    this.as.get_tree_colaboradores(params).subscribe({
       next: (result) => {
-        
-       
-        //this.data = 
-        const tree:any = result.data!;
 
-        console.log("data------->",tree.getColaboresTreeData);    
+        const tree: any = result.data!;
         this.data = [tree.getColaboresTreeData];
-        console.log("data------->",this.data);
-        
+
       },
       error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log('complete');
-      
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
       }
     });
-   
-
-    //this.data = [];
-
 
   }
 
+  constructor(
+    private readonly as: AuthService
+  ) { }
+
+  ngOnInit(): void {
+
+    this.purgeTree();
+
+    if (this.isLoggedIn?.verify_authentication !== undefined) {
+      const { id } = this.isLoggedIn?.verify_authentication.user!;
+      if (id) {
+
+        const params: filterBoss = {
+          boss: {
+            boss: id
+          }
+        };
+        this.loadTree(params);
+      }
+
+    } else {
+      console.log("no esta logueado");
+      this.loadTree(this.filterData!);
+      console.log("this.filterData", this.filterData);
+    }
+
+  }
+
+ results = this.loadColaboradores;
+
+  
+
   display: boolean = false;
 
-  onNodeSelect(event:any) {
+  onNodeSelect(event: any) {
     this.onShowMessage.emit(true);
+  }
+
+
+  //purge tree
+
+  purgeTree() {
+    this.data = [];
+  }
+
+
 }
 
+function isObjEmpty(obj:any) {  
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) return false;
+  }
+
+  return true;
 }

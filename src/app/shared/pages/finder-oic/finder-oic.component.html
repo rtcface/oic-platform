@@ -1,0 +1,17 @@
+<form [formGroup]="fiderForm" class="search-form" (ngSubmit)="finderEnte()">
+    <div class="label-buscar">
+      <label for="buscar"> Buscador de Organos Internos de Control</label>
+    </div>
+    <div id="buscar" class="p-fluid">
+        <p-autoComplete 
+          [suggestions]="filteredOic"  
+          [dropdown]="true"          
+          (completeMethod)="filterOic($event)"
+          field="nombre_ente" 
+          [minLength]="1"
+          placeholder="Buscar Entes Públicos"
+          formControlName="ente"          
+          >
+        </p-autoComplete>       
+    </div>
+  </form>
