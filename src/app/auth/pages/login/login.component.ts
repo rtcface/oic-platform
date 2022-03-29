@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { ValidatorsService } from '../../../shared/services/validators.service';
-import { timer } from 'rxjs';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { MessageService } from 'primeng/api';
 

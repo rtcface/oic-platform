@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ValidatorsService {
-
   //
   // ─── VALIDATE EMAIL ────────────────────────────────────────────────────────────────
   // 
@@ -12,11 +11,13 @@ export class ValidatorsService {
  
   public passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  public phonePattern = /^\+?3?8?(0\d{9})$/;
+  public phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
 
   public namePatternEng = /^[a-zA-Zа-яА-ЯёЁ\s]+$/;
 
   public nameLastNamePattern : string = '^[a-zA-Zа-яА-ЯёЁ\s]+$';
+
+  public nameAndLastNamePattern : string  = '([a-zA-Z]+) ([a-zA-Z]+)';
 
   constructor() { }
 
@@ -27,11 +28,7 @@ export class ValidatorsService {
   public validatePassword(password: string) : boolean {
     return this.passwordPattern.test(password);
   }
-
-  public validatePhone(phone: string) : boolean {
-    return this.phonePattern.test(phone);
-  }
-
+  
   public validateName(name: string) : boolean {
     return this.namePatternEng.test(name);
   }

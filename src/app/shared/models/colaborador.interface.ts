@@ -1,7 +1,12 @@
 export interface Colaborador {
-    id: number;
     name: string;
     email: string;
     charge: string;
     phone:  string;
+    parentId: string;
 }
+
+export interface DataColaborador {
+    colaborador: Colaborador;
+}
+    

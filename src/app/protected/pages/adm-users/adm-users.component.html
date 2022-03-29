@@ -1,94 +1,11 @@
 
 <div class="datos-generales">  
 
-    <form class="search-form">
-        <p-panel header="Alta de colaborador">
-            <div class="p-fluid grid">
-                <div class="field col-12 md:col-4 form-item">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">
-                            <i class="pi pi-user"></i>
-                        </span>
-                        <span class="p-float-label">
-                            <input type="text" id="inputgroup" pInputText > 
-                            <label for="inputgroup">Nombre Completo</label>
-                        </span>
-                    </div>
-                </div>
-                <div class="field col-12 md:col-4 form-item">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">
-                            <i class="pi pi-envelope"></i>
-                        </span>
-                        <span class="p-float-label">
-                            <input type="text" id="inputgroup" pInputText > 
-                            <label for="inputgroup">Correo</label>
-                        </span>
-                    </div>
-                </div>
-                <div class="field col-12 md:col-4 form-item">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">
-                            <i class="pi pi-phone"></i>
-                        </span>
-                        <span class="p-float-label">
-                            <input type="text" id="inputgroup" pInputText > 
-                            <label for="inputgroup">Teléfono</label>
-                        </span>
-                    </div>
-                </div> 
-                <div class="field col-12 md:col-4 form-item">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">
-                            <i class="pi pi-user"></i>
-                        </span>
-                        <span class="p-float-label">
-                            <input type="text" id="inputgroup" pInputText > 
-                            <label for="inputgroup">Cargo o Puesto</label>
-                        </span>
-                    </div>
-                </div>
-                <!-- Redes Sociales -->
-                <!-- <div class="field col-12 md:col-4 form-item">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">
-                            <i class="pi pi-user"></i>
-                        </span>
-                        <span class="p-float-label">
-                            <input type="text" id="inputgroup" pInputText > 
-                            <label for="inputgroup">Facebook</label>
-                        </span>
-                    </div>
-                </div>
-                <div class="field col-12 md:col-4 form-item">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">
-                            <i class="pi pi-user"></i>
-                        </span>
-                        <span class="p-float-label">
-                            <input type="text" id="inputgroup" pInputText > 
-                            <label for="inputgroup">Twitter</label>
-                        </span>
-                    </div>
-                </div>
-                <div class="field col-12 md:col-4 form-item">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">
-                            <i class="pi pi-user"></i>
-                        </span>
-                        <span class="p-float-label">
-                            <input type="text" id="inputgroup" pInputText > 
-                            <label for="inputgroup">Instagram</label>
-                        </span>
-                    </div>
-                </div> -->
-                <!-- Boton de guardar -->
-                <div class="field col-12 md:col-4 form-item">
-                    <button type="submit" class="buttom-save">Guardar</button>
-                </div>
-            </div>           
-        </p-panel>
-    </form>
+   
+    <p-panel header="Alta de colaborador">
+        <app-form-users></app-form-users>
+    </p-panel>
+    
   
     <p-divider id="divider-user" layout="vertical" align="center">
       <i class="pi pi-user mr-2"></i>
@@ -101,5 +18,5 @@
   </div>
   
   <p-dialog header="Datos de contacto" [(visible)]="display">
-    <app-form-users></app-form-users>
+    <app-form-users [isSave]="isSave" [idParent]="idAuth"></app-form-users>
   </p-dialog>

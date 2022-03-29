@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-adm-users',
@@ -6,14 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adm-users.component.scss']
 })
 export class AdmUsersComponent implements OnInit {
+
+  isSave: boolean = false;
+  idAuth:string = this.auServ.idUserAuth;
+
   
-  constructor(
   
-    ) { }
+  constructor( private readonly auServ:AuthService) { }
   
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {    
    
   }
     display: boolean = false;

@@ -17,6 +17,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
+import { InputTextModule } from "primeng/inputtext";
 
 
 
@@ -40,7 +41,8 @@ import { MessagesModule } from 'primeng/messages';
     TooltipModule,
     TreeModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    InputTextModule
   ]
 })
 export class PrimeNgModule { }

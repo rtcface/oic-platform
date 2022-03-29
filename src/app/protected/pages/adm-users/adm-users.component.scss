@@ -1,42 +1,4 @@
-:host ::ng-deep .p-organizationchart {
-    .p-person {
-        padding: 0;
-        border: 0 none;
-    }
 
-    .node-header, .node-content {
-        padding: .5em .7rem;
-    }
-
-    .node-header {
-        background-color: #495ebb;
-        color: #ffffff;
-    }
-
-    .node-content {
-        text-align: center;
-        border: 1px solid #495ebb;
-    }
-
-    .node-content img {
-        border-radius: 50%;
-    }
-
-    .department-cfo {
-        background-color: #7247bc;
-        color: #ffffff;
-    }
-
-    .department-coo {
-        background-color: #a534b6;
-        color: #ffffff;
-    }
-
-    .department-cto {
-        background-color: #e9286f;
-        color: #ffffff;
-    }
-}
 
 .datos-generales{
     display: flex;
@@ -51,13 +13,7 @@
     }
 }
 
-.search-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 45rem;    
-}
+
 
 .txt{
     width: 50rem;
@@ -75,11 +31,7 @@
     width: 2.5rem;
     height: 2.5rem;
 }
-.img-hearder-card{    
-    width: 6rem;
-    height: 6rem;
-    padding: 1rem;
-}
+
 .img-cont{
     display: flex;
     flex-direction: column;
@@ -87,23 +39,5 @@
     align-items: center;
 }
 
-.form-item{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: .5rem;
-}
 
-.buttom-save{
-    width: 100%;
-    height: 3rem;
-    background-color: var(--color-primary);
-    color: var(--text-color-secondary);
-    font-size: 1.5rem;
-    font-weight: bold;
-    border: 0 none;
-    border-radius: .5rem;
-    cursor: pointer;
-}
 

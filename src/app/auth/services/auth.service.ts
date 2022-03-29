@@ -27,6 +27,10 @@ export class AuthService {
     return { ...this._user_token! };
   }
 
+  get idUserAuth():string{
+    return this._user_token?.verify_authentication.user.id!;
+  }
+
   get dmenu():items[]{
     return this._menu;
   }

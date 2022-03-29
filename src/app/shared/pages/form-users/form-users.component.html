@@ -1,0 +1,105 @@
+<form class="search-form" [formGroup]="userForm" autocomplete="off" (ngSubmit)="validateSubmit()">    
+    <div class="p-fluid grid">
+        <!-- delete buttom -->
+        <div *ngIf="!isSave" class="field col-12 md:col-4 form-item">
+            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-outlined"></button>
+        </div> 
+                    <!--  Strart Fields-->
+        <div class="field col-12 md:col-4 form-item">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-user"></i>
+                </span>
+                <span class="p-float-label">
+                    <input type="text" id="inputName" pInputText formControlName="name" class="p-inputtext-lg"> 
+                    <label for="inputName">Nombre Completo</label>
+                </span>
+            </div>
+            <p-message *ngIf="validateField('name')" severity="error" [text]="getErrorMessage('name')"></p-message>
+        </div>
+        <div class="field col-12 md:col-4 form-item">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-envelope"></i>
+                </span>
+                <span class="p-float-label">
+                    <input type="text" id="inputEmail" pInputText  formControlName="email"> 
+                    <label for="inputEmail">Correo</label>
+                </span>
+            </div>
+            <p-message *ngIf="validateField('email')" severity="error" [text]="getErrorMessage('email')"></p-message>
+        </div>
+        <div class="field col-12 md:col-4 form-item">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-phone"></i>
+                </span>
+                <span class="p-float-label">
+                    <input type="number" formControlName="phone" id="inputPhone" pInputText > 
+                    <label for="inputPhone">Teléfono</label>
+                </span>
+            </div>
+            <p-message *ngIf="validateField('phone')" severity="error" [text]="getErrorMessage('phone')"></p-message>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-user"></i>
+                </span>
+                <span class="p-float-label">
+                    <input type="text" id="inputCharge" pInputText formControlName="charge"> 
+                    <label for="inputCharge">Cargo o Puesto</label>
+                </span>
+            </div>
+            <p-message *ngIf="validateField('charge')" severity="error" [text]="getErrorMessage('charge')"></p-message>
+        </div>
+                <!-- End Fields -->
+        <!-- Redes Sociales -->
+        <!-- <div class="field col-12 md:col-4 form-item">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-user"></i>
+                </span>
+                <span class="p-float-label">
+                    <input type="text" id="inputgroup" pInputText > 
+                    <label for="inputgroup">Facebook</label>
+                </span>
+            </div>
+        </div>
+        <div class="field col-12 md:col-4 form-item">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-user"></i>
+                </span>
+                <span class="p-float-label">
+                    <input type="text" id="inputgroup" pInputText > 
+                    <label for="inputgroup">Twitter</label>
+                </span>
+            </div>
+        </div>
+        <div class="field col-12 md:col-4 form-item">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-user"></i>
+                </span>
+                <span class="p-float-label">
+                    <input type="text" id="inputgroup" pInputText > 
+                    <label for="inputgroup">Instagram</label>
+                </span>
+            </div>
+        </div> -->
+        <!-- Boton de guardar -->
+        <div *ngIf="isSave; else update" ng class="field col-12 md:col-4 form-item">            
+            <button pButton pRipple type="submit" label="Guardar" class="p-button-outlined" [formGroup]="userForm" icon="pi pi-user-plus"></button>            
+        </div>
+        <ng-template #update>
+            <div class="field col-12 md:col-4 form-item">
+                <button pButton pRipple type="submit" label="Actualizar" [formGroup]="userForm" class="p-button-outlined p-button-success" icon="pi pi-user-edit" ></button>
+            </div>
+        </ng-template>
+        
+    </div>
+</form>
+<span>
+<p-message></p-message>
+</span>

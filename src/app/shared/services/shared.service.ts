@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
+import { Colaborador, DataColaborador } from '../models/colaborador.interface';
 
 import { items, menu } from '../models/menu_interface';
 
@@ -57,4 +58,36 @@ export class SharedService {
 
     
   }
+
+  save_Colaborador(data:Colaborador){
+    const info:DataColaborador = {
+      colaborador: data
+    };
+    const SAVE_COLABORADOR = gql`mutation addColaborador($colaborador:UserColaboradorRegisterInput!)
+    {
+      registerColaborador(input:$colaborador){
+        haveError    
+        Err
+        user{
+          id
+          name
+          email
+          phone
+          charge
+        }
+      }
+    }`;
+
+    this.apollo.mutate({
+      mutation: SAVE_COLABORADOR,
+      variables: {
+        info
+      },
+      fetchPolicy: 'no-cache'
+    }).pipe().subscribe(({data})=>{
+      console.log(data);
+    });
+  }
+
+  
 }
