@@ -1,7 +1,7 @@
 
 <form [formGroup]="myForm" autocomplete="off" (ngSubmit)="login()" >
-    <div class="box-login bg-p">
-    <div class="avatar">
+    <div class="box-login bg-p">          
+    <div class="avatar">        
         <i class="pi pi-user"></i>
     </div>      
              
@@ -31,9 +31,9 @@
     </div>
     <button class="login-button pointer" [formGroup]="myForm" type="submit">
         Iniciar Sesión
-    </button>    
-    
-    <span> <p-message severity="error" text="Usuario y/o contraseña incorrectos" *ngIf="haveError"></p-message></span>   
+    </button>
+    <p-messages></p-messages>     
     </div>
+    
    
 </form>   

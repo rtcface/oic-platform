@@ -87,7 +87,7 @@ purgeTree() {
 }
 
 showError() {
-  this.ms.add({ severity: 'error', summary: 'Error', detail: 'No hay datos del ente solicitado...' });   //<-- Mensaje de error
+  this.ms.add({ severity: 'info', summary: 'Información', detail: 'No hay datos del ente solicitado...' });   //<-- Mensaje de error
 }
 
    

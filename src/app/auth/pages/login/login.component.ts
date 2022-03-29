@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { ValidatorsService } from '../../../shared/services/validators.service';
 import { timer } from 'rxjs';
 import { SharedService } from 'src/app/shared/services/shared.service';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -16,7 +17,8 @@ import { SharedService } from 'src/app/shared/services/shared.service';
     width: 15rem;
   }
 `],
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers: [MessageService]
 })
 export class LoginComponent implements OnInit {
 
@@ -24,9 +26,7 @@ export class LoginComponent implements OnInit {
   loginValue: ['',[Validators.required, Validators.pattern(this.vs.emailPattern), Validators.minLength(3)]],
   passwordValue:  ['',[Validators.required]]
   });
-
-
-  haveError : boolean = false;
+    
   role = 'user';
  
   constructor( 
@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit {
     private router:Router,
     private authService:AuthService,
     private vs:ValidatorsService,
-    private sharedService:SharedService
+    private sharedService:SharedService,
+    private readonly ms: MessageService
     ) { }
 
   ngOnInit(): void {
@@ -63,7 +64,7 @@ export class LoginComponent implements OnInit {
        
       },
       error: (err) => {
-        this.haveError = true;
+        this.showError();
       },
       complete: () => {   
         switch(this.role){
@@ -82,10 +83,7 @@ export class LoginComponent implements OnInit {
       }
     });    
 
-    timer(5000).subscribe(() => {
-      this.haveError = false;
-    }
-    );
+   
     
    } catch (error) {
      console.log("Este es el error:===>",error);
@@ -107,7 +105,9 @@ export class LoginComponent implements OnInit {
   }
 
 
-
+  showError() {
+    this.ms.add({ severity: 'error', summary: 'Error', detail: 'Usuario y/o Contraña incorrectos'});   //<-- Mensaje de error
+  }
 
 
 
