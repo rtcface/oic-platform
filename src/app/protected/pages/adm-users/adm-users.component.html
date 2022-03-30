@@ -14,12 +14,14 @@
     </p-divider>
     
     <p-panel header="Datos del Organo Interno de Control">
-      <app-tree (onShowMessage)="showDialog()"></app-tree>
+      <app-tree (onShowMessage)="showDialog()" [data]="data"></app-tree>
     </p-panel>  
 </div>  
 <p-dialog header="Datos de contacto" [(visible)]="display">
   <app-form-users     
   (onDelete)="delete( $event )" 
   (onUpdate)="update( $event )" 
-  [isSave]="isSave" ></app-form-users>
+  [isSave]="isSave"
+  [isSaved]="isSaved"
+  ></app-form-users>
 </p-dialog>

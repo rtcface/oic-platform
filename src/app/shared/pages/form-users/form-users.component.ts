@@ -14,7 +14,7 @@ import { DatosGeneralesComponent } from '../../../oic/pages/datos-generales/dato
 })
 export class FormUsersComponent implements OnInit {
 
-  
+ @Input() isSaved:boolean = false;
  @Input() isSave: boolean = true;
 
  @Output() onDelete:EventEmitter<any> = new EventEmitter();
@@ -49,7 +49,9 @@ export class FormUsersComponent implements OnInit {
     } else {
       console.log("en el submi>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", this.userForm.value);
       this.onSave.emit(this.userForm.value);
+      if(this.isSaved){
       this.userForm.reset();
+      }
     }
     
   }

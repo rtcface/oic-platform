@@ -28,6 +28,7 @@ export class PlanTrabajoComponent implements OnInit {
       .subscribe( resp => { 
         <OicInterface[]> resp.data
         this.oics = resp.data;
+        console.log(this.oics);
       });
       this.oic.getMenu()
         .subscribe( resp => {

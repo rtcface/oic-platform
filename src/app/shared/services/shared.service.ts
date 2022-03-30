@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
+import { Apollo, gql, MutationResult } from 'apollo-angular';
+import { Observable } from 'rxjs';
 import { Colaborador, DataColaborador } from '../models/colaborador.interface';
 
 import { items, menu } from '../models/menu_interface';
+import { RegisterColaborador } from '../models/register-colaborador.iterface';
 
 @Injectable({
   providedIn: 'root'
@@ -59,42 +61,26 @@ export class SharedService {
     
   }
 
-  save_Colaborador(data:Colaborador){
-    const info:DataColaborador = {
-      colaborador: {
-        name: data.name.toUpperCase(),
-        email: data.email,
-        charge: data.charge.toUpperCase(),
-        phone:  data.phone.toString(),
-        parentId: data.parentId
-      }
-    };
+    save_Colaborador(colaborador:Colaborador): Observable<MutationResult<RegisterColaborador>> {
+        colaborador.name = colaborador.name.toUpperCase();
+        colaborador.charge = colaborador.charge.toUpperCase();
+        colaborador.phone = colaborador.phone.toString();    
+        const SAVE_COLABORADOR = 
+        gql`mutation registerColaborador($colaborador:UserColaboradorRegisterInput!)
+          {
+            registerColaborador(input:$colaborador){
+              haveError    
+              Err       
+            }
+          }`;
 
-    console.log(info);
-    const SAVE_COLABORADOR = gql`mutation registerColaborador($colaborador:UserColaboradorRegisterInput!)
-    {
-      registerColaborador(input:$colaborador){
-        haveError    
-        Err
-        user{
-          id
-          name
-          email
-          phone
-          charge
-        }
-      }
-    }`;
-
-    this.apollo.mutate({
-      mutation: SAVE_COLABORADOR,
-      variables: {
-        info
-      },
-      fetchPolicy: 'no-cache'
-    }).pipe().subscribe(({data})=>{
-      console.log(data);
-    });
+   return this.apollo.mutate<RegisterColaborador>({
+     mutation: SAVE_COLABORADOR,
+     variables: {
+       colaborador
+     },
+     fetchPolicy: 'no-cache'
+   });
   }
 
   

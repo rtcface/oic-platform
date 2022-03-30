@@ -1,7 +1,7 @@
 {
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
-  "configurations": [
+  "configurations": [    
     {
       "name": "ng serve",
       "type": "pwa-chrome",
@@ -15,6 +15,25 @@
       "request": "launch",
       "preLaunchTask": "npm: test",
       "url": "http://localhost:9876/debug.html"
+    },
+    // config Angular chrome
+    {
+      "name": "Angular",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:4200/",
+      "webRoot": "./dist/",
+      "preLaunchTask": "npm: start",
+      "args": [
+        "--disable-extensions",
+        "--disable-popup-blocking",
+        "--disable-translate",
+        "--headless",
+        "--disable-gpu",
+        "--remote-debugging-port=9222",
+        "--disable-dev-shm-usage",
+        "--no-sandbox"
+      ]
     }
   ]
 }
