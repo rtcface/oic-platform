@@ -61,9 +61,17 @@ export class SharedService {
 
   save_Colaborador(data:Colaborador){
     const info:DataColaborador = {
-      colaborador: data
+      colaborador: {
+        name: data.name.toUpperCase(),
+        email: data.email,
+        charge: data.charge.toUpperCase(),
+        phone:  data.phone.toString(),
+        parentId: data.parentId
+      }
     };
-    const SAVE_COLABORADOR = gql`mutation addColaborador($colaborador:UserColaboradorRegisterInput!)
+
+    console.log(info);
+    const SAVE_COLABORADOR = gql`mutation registerColaborador($colaborador:UserColaboradorRegisterInput!)
     {
       registerColaborador(input:$colaborador){
         haveError    

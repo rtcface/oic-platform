@@ -7,6 +7,12 @@ export interface Colaborador {
 }
 
 export interface DataColaborador {
-    colaborador: Colaborador;
+    colaborador: {
+        name: string;
+        email: string;
+        charge: string;
+        phone:  string; 
+        parentId: string;
+    }
 }
     

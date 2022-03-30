@@ -1,8 +1,8 @@
-<form class="search-form" [formGroup]="userForm" autocomplete="off" (ngSubmit)="validateSubmit()">    
+<form class="search-form" [formGroup]="userForm" autocomplete="off">    
     <div class="p-fluid grid">
         <!-- delete buttom -->
         <div *ngIf="!isSave" class="field col-12 md:col-4 form-item">
-            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-outlined"></button>
+            <button pButton pRipple type="button" (click)="delete()" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-outlined"></button>
         </div> 
                     <!--  Strart Fields-->
         <div class="field col-12 md:col-4 form-item">
@@ -48,7 +48,7 @@
                 </span>
                 <span class="p-float-label">
                     <input type="text" id="inputCharge" pInputText formControlName="charge"> 
-                    <label for="inputCharge">Cargo o Puesto</label>
+                    <label for="inputCharge">Cargo o Puesto</label>                    
                 </span>
             </div>
             <p-message *ngIf="validateField('charge')" severity="error" [text]="getErrorMessage('charge')"></p-message>
@@ -90,16 +90,13 @@
         </div> -->
         <!-- Boton de guardar -->
         <div *ngIf="isSave; else update" ng class="field col-12 md:col-4 form-item">            
-            <button pButton pRipple type="submit" label="Guardar" class="p-button-outlined" [formGroup]="userForm" icon="pi pi-user-plus"></button>            
+            <button pButton pRipple type="button" label="Guardar" (click)="validateSubmit()" class="p-button-outlined" [formGroup]="userForm" icon="pi pi-user-plus"></button>            
         </div>
         <ng-template #update>
             <div class="field col-12 md:col-4 form-item">
-                <button pButton pRipple type="submit" label="Actualizar" [formGroup]="userForm" class="p-button-outlined p-button-success" icon="pi pi-user-edit" ></button>
+                <button pButton pRipple type="button" label="Actualizar" (click)="updateUser()" [formGroup]="userForm" class="p-button-outlined p-button-success" icon="pi pi-user-edit" ></button>
             </div>
         </ng-template>
         
     </div>
 </form>
-<span>
-<p-message></p-message>
-</span>
