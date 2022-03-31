@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../auth/services/auth.service';
-import { Colaborador, user_edit } from '../../../shared/models/colaborador.interface';
+import { Router } from '@angular/router';
+
 import { MessageService, TreeNode } from 'primeng/api';
+
+
+
+import { AuthService } from '../../../auth/services/auth.service';
+import { Colaborador, delete_user, user_edit } from '../../../shared/models/colaborador.interface';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { filterBoss, filterEnte } from 'src/app/oic/models/tree.interface';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adm-users',
@@ -36,7 +40,7 @@ export class AdmUsersComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.loadTreeFromBoss();
+    this.loadTreeFromBoss();    
   }
     display: boolean = false;
 
@@ -50,6 +54,7 @@ export class AdmUsersComponent implements OnInit {
 
    save( colaborador: Colaborador) {
     colaborador.parentId = this.idAuth;
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el save ",colaborador);
     this.ss.save_Colaborador(colaborador).subscribe({
       next: (result) => {
         console.log(result);
@@ -75,12 +80,53 @@ export class AdmUsersComponent implements OnInit {
     
   }
 
-  delete( dat: any) {
-    console.log(dat);
+  delete( user: delete_user) {
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el delete ",user);
+    this.ss.delete_user(user).subscribe({
+      next: (result) => {
+        console.log(result);
+        if(result.data!.id === ""){
+          this.showErrorDinamic("No se pudo eliminar el usuario");
+        }else
+        {
+          this.showMessageOK();         
+        }
+      },
+      error: (err) => {
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+      },
+      complete: () => {       
+       
+        this.reloadCurrentPage();
+        
+      }
+    });
   }
 
-  update( dat: any) {
-    console.log(dat);
+  update( user:user_edit ) {
+
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update pather ",user);
+
+    this.ss.update_Colaborador(user).subscribe({
+      next: (result) => {
+        console.log(result);
+        if(result.data!.updateColaborador.haveError){
+          this.showErrorDinamic(result.data!.updateColaborador.Err);
+        }else
+        {
+          this.showMessageOK();         
+        }
+      },
+      error: (err) => {
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+      },
+      complete: () => {       
+       
+        this.reloadCurrentPage();
+        
+      }
+    });
+    
   }
 
   showMessageOK(){
@@ -143,6 +189,7 @@ export class AdmUsersComponent implements OnInit {
     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update ",user);
     this.userEdit = user;  
     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el this update ",this.userEdit);
+    this.showDialog();
   }
   
   

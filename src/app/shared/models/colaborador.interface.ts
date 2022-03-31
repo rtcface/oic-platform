@@ -32,4 +32,8 @@ export interface node{
     phone:  string;
     id: string;}
 }
+
+export interface delete_user{
+    id: string;
+}
     

@@ -12,7 +12,7 @@ import { node, user_edit } from '../../models/colaborador.interface';
 })
 
 export class TreeComponent implements OnInit {
-  @Output() onShowMessage: EventEmitter<boolean> = new EventEmitter();
+  //@Output() onShowMessage: EventEmitter<boolean> = new EventEmitter();
   @Output() onNodeSelected: EventEmitter<user_edit> = new EventEmitter();
   // Inpu for tree component recive filterEnte or filterBoss
   @Input() filterData: filterBoss | filterEnte | null = null;
@@ -29,7 +29,7 @@ export class TreeComponent implements OnInit {
   display: boolean = false;
 
   onNodeSelect(event: node) {
-    this.onShowMessage.emit(true);
+    //this.onShowMessage.emit(true);
     const { name,email,charge,phone,id } = event.node;  
     this.onNodeSelected.emit({name,email,charge,phone,id}); 
     console.log(name);

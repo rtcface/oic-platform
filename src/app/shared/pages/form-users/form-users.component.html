@@ -1,8 +1,10 @@
+<p-toast position="top-center"></p-toast>
 <form class="search-form" [formGroup]="userForm" autocomplete="off">    
     <div class="p-fluid grid">
         <!-- delete buttom -->
-        <div *ngIf="!isSave" class="field col-12 md:col-4 form-item">
-            <button pButton pRipple type="button" (click)="delete()" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-outlined"></button>
+        <div *ngIf="!isSave" class="field col-12 md:col-4 form-item">          
+            <button pButton pRipple type="button" (click)="confirm($event)" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-outlined"></button>
+            <p-confirmPopup></p-confirmPopup>            
         </div> 
                     <!--  Strart Fields-->
         <div class="field col-12 md:col-4 form-item">
@@ -11,7 +13,7 @@
                     <i class="pi pi-user"></i>
                 </span>
                 <span class="p-float-label">
-                    <input type="text" id="inputName" pInputText formControlName="name" class="p-inputtext-lg"> 
+                    <input type="text" id="inputName" pInputText formControlName="name" [value]="userEdit.name" class="p-inputtext-lg"> 
                     <label for="inputName">Nombre Completo</label>
                 </span>
             </div>
@@ -23,7 +25,7 @@
                     <i class="pi pi-envelope"></i>
                 </span>
                 <span class="p-float-label">
-                    <input type="text" id="inputEmail" pInputText  formControlName="email"> 
+                    <input type="text" id="inputEmail" pInputText  formControlName="email" [value]="userEdit.email"> 
                     <label for="inputEmail">Correo</label>
                 </span>
             </div>
@@ -35,7 +37,7 @@
                     <i class="pi pi-phone"></i>
                 </span>
                 <span class="p-float-label">
-                    <input type="number" formControlName="phone" id="inputPhone" pInputText > 
+                    <input type="number" formControlName="phone" id="inputPhone" pInputText [value]="userEdit.phone" > 
                     <label for="inputPhone">Teléfono</label>
                 </span>
             </div>
@@ -47,8 +49,8 @@
                     <i class="pi pi-user"></i>
                 </span>
                 <span class="p-float-label">
-                    <input type="text" id="inputCharge" pInputText formControlName="charge"> 
-                    <label for="inputCharge">Cargo o Puesto</label>                    
+                    <input type="text" id="inputCharge" pInputText formControlName="charge" [value]="userEdit.charge"> 
+                    <label for="inputCharge">Cargo o Puesto</label>                                  
                 </span>
             </div>
             <p-message *ngIf="validateField('charge')" severity="error" [text]="getErrorMessage('charge')"></p-message>
@@ -100,3 +102,4 @@
         
     </div>
 </form>
+

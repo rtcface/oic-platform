@@ -1,15 +1,18 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ValidatorsService } from '../../services/validators.service';
-import { Colaborador, user_edit } from '../../models/colaborador.interface';
+
+import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { SharedService } from '../../services/shared.service';
-import { DatosGeneralesComponent } from '../../../oic/pages/datos-generales/datos-generales.component';
+
+import { ValidatorsService } from '../../services/validators.service';
+import { Colaborador, delete_user, user_edit } from '../../models/colaborador.interface';
+
 
 @Component({
   selector: 'app-form-users',
   templateUrl: './form-users.component.html',
   styleUrls: ['./form-users.component.scss'],
+  providers: [ConfirmationService, MessageService]
   
 })
 export class FormUsersComponent implements OnInit {
@@ -17,27 +20,30 @@ export class FormUsersComponent implements OnInit {
  @Input() isSaved:boolean = false;
  @Input() isSave:boolean = true;
  @Input() userEdit:user_edit = {} as user_edit;
-
  @Output() onDelete:EventEmitter<any> = new EventEmitter();
  @Output() onSave:EventEmitter<Colaborador> = new EventEmitter();
- @Output() onUpdate:EventEmitter<any> = new EventEmitter();
+ @Output() onUpdate:EventEmitter<user_edit> = new EventEmitter();
  
 
 
   
 
   userForm = this.fb.group({
-    name: [this.userEdit.name,[Validators.required, Validators.pattern(this.vs.nameAndLastNamePattern)]],
-    email: [this.userEdit.email,[Validators.required, Validators.pattern(this.vs.emailPattern)]],
-    charge: [this.userEdit.charge,[Validators.required, Validators.minLength(3)]],
-    phone: [this.userEdit.phone,[Validators.required, Validators.pattern(this.vs.phonePattern)]],
-    id: [this.userEdit.id],   
+    name: ['',[Validators.required, Validators.pattern(this.vs.nameAndLastNamePattern)]],
+    email: ['',[Validators.required, Validators.pattern(this.vs.emailPattern)]],
+    charge: ['',[Validators.required, Validators.minLength(3)]],
+    phone: [,[Validators.required, Validators.pattern(this.vs.phonePattern)]],    
   });
 
   constructor(
     private readonly fb : FormBuilder,
-    private readonly vs : ValidatorsService
-    ) { }
+    private readonly vs : ValidatorsService,
+    private readonly confirmationService: ConfirmationService,
+    private readonly ms: MessageService
+    ) { 
+
+      console.log("desde el hijo", this.userEdit);
+    }
     
    
 
@@ -60,48 +66,39 @@ export class FormUsersComponent implements OnInit {
     
   }
 
-  // save() {
-  //   console.log("desde el hijo");
-  //   this.onSaveUser.emit("hola desde el hijo");
-  // }
+  updateUser() {  
+   
+    if(this.userForm.invalid){
+      
+      this.userForm.markAllAsTouched();
 
-  updateUser() {
-    console.log("desde el hijo");
-    this.onUpdate.emit("hola desde el hijo update");
+     
+    } else {
+      const user:user_edit = this.userForm.value;
+      user.id = this.userEdit.id;
+      this.onUpdate.emit(user);
+    }
+     
   }
   
-  delete(){
-    console.log("desde el hijo");
-    this.onDelete.emit("hola desde el hijo delete");
-  }
-   // console.log("en el submit", this.idParent);
+  confirm(event: Event) {
+    this.confirmationService.confirm({
+        target: event.target!,
+        message: `Esta seguro de eliminar a ${this.userEdit.name} ?`,
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {          
+          const user:delete_user={
+            id: this.userEdit.id
+          };
+            this.onDelete.emit(user);
+        },
+        reject: () => {
+          this.noDelete();
+          this.onDelete.emit(null);
+        }
+    });
+}
 
-      // if(this.isSave){
-
-      //   console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",this.userForm.value);
-      //   const {name, email, charge, phone,parentId } = this.userForm.value;
-      //   const colaborador: Colaborador = {
-      //     name,
-      //     email,
-      //     charge,
-      //     phone,
-      //     parentId
-      //   };
-
-      // this.saveColaborador(colaborador);
-
-      // this.userForm.reset();
-      // this.ms.add({severity:'success', summary:'Guardado', detail:'Guardado con exito'});
-      //}
-      //return true;
-
-
-
-
-  // saveColaborador(colaborador: Colaborador) {
-  //   console.log(colaborador);
-  //   this.ss.save_Colaborador(colaborador);
-  // }
 
   validateField(field: string) {
     return this.userForm.get(field)?.invalid && this.userForm.get(field)?.touched;
@@ -136,6 +133,11 @@ export class FormUsersComponent implements OnInit {
       '';    
   }
 
+  // create message for cancel button click
+  noDelete() {
+    this.ms.add({ severity: 'error', summary: 'Cancelo', detail: `Sera en otra ocasión ${this.userEdit.name}...`});   //<-- Mensaje de error
+  }
 
+  
 
 }

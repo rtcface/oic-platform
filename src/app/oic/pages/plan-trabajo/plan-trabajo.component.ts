@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FilterService } from 'primeng/api';
 import { OicInterface } from '../../models/oic.interface';
 import { GetOicService } from '../../services/get-oic.service';
-import { TreeModule } from 'primeng/tree';
 import { TreeNode } from 'primeng/api';
 import { tree } from '../../models/tree.interface';
 

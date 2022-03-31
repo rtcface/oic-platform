@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult } from 'apollo-angular';
 import { Observable } from 'rxjs';
-import { Colaborador, DataColaborador } from '../models/colaborador.interface';
+import { Colaborador, DataColaborador, user_edit, delete_user } from '../models/colaborador.interface';
 
 import { items, menu } from '../models/menu_interface';
-import { RegisterColaborador } from '../models/register-colaborador.iterface';
+import { RegisterColaborador, UpdateColaborador } from '../models/register-colaborador.iterface';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +78,45 @@ export class SharedService {
      mutation: SAVE_COLABORADOR,
      variables: {
        colaborador
+     },
+     fetchPolicy: 'no-cache'
+   });
+  }
+
+  update_Colaborador(colaborador:user_edit): Observable<MutationResult<UpdateColaborador>> {
+    colaborador.name = colaborador.name.toUpperCase();
+    colaborador.charge = colaborador.charge.toUpperCase();
+    colaborador.phone = colaborador.phone.toString();    
+    const UPDATE_COLABORADOR = 
+    gql`mutation updateColaborador($colaborador:UserUpdateColaboradorInput!)
+      {
+        updateColaborador(input:$colaborador){
+          haveError    
+          Err       
+        }
+      }`;
+
+   return this.apollo.mutate<UpdateColaborador>({
+     mutation: UPDATE_COLABORADOR,
+     variables: {
+       colaborador
+     },
+     fetchPolicy: 'no-cache'
+   });
+  }
+
+  delete_user(user:delete_user): Observable<MutationResult<delete_user>> {
+    const DELETE_USER = 
+    gql`mutation deleteUser($user:UserDeleteInput!){
+      inactivateUser(input:$user){
+        id
+      }
+    }`;
+
+   return this.apollo.mutate<delete_user>({
+     mutation: DELETE_USER,
+     variables: {
+       user
      },
      fetchPolicy: 'no-cache'
    });
