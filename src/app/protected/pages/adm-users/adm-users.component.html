@@ -14,7 +14,7 @@
     </p-divider>
     
     <p-panel header="Datos del Organo Interno de Control">
-      <app-tree (onShowMessage)="showDialog()" [data]="data"></app-tree>
+      <app-tree (onShowMessage)="showDialog()" [data]="data" (onNodeSelected)="updateUserData( $event )"></app-tree>
     </p-panel>  
 </div>  
 <p-dialog header="Datos de contacto" [(visible)]="display">
@@ -23,5 +23,6 @@
   (onUpdate)="update( $event )" 
   [isSave]="isSave"
   [isSaved]="isSaved"
+  [userEdit]="userEdit"
   ></app-form-users>
 </p-dialog>

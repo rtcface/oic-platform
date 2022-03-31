@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../auth/services/auth.service';
-import { Colaborador } from '../../../shared/models/colaborador.interface';
+import { Colaborador, user_edit } from '../../../shared/models/colaborador.interface';
 import { MessageService, TreeNode } from 'primeng/api';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { filterBoss, filterEnte } from 'src/app/oic/models/tree.interface';
@@ -20,6 +20,7 @@ export class AdmUsersComponent implements OnInit {
   data: TreeNode[] = [];
   filter: filterBoss | filterEnte | null = null;
   haveError:boolean = false;
+  userEdit:user_edit = {} as user_edit;
  
   
   
@@ -138,8 +139,11 @@ export class AdmUsersComponent implements OnInit {
 
   //create method to reload component tree before from saved
 
-  
-
+  updateUserData( user:user_edit ) {
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update ",user);
+    this.userEdit = user;  
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el this update ",this.userEdit);
+  }
   
   
 }

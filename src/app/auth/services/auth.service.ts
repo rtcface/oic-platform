@@ -176,7 +176,12 @@ export class AuthService {
           type
           styleClass
           expanded
-          data{
+          id
+          name
+          charge
+          phone
+          email
+          data{            
             name
             avatar
           }
@@ -185,7 +190,12 @@ export class AuthService {
             type
             styleClass
             expanded
-            data{
+            id
+            name
+            charge
+            phone
+            email
+            data{              
               name
               avatar
             }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ValidatorsService } from '../../services/validators.service';
-import { Colaborador } from '../../models/colaborador.interface';
+import { Colaborador, user_edit } from '../../models/colaborador.interface';
 import { MessageService } from 'primeng/api';
 import { SharedService } from '../../services/shared.service';
 import { DatosGeneralesComponent } from '../../../oic/pages/datos-generales/datos-generales.component';
@@ -15,19 +15,23 @@ import { DatosGeneralesComponent } from '../../../oic/pages/datos-generales/dato
 export class FormUsersComponent implements OnInit {
 
  @Input() isSaved:boolean = false;
- @Input() isSave: boolean = true;
+ @Input() isSave:boolean = true;
+ @Input() userEdit:user_edit = {} as user_edit;
 
  @Output() onDelete:EventEmitter<any> = new EventEmitter();
  @Output() onSave:EventEmitter<Colaborador> = new EventEmitter();
  @Output() onUpdate:EventEmitter<any> = new EventEmitter();
  
- 
+
+
+  
 
   userForm = this.fb.group({
-    name: ['',[Validators.required, Validators.pattern(this.vs.nameAndLastNamePattern)]],
-    email: ['',[Validators.required, Validators.pattern(this.vs.emailPattern)]],
-    charge: ['',[Validators.required, Validators.minLength(3)]],
-    phone: ['',[Validators.required, Validators.pattern(this.vs.phonePattern)]],   
+    name: [this.userEdit.name,[Validators.required, Validators.pattern(this.vs.nameAndLastNamePattern)]],
+    email: [this.userEdit.email,[Validators.required, Validators.pattern(this.vs.emailPattern)]],
+    charge: [this.userEdit.charge,[Validators.required, Validators.minLength(3)]],
+    phone: [this.userEdit.phone,[Validators.required, Validators.pattern(this.vs.phonePattern)]],
+    id: [this.userEdit.id],   
   });
 
   constructor(

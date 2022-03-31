@@ -17,7 +17,7 @@ export class ValidatorsService {
 
   public nameLastNamePattern : string = '^[a-zA-Zа-яА-ЯёЁ\s]+$';
 
-  public nameAndLastNamePattern : string  = '([a-zA-Z]+) ([a-zA-Z]+)';
+  public nameAndLastNamePattern : string  = '([a-zA-Z]+) ([a-zA-Z]+) ([a-zA-Z]+)';
 
   constructor() { }
 

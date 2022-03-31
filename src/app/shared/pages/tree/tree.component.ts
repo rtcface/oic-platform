@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { AuthService } from '../../../auth/services/auth.service';
 import { filterBoss, filterEnte } from 'src/app/oic/models/tree.interface';
+import { node, user_edit } from '../../models/colaborador.interface';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { filterBoss, filterEnte } from 'src/app/oic/models/tree.interface';
 
 export class TreeComponent implements OnInit {
   @Output() onShowMessage: EventEmitter<boolean> = new EventEmitter();
+  @Output() onNodeSelected: EventEmitter<user_edit> = new EventEmitter();
   // Inpu for tree component recive filterEnte or filterBoss
   @Input() filterData: filterBoss | filterEnte | null = null;
   @Input() data: TreeNode[] = [];
@@ -26,8 +28,11 @@ export class TreeComponent implements OnInit {
 
   display: boolean = false;
 
-  onNodeSelect(event: any) {
+  onNodeSelect(event: node) {
     this.onShowMessage.emit(true);
+    const { name,email,charge,phone,id } = event.node;  
+    this.onNodeSelected.emit({name,email,charge,phone,id}); 
+    console.log(name);
   }
 
   purgeTree() {

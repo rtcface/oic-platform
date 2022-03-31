@@ -26,12 +26,17 @@ export interface GetColaboresTreeData {
     type:       string;
     styleClass: string;
     expanded:   boolean;
+    id:            string;
+    name:          string;
+    charge:        string;
+    phone:         string;
+    email:         string;
     data:       GetColaboresTreeDataData;
     children?:  GetColaboresTreeData[];
 }
 
-export interface GetColaboresTreeDataData {
-    name:   string;
-    avatar: string;
+export interface GetColaboresTreeDataData {    
+    name   : string;
+    avatar : string;
 }
 
