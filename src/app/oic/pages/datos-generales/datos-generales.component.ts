@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { OicInterface, OicEnte } from '../../models/oic.interface';
 
 import { filterBoss, filterEnte } from '../../models/tree.interface';
+import { user_edit } from '../../../shared/models/colaborador.interface';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class DatosGeneralesComponent implements OnInit {
  
   ente:string = '';
   haveError:boolean = false;
+  display: boolean = false;
+  selectedUser:user_edit = {} as user_edit;
 
  
   constructor(
@@ -86,9 +89,20 @@ purgeTree() {
   this.data = [];
 }
 
+viewUserData( user: user_edit ){
+  console.log(">>>>>>>>>>>>>>>",user);
+  this.selectedUser = user;
+  this.showPopup();
+}
+
 showError() {
   this.ms.add({ severity: 'info', summary: 'Información', detail: 'No hay datos del ente solicitado...' });   //<-- Mensaje de error
 }
+showPopup(){
+  this.display = true;
+}
+
+
 
    
 

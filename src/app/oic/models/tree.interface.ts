@@ -35,3 +35,11 @@ export interface filterBoss{
         boss: string
     }
 }
+
+export interface filterWpd{
+    ente:{
+        ente_publico: string
+    }
+}
+
+

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { user_edit } from '../../models/colaborador.interface';
 
 @Component({
   selector: 'app-view-users',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewUsersComponent implements OnInit {
 
+  @Input() users: user_edit = {} as user_edit;
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  
 
 }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterService } from 'primeng/api';
-import { OicInterface } from '../../models/oic.interface';
-import { GetOicService } from '../../services/get-oic.service';
+
 import { TreeNode } from 'primeng/api';
-import { tree } from '../../models/tree.interface';
+
+import { GetOicService } from '../../services/get-oic.service';
+import { tree, filterWpd } from '../../models/tree.interface';
+import { OicEnte, OicInterface } from '../../models/oic.interface';
+import { MutationResult } from 'apollo-angular';
 
 @Component({
   selector: 'app-plan-trabajo',
@@ -12,44 +14,19 @@ import { tree } from '../../models/tree.interface';
 })
 export class PlanTrabajoComponent implements OnInit {
 
-  filteredOic!: OicInterface[];
-  oics?: OicInterface[];
+
   files!: TreeNode[];
 
   constructor(
-    private filterService: FilterService,
     private oic: GetOicService
   ) { }
 
   ngOnInit(): void {
 
-    this.oic.getOic()
-      .subscribe( resp => { 
-        <OicInterface[]> resp.data
-        this.oics = resp.data;
-        console.log(this.oics);
-      });
-      this.oic.getMenu()
-        .subscribe( resp => {
-          //console.log(resp);
-          <tree[]> resp.data
-          this.files = resp.data;
-        });
+
+
   }
 
-  filterOic(event: any) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    let filtered: any[] = [];
-    let query = event.query;
-    for (let i = 0; i < this.oics!.length; i++) {
-      let oicItem = this.oics![i];
-      if (oicItem.nombre_ente.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(oicItem);
-      }
-    }
-
-    this.filteredOic = filtered;
-  }
 
   filterTree(event: any) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
@@ -66,7 +43,7 @@ export class PlanTrabajoComponent implements OnInit {
   }
 
   nodeSelect(event: any) {
-   
+
     event.node.url ? this.redirect(event.node.url) : null;
 
     //console.log(event.node.data);
@@ -75,5 +52,56 @@ export class PlanTrabajoComponent implements OnInit {
   redirect(url: string) {
     window.open(url, '_blank');
   }
+
+  loadWorkPlan($event: OicEnte) {
+    const fiter: filterWpd = {
+      ente: {
+        ente_publico: $event.ente.id
+      }
+    }
+    this.loadWpd(fiter);
+
+  }
+
+
+  loadWorkPlanFinderSelectedOic($event: OicInterface) {
+
+    const fiter: filterWpd = {
+      ente: {
+        ente_publico: $event.id
+      }
+    }
+    this.loadWpd(fiter);
+    console.log("this.ente desde hijo", $event.id);
+  }
+
+  loadWpd(filter: filterWpd) {
+
+    this.oic.getWorkPlanFromGraph(filter)
+      .subscribe({
+        next: (result: MutationResult<tree[]>) => {
+          console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", result);
+          if (result.data !== null) {
+            this.files = result!.data!;
+          }
+          else {
+            //this.showError();
+          }
+        },
+        error: (error) => {
+          console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+        }
+
+      });
+      
+        
+       
+      
+    
+
+
+  }
+
+
 
 }

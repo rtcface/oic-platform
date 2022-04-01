@@ -1,39 +1,18 @@
 <div class="plan-trabajo">
 
-    <form class="search-form">
-        <div class="label-buscar">
-          <label for="buscar"> Buscador de Organos Internos de Control</label>
-        </div>
-        <div id="buscar" class="p-fluid">
-            <p-autoComplete 
-              [suggestions]="filteredOic"  
-              [dropdown]="true"
-              [multiple]="true"
-              (completeMethod)="filterOic($event)"
-              field="nombre_ente" 
-              [minLength]="1"
-              placeholder="Buscar Entes Públicos"
-              >
-            </p-autoComplete>       
-        </div>
-      </form>
-    
-      <p-divider layout="vertical" align="center">
-        <i class="pi pi-user mr-2"></i>
-      </p-divider>
+  <div class="message-fider">
+    <app-finder-oic (onEnter)="loadWorkPlan( $event )" (onSelectedOicChange)="loadWorkPlanFinderSelectedOic( $event )"></app-finder-oic>
+    <p-messages></p-messages>
+  </div>
 
-      <p-panel 
-        header="Plan de Trabajo por año" 
-        class="p-plan-trabajo">
-        <p-tree 
-          [value]="files" 
-          selectionMode="single" 
-          [(selection)]="filterTree"
-          (onNodeSelect)="nodeSelect($event)"
-          (onNodeUnselect)="nodeSelect($event)"
-          
-          >        
-        </p-tree>
-      </p-panel>
+  <p-divider layout="vertical" align="center">
+    <i class="pi pi-user mr-2"></i>
+  </p-divider>
+
+  <p-panel header="Plan de Trabajo por año" class="p-plan-trabajo">
+    <p-tree [value]="files" selectionMode="single" [(selection)]="filterTree" (onNodeSelect)="nodeSelect($event)"
+      (onNodeUnselect)="nodeSelect($event)">
+    </p-tree>
+  </p-panel>
 
 </div>

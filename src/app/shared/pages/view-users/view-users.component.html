@@ -1,5 +1,5 @@
-<p-card header="Ramon Diaz Soler" 
-subheader="Titular del Organo Interno de control" 
+<p-card [header]="users.name" 
+[subheader]="users.charge" 
 [style]="{width: '400px'}" 
 styleClass="p-card-shadow">
     <ng-template pTemplate="header">       
@@ -7,19 +7,19 @@ styleClass="p-card-shadow">
     </ng-template>
     <div class="datos-gen">
       <p>
-        <span class="label-datos">Nombre:</span>
-        <span class="datos">Ramon Diaz Soler</span>
+        <span class="label-datos">NOMBRE: </span>
+        <span class="datos">{{users.name}}</span>
       </p>
       <p>
-        <span class="label-datos">Cargo:</span>
-        <span class="datos">Titular del Organo Interno de control</span>
+        <span class="label-datos">CARGO: </span>
+        <span class="datos">{{ users.charge }}</span>
       </p>
       <p>
-        <span class="label-datos">Teléfono:</span>
-        <span class="datos">11-4444-4444 Ext:109</span>
+        <span class="label-datos">TEL: </span>
+        <span class="datos">{{users.phone}}</span>
       </p>
       <p>
-        <span class="label-datos">Email:contraloria@tlaxcala.org</span>         
+        <span class="label-datos">EMAIL: {{users.email}}</span>         
       </p>
       <!-- <p>
         <span class="redes-sociales"> 
