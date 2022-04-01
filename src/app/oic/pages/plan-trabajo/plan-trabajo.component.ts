@@ -1,30 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 
-import { TreeNode } from 'primeng/api';
+import { MessageService, TreeNode } from 'primeng/api';
 
 import { GetOicService } from '../../services/get-oic.service';
-import { tree, filterWpd } from '../../models/tree.interface';
+import { tree, filterWpd, ChildChild, root, RootChild } from '../../models/tree.interface';
 import { OicEnte, OicInterface } from '../../models/oic.interface';
-import { MutationResult } from 'apollo-angular';
 
 @Component({
   selector: 'app-plan-trabajo',
   templateUrl: './plan-trabajo.component.html',
-  styleUrls: ['./plan-trabajo.component.scss']
+  styleUrls: ['./plan-trabajo.component.scss'],
+  providers: [MessageService]
 })
 export class PlanTrabajoComponent implements OnInit {
 
 
-  files!: TreeNode[];
+  files: TreeNode[] = [];
 
   constructor(
-    private oic: GetOicService
+    private oic: GetOicService,
+    private ms: MessageService
+  
   ) { }
 
   ngOnInit(): void {
-
-
-
   }
 
 
@@ -43,10 +42,7 @@ export class PlanTrabajoComponent implements OnInit {
   }
 
   nodeSelect(event: any) {
-
-    event.node.url ? this.redirect(event.node.url) : null;
-
-    //console.log(event.node.data);
+    event.node.url ? this.redirect(event.node.url) : null;    
   }
 
   redirect(url: string) {
@@ -79,14 +75,44 @@ export class PlanTrabajoComponent implements OnInit {
 
     this.oic.getWorkPlanFromGraph(filter)
       .subscribe({
-        next: (result: MutationResult<tree[]>) => {
-          console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", result);
-          if (result.data !== null) {
-            this.files = result!.data!;
+        next: (result) => {
+          const tree: any = result.data!;
+          console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", tree.data.label);
+          if (tree.data.label !== null) {
+          <tree[]> [tree!.data!];
+          //map to TreeNode
+          this.files =[ tree!.data].map(
+            (item: root) => {
+              return {
+                label: item.label,
+                data: item.data,
+                children: item.children!.map(
+                  (child: RootChild) => {
+                    return {
+                      label: child.label,
+                      data: child.data,
+                      children: child.children!.map(
+                        (childChild: ChildChild) => {
+                          return{
+                            label: childChild.label,
+                            data: childChild.data,
+                            icon: childChild.icon,
+                            url: childChild.url
+                          }                        
+                    })
+                  }
+                }
+                )
+              }
+                
+            });
           }
           else {
-            //this.showError();
+            this.showError();
+            this.files = [];
           }
+            
+         
         },
         error: (error) => {
           console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
@@ -102,6 +128,10 @@ export class PlanTrabajoComponent implements OnInit {
 
   }
 
+
+  showError() {
+    this.ms.add({ severity: 'info', summary: 'Información', detail: 'No hay datos del ente solicitado...' });   //<-- Mensaje de error
+  }
 
 
 }

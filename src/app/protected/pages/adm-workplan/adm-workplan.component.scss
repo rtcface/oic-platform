@@ -1,0 +1,22 @@
+.plan-trabajo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        font-size: 3rem;
+        justify-content: center;
+        align-items: center;
+      
+    }
+}
+
+
+.p-plan-trabajo{
+    width: 35rem;
+    max-width: 35rem;
+}
+
+.message-finder{
+    display: flex;
+}

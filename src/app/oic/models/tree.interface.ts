@@ -1,5 +1,6 @@
+import { data } from '../../auth/interfaces/user_token.interface';
 export interface tree {
-    data: [];
+    data: [root];
 }
 
 export interface root {
@@ -23,6 +24,7 @@ export interface ChildChild {
     icon:        string;
     RouterLink?: string;
     data?:       string;
+    url?:        string;
 }
 
 export interface filterEnte{

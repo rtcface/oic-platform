@@ -1,1 +1,19 @@
-<p>adm-workplan works!</p>
+<p-messages></p-messages>
+<div class="plan-trabajo">
+    <p-panel header="Registro del plan de trabajo">     
+       
+    </p-panel>
+
+    <p-divider id="divider-user" layout="vertical" align="center">
+      <i class="pi pi-user mr-2"></i>
+    </p-divider>
+    
+    <p-panel header="Planes de trabajo">
+        <p-tree [value]="files" 
+        selectionMode="single" 
+        [(selection)]="filterTree" 
+        (onNodeSelect)="nodeSelect($event)"
+        (onNodeUnselect)="nodeSelect($event)">
+      </p-tree>
+    </p-panel>  
+</div>  

@@ -31,6 +31,10 @@ export class AuthService {
     return this._user_token?.verify_authentication.user.id!;
   }
 
+  get idEnteAuth():string{
+    return this._user_token?.verify_authentication.user.ente_publico!;
+  }
+
   get dmenu():items[]{
     return this._menu;
   }
@@ -74,7 +78,8 @@ export class AuthService {
                                   password
                                   avatar  
                                   role
-                                  colaboradores                         
+                                  colaboradores
+                                  ente_publico                         
                                   }
                                 }
                             }`;
@@ -124,7 +129,8 @@ export class AuthService {
                                                     password
                                                     avatar
                                                     role
-                                                    colaboradores                                                                                    
+                                                    colaboradores
+                                                    ente_publico                                                                                    
                                                     }
                                                   }
                                               }`;

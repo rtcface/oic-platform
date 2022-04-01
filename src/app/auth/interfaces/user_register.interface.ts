@@ -12,4 +12,5 @@ export interface user_register {
     colaboradores: string[];
     role: string;
     createByGoogle: boolean;    
+    ente_publico: string;
 }
