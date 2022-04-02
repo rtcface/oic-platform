@@ -15,6 +15,9 @@ export class AdmWorkplanComponent implements OnInit {
 
   id_ente:string = this.auth.idEnteAuth;
   files: TreeNode[] = [];
+  nodes: any[]=[];
+  selectedNode: any[] = [];
+
 
   constructor(
     private oic: GetOicService,

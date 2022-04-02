@@ -1,7 +1,30 @@
 <p-messages></p-messages>
 <div class="plan-trabajo">
-    <p-panel header="Registro del plan de trabajo">     
-       
+    <p-panel header="Registro del plan de trabajo"> 
+      <form action="" class="form-conainer">
+        <div class="form-group">
+          <label for="">Nombre del plan de trabajo</label>
+          <p-treeSelect 
+            [options]="files" 
+            placeholder="Elija el año del plan de trabajo"></p-treeSelect>
+        </div>
+        <div class="form-group">
+          <label for="">Nombre del plan de trabajo</label>
+          <input type="text" class="form-control" id="" placeholder="Nombre del plan de trabajo">
+        </div>
+        <div class="form-group">
+          <label for="">Descripción</label>
+          <textarea class="form-control" id="" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="">Url del archivo</label>
+          <input type="text" class="form-control" id="" placeholder="Url del archivo">
+        </div>
+        <!-- button save -->
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>    
+      
     </p-panel>
 
     <p-divider id="divider-user" layout="vertical" align="center">

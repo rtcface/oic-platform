@@ -20,6 +20,9 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
+import { TreeSelectModule } from 'primeng/treeselect';
+
+
 
 
 
@@ -47,6 +50,7 @@ import { TreeModule } from 'primeng/tree';
     ToolbarModule,
     TooltipModule,
     TreeModule,
+    TreeSelectModule
   ]
 })
 export class PrimeNgModule { }
