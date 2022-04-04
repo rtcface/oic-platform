@@ -5,7 +5,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { ChildChild, filterWpd, root, RootChild, tree } from 'src/app/oic/models/tree.interface';
 import { GetOicService } from 'src/app/oic/services/get-oic.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
-import { planWork } from '../../models/plan-work.interface';
+import { planWork, planWorkDataAdd, deletePlanWork } from '../../models/plan-work.interface';
+import { ProtectedService } from '../../services/protected.service';
 
 @Component({
   selector: 'app-adm-workplan',
@@ -22,6 +23,7 @@ export class AdmWorkplanComponent implements OnInit {
   selectedNode: any[] = [];
   display: boolean = false;
   displayForm: boolean = false;
+  id_Anio: string='';
 
   update_wpd: planWork = {} as planWork;
 
@@ -49,6 +51,7 @@ export class AdmWorkplanComponent implements OnInit {
     private readonly ms: MessageService,
     private readonly auth: AuthService,
     private readonly fb : FormBuilder,
+    private readonly pt: ProtectedService,
     private readonly vs : ValidatorsService,
     private readonly cs: ConfirmationService
 
@@ -76,7 +79,7 @@ export class AdmWorkplanComponent implements OnInit {
   nodeSelect(event: any) {
     console.log(event);  
 
-    if(event.node.id){
+    if(event.node.id && event.node.isChild){
       this.display = true;
       this.loadFormUpdate(event.node);
     }else{
@@ -87,6 +90,8 @@ export class AdmWorkplanComponent implements OnInit {
   nodeSelectSave(event: any) {
     if(event.node.isRoot)
     {
+      this.id_Anio = event.node.id;
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", event.node);     
       this.displayForm = true;
     }
     else{
@@ -133,12 +138,14 @@ export class AdmWorkplanComponent implements OnInit {
                 children: item.children!.map(
                   (child: RootChild) => {
                     return {
+                      id: child.id,
                       isRoot: true,
                       label: child.label,
                       data: child.data,
                       children: child.children!.map(
                         (childChild: ChildChild) => {
                           return{
+                            isChild: true,
                             id:  childChild.id,
                             label: childChild.label,
                             data: childChild.data,
@@ -184,6 +191,10 @@ export class AdmWorkplanComponent implements OnInit {
     return this.saveForm.get(field)?.invalid && this.saveForm.get(field)?.touched;
   }
 
+  validateFieldUpdate(field: string) {
+    return this.updateForm.get(field)?.invalid && this.updateForm.get(field)?.touched;
+  }
+
 
   getErrorMessage(field: string) {
     const message:string = "Debe ingresar un valor válido";
@@ -193,21 +204,151 @@ export class AdmWorkplanComponent implements OnInit {
     '';    
   }
 
+  getErrorMessageUpdate(field: string) {
+    const message:string = "Debe ingresar un valor válido";
+   
+    return this.updateForm.get(field)?.hasError('required') ? message :
+    this.updateForm.get(field)?.hasError('minlength') ? 'minimo 3 caracteres' :
+    '';    
+  }
+
   saveFile() {
     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", this.saveForm.value);
-    if(this.saveForm.valid){
-      
+    if(this.saveForm.invalid){      
       this.saveForm.markAllAsTouched();
     }else{
-     const plan:planWork = {
-        id: this.saveForm.value.id,
+     const plan:planWorkDataAdd = {
+        IdParent: this.id_Anio,
         label: this.saveForm.value.label,
         data: this.saveForm.value.data,
         url: this.saveForm.value.url,
-           }
-    const data: any = this.saveForm.value;
+    }
+
+    this.pt.savePlwd(plan).subscribe({
+      next: (result) => {
+        const res: any = result.data!;
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+      },
+      error: (error) => {
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+      },
+      complete: () => {
+        this.loadWorkPlan();
+        this.display = false;
+        this.saveForm.reset();
+        this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha guardado el plan de trabajo...' });   //<-- Mensaje de error
+        this.ngOnInit();
+
+        this.reloadCurrentPage();
+      }
+    });
     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
   }
 }
+
+updateFile(){
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", this.update_wpd.id);
+  if(this.updateForm.invalid){
+    this.updateForm.markAllAsTouched();
+  }
+  else{
+    const plan:planWork = {
+      id: this.update_wpd.id,
+      label: this.updateForm.value.label,
+      data: this.updateForm.value.data,
+      url: this.updateForm.value.url,
+  }
+
+  this.pt.updatePlwd(plan).subscribe({
+    next: (result) => {
+      const res: any = result.data!;
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+    },
+    error: (error) => {
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+    },
+    complete: () => {
+      this.loadWorkPlan();
+      this.display = false;
+      this.updateForm.reset();
+      this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha actualizado el plan de trabajo...' });   //<-- Mensaje de error
+      this.ngOnInit();
+
+      this.reloadCurrentPage();
+    }
+  });
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
+}
+}
+
+
+  deletePlanWork(pw: deletePlanWork){
+
+    this.pt.deletePlwd(pw).subscribe({
+      next: (result) => {
+        const res: any = result.data!;
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+      },
+      error: (error) => {
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+      },
+      complete: () => {
+        this.loadWorkPlan();
+        this.display = false;
+        this.saveForm.reset();
+        this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha eliminado el plan de trabajo...' });   //<-- Mensaje de error
+        this.ngOnInit();
+
+        this.reloadCurrentPage();
+
+      }
+    });
+
+  }
+
+
+  updatePlanWork(pw: planWork){
+    this.pt.updatePlwd(pw).subscribe({
+      next: (result) => {
+        const res: any = result.data!;
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+      },
+      error: (error) => {
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+      },
+      complete: () => {
+        this.loadWorkPlan();
+        this.display = false;
+        this.saveForm.reset();
+        this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha actualizado el plan de trabajo...' });   //<-- Mensaje de error
+        this.ngOnInit();
+      }
+    });
+  }
+
+  confirm(event: Event) {
+    this.cs.confirm({
+        target: event.target!,
+        message: `Esta seguro de eliminar el archivo ${this.update_wpd.label} ?`,
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {          
+          const pwDel:deletePlanWork={
+            id: this.update_wpd.id
+          };
+          this.deletePlanWork(pwDel);
+        },
+        reject: () => {
+          this.noDelete();          
+        }
+    });
+}
+
+noDelete() {
+  this.ms.add({ severity: 'error', summary: 'Cancelo', detail: `Sera en otra ocasión ${this.update_wpd.label}...`});   //<-- Mensaje de error
+}
+
+reloadCurrentPage() {
+  window.location.reload();
+ }
 
 }

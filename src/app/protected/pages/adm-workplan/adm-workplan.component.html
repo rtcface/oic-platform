@@ -73,8 +73,8 @@
 <p-dialog header="Actualizar plan de trabajo" [(visible)]="display">
   <form class="search-form" [formGroup]="updateForm" autocomplete="off" >
     <div class="field col-12 md:col-4 form-item">
-      <button pButton pRipple type="button"  icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-outlined"></button>
-      <!-- <p-confirmPopup></p-confirmPopup>   -->
+      <button pButton pRipple type="button" (click)="confirm( $event)"  icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-outlined"></button>
+      <p-confirmPopup></p-confirmPopup>  
     </div>       
     <div class="field col-12 md:col-4 form-item">
       <div class="p-inputgroup">
@@ -82,10 +82,11 @@
           <i class="pi pi-pencil"></i>
       </span>          
       <span class="p-float-label">
-          <input type="text" id="inputgroup" pInputText formControlName="label" [value]="update_wpd.label"> 
+          <input type="text" id="inputgroup" pInputText formControlName="label" [value]="update_wpd.label">           
           <label for="inputgroup">Nombre del archivo</label>
-      </span>
-      </div>       
+      </span>     
+      </div> 
+      <p-message *ngIf="validateFieldUpdate('label')" severity="error" [text]="getErrorMessageUpdate('label')"></p-message>      
     </div>
     <div class="field col-12 md:col-4 form-item">
       <div class="p-inputgroup">
@@ -93,10 +94,11 @@
           <i class="pi pi-pencil"></i>
       </span>          
       <span class="p-float-label">
-          <input type="text" id="inputgroup" pInputText formControlName="data" [value]="update_wpd.data"> 
+          <input type="text" id="inputgroup" pInputText formControlName="data" [value]="update_wpd.data">         
           <label for="inputgroup">Descripción</label>
-      </span>
-      </div>       
+      </span>      
+      </div> 
+      <p-message *ngIf="validateFieldUpdate('data')" severity="error" [text]="getErrorMessageUpdate('data')"></p-message>      
     </div>
     <div class="field col-12 md:col-4 form-item">
       <div class="p-inputgroup">
@@ -107,11 +109,13 @@
           <input type="text" id="inputgroup" pInputText formControlName="url" [value]="update_wpd.url"> 
           <label for="inputgroup">Liga del archivo</label>
       </span>
-      </div>       
+     
+      </div>
+      <p-message *ngIf="validateFieldUpdate('url')" severity="error" [text]="getErrorMessageUpdate('url')"></p-message>       
     </div>
     <!-- button save -->
     <div class="field col-12 md:col-4 form-item">
-    <button pButton pRipple type="button" label="Actualizar" [formGroup]="updateForm" class="p-button-outlined p-button-primary" icon="pi pi-pencil"></button>  
+    <button pButton pRipple type="button" label="Actualizar" [formGroup]="updateForm" (click)="updateFile()" class="p-button-outlined p-button-primary" icon="pi pi-pencil"></button>  
     </div>
   </form>   
 </p-dialog>

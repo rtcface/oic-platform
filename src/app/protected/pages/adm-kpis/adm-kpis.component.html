@@ -1,1 +1,62 @@
-<p>adm-kpis works!</p>
+
+
+<div class="kpis">
+   
+    <div class="message-fider">
+        <p-panel header="Alta de estadisticas">
+        <form class="search-form" [formGroup]="saveForm" autocomplete="off">       
+            <p-toast position="top-center"></p-toast>
+            <div class="field col-12 md:col-4 form-item">
+              <div class="p-inputgroup">
+              <span class="p-inputgroup-addon">
+                  <i class="pi pi-chart-bar"></i>
+              </span>          
+              <span class="p-float-label">
+                  <input type="text" id="inputgroup" pInputText formControlName="kpi"> 
+                  <label for="inputgroup">Estadistica a registrar</label>                
+              </span>
+              </div>
+              <p-message *ngIf="validateField('kpi')" severity="error" [text]="getErrorMessage('kpi')"></p-message>       
+            </div>
+            <div class="field col-12 md:col-4 form-item">
+              <div class="p-inputgroup">
+              <span class="p-inputgroup-addon">
+                  <i class="pi pi-chart-bar"></i>
+              </span>          
+              <span class="p-float-label">
+                  <input type="text" id="inputgroup" pInputText formControlName="description"> 
+                  <label for="inputgroup">Descripción</label>                
+              </span>
+              </div>
+              <p-message *ngIf="validateField('description')" severity="error" [text]="getErrorMessage('description')"></p-message>       
+            </div>
+            <div class="field col-12 md:col-4 form-item">
+              <div class="p-inputgroup">
+              <span class="p-inputgroup-addon">
+                  <i class="pi pi-chart-bar"></i>
+              </span>          
+              <span class="p-float-label">
+                  <input type="number" id="inputgroup" pInputText formControlName="total"> 
+                  <label for="inputgroup">Total de casos</label>
+                  
+              </span>
+              </div>
+              <p-message *ngIf="validateField('total')" severity="error" [text]="getErrorMessage('total')"></p-message>       
+            </div>
+            <!-- button save -->
+            <div class="field col-12 md:col-4 form-item">
+              <button pButton pRipple type="button" label="Guardar" (click)="saveKpi()" class="p-button-outlined" [formGroup]="saveForm" icon="pi pi-chart-pie"></button>
+            </div>
+        </form>
+        </p-panel> 
+    </div>
+  
+    <p-divider layout="vertical" align="center">
+      <i class="pi pi-user mr-2"></i>
+    </p-divider>
+  
+    <p-panel header="Estadisticas de Procesos" class="p-kpis">
+      <p-chart type="doughnut" [data]="data"></p-chart>
+    </p-panel>
+  
+  </div>

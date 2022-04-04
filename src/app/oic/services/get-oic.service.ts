@@ -43,10 +43,7 @@ export class GetOicService {
       fetchPolicy: 'no-cache'
     });
   }
-
-
-
-
+  
   getWorkPlanFromGraph(ente:filterWpd): Observable<MutationResult<tree>>  {
     const GET_WORK_PLAN = gql`query planwork($ente:PlanWorkQueryInput!){  
            data:getPlanWorkData(input:$ente){
@@ -55,6 +52,7 @@ export class GetOicService {
              expandedIcon
              collapsedIcon
              children{
+                 id
                  label
                  data
                  expandedIcon
@@ -78,33 +76,7 @@ export class GetOicService {
   }
   
 
-  // getWorkPlanFromGraph(ente:filterWpd): Observable<MutationResult<tree[]>> {
-  //   const GET_WORK_PLAN = gql`query planwork($ente:PlanWorkQueryInput!){  
-  //     getPlanWorkData(input:$ente){
-  //       label
-  //       data
-  //       expandedIcon
-  //       collapsedIcon
-  //       children{
-  //           label
-  //           data
-  //           expandedIcon
-  //           collapsedIcon      
-  //           children{
-  //             label
-  //             icon
-  //             url
-  //           }      
-  //       }
-  //     }      
-  //   }`
-  //   console.log(ente,"este es el ente");
-  //   return this.apollo.query<tree[]>({
-  //     query: GET_WORK_PLAN,
-  //     variables: {ente},     
-  //     errorPolicy: 'all'
-  //   });
-  // }
+
 
 
 
