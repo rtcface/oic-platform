@@ -12,6 +12,7 @@ export interface root {
 }
 
 export interface RootChild {
+    isRoot:       boolean;
     label:         string;
     data:          string;
     expandedIcon:  string;
@@ -20,6 +21,7 @@ export interface RootChild {
 }
 
 export interface ChildChild {
+    id:         string;
     label:       string;
     icon:        string;
     RouterLink?: string;

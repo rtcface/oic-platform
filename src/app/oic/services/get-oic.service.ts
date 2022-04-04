@@ -61,8 +61,10 @@ export class GetOicService {
                  collapsedIcon      
                  children{
                    label
+                   data
                    icon
                    url
+                   id
                 }      
              }
            }      
