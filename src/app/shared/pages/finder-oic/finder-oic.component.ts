@@ -46,10 +46,10 @@ export class FinderOicComponent implements OnInit {
           //console.log("a",a.items);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
       complete: () => {
-        console.log('complete');
+        // console.log('complete');
       }
     }); 
     
@@ -83,7 +83,7 @@ export class FinderOicComponent implements OnInit {
     }
 
     this.filteredOic = filtered;
-    console.log("filteredOic",this.filteredOic);
+    // console.log("filteredOic",this.filteredOic);
   }
 
   getDataEnte(query:any){
@@ -98,10 +98,10 @@ export class FinderOicComponent implements OnInit {
           
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
       complete: () => {
-        console.log('complete');
+        // console.log('complete');
       }
     }); 
   }  
@@ -109,7 +109,7 @@ export class FinderOicComponent implements OnInit {
   finderEnte(){   
     //const { ente } = this.fiderForm.value;  
     this.onEnter.emit(this.finderForm.value);    
-    console.log("Data emitida",this.finderForm.value);
+    // console.log("Data emitida",this.finderForm.value);
     // clear the input
     this.finderForm.reset();
   }
@@ -117,7 +117,7 @@ export class FinderOicComponent implements OnInit {
   onSelectOic(oic: OicInterface) {
     this.selectedOic = oic;
     this.onSelectedOicChange.emit(oic);
-    console.log("selectedOic",this.selectedOic);
+    // console.log("selectedOic",this.selectedOic);
     this.finderForm.reset();
   }
 

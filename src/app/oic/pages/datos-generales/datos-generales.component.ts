@@ -45,7 +45,7 @@ loadTreefromFinder( $event:OicEnte){
     }
   }
   this.loadTree(params);
-  console.log("this.ente desde hijo",$event.ente.id);  
+  //console.log("this.ente desde hijo",$event.ente.id);  
 }
 
 loadTreeFromFinderSelectedOic( $event:OicInterface){
@@ -57,18 +57,18 @@ loadTreeFromFinderSelectedOic( $event:OicInterface){
     }
   }
   this.loadTree(params);
-  console.log("this.ente desde hijo",$event.id);
+  //console.log("this.ente desde hijo",$event.id);
 }
 
 
 
 
 loadTree(params: filterBoss | filterEnte) {
-  console.log(">>>>>>>>>>>CARGANDO INFORMACION DEL ARBOL>>>>>>>>>>>>>>>>>>>>", params);
+  //console.log(">>>>>>>>>>>CARGANDO INFORMACION DEL ARBOL>>>>>>>>>>>>>>>>>>>>", params);
   this.as.get_tree_colaboradores(params).subscribe({
     next: (result) => {
       const tree: any = result.data!;
-      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>",tree);
+      //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>",tree);
       if(tree.getColaboresTreeData.data !== null){
         this.data = [tree.getColaboresTreeData];
       }
@@ -79,7 +79,7 @@ loadTree(params: filterBoss | filterEnte) {
 
     },
     error: (err) => {
-      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+      //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
     }
   });
 
@@ -90,7 +90,7 @@ purgeTree() {
 }
 
 viewUserData( user: user_edit ){
-  console.log(">>>>>>>>>>>>>>>",user);
+  //console.log(">>>>>>>>>>>>>>>",user);
   this.selectedUser = user;
   this.showPopup();
 }

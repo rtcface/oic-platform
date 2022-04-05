@@ -13,7 +13,7 @@ export class ProtectedService {
 
 
   savePlwd(planWorkDataAdd: planWorkDataAdd): Observable<MutationResult> {
-    console.log(planWorkDataAdd);
+    // console.log(planWorkDataAdd);
     const SAVE_PLWD = gql`mutation addPlan($planWorkDataAdd:PlanWorkChildRegisterInput!){
       addPlanWorkChild(input:$planWorkDataAdd){
         id        
@@ -29,7 +29,7 @@ export class ProtectedService {
   }
 
   updatePlwd(planWorkDataupdate: planWork): Observable<MutationResult> {
-    console.log(planWorkDataupdate,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>planWorkDataupdate");
+    // console.log(planWorkDataupdate,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>planWorkDataupdate");
     const UPDATE_PLWD = gql`mutation update($planWorkDataupdate:PlanWorkChildUpdate!){
       updatePlanWorkChild(input:$planWorkDataupdate){
         id
@@ -45,7 +45,7 @@ export class ProtectedService {
   }
 
   deletePlwd(planWorkDataDelete: deletePlanWork): Observable<MutationResult> {
-    console.log(planWorkDataDelete);
+    // console.log(planWorkDataDelete);
     const DELETE_PLWD = gql`mutation inactivePw($planWorkDataDelete:PlanWorkDeleteInput!){
       inactivatePlanWork(input:$planWorkDataDelete){
         id
@@ -63,7 +63,7 @@ export class ProtectedService {
   // methods for kpis register
 
   saveKpi(kpiDataAdd: kpiAdd): Observable<MutationResult> {
-    console.log(kpiDataAdd);
+    // console.log(kpiDataAdd);
     const SAVE_KPI = gql`mutation addKpis($kpiDataAdd:KpisRegisterInput!){  
       addKpis(input:$kpiDataAdd){
         id   

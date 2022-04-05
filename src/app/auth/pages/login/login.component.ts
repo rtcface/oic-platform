@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
       next: (data) => {  
 
         this.role = data.data?.login?.user?.role!;
-        console.log("role desde next",this.role);
+        //console.log("role desde next",this.role);
        
       },
       error: (err) => {
@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit {
    
     
    } catch (error) {
-     console.log("Este es el error:===>",error);
+    //  console.log("Este es el error:===>",error);
    }
   
    

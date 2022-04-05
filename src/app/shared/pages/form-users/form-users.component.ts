@@ -42,7 +42,7 @@ export class FormUsersComponent implements OnInit {
     private readonly ms: MessageService
     ) { 
 
-      console.log("desde el hijo", this.userEdit);
+      // console.log("desde el hijo", this.userEdit);
     }
     
    
@@ -57,7 +57,7 @@ export class FormUsersComponent implements OnInit {
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();     
     } else {
-      console.log("en el submi>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", this.userForm.value);
+      // console.log("en el submi>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", this.userForm.value);
       this.onSave.emit(this.userForm.value);
       if(this.isSaved){
       this.userForm.reset();

@@ -102,7 +102,7 @@ export class AuthService {
    
     return res;
   } catch (error) {
-      console.log('catch in try',error);
+      // console.log('catch in try',error);
       return res;
     }
   }
@@ -146,7 +146,7 @@ export class AuthService {
           if(auth.data)
           {            
           this._user_token = auth.data!; 
-          console.log('verify_authentication',this._user_token.verify_authentication.user.role);
+         // console.log('verify_authentication',this._user_token.verify_authentication.user.role);
           this.saveRole(this._user_token.verify_authentication.user.role);
           if(this.role)
             {
@@ -166,7 +166,7 @@ export class AuthService {
       );     
       
     } catch (error) {
-      console.log('catch in try',error);
+      // console.log('catch in try',error);
       return of(false);
     }   
    

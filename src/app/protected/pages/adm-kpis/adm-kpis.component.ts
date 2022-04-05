@@ -49,7 +49,7 @@ export class AdmKpisComponent implements OnInit {
   }
 
   saveKpi() {
-    console.log("en el save", this.saveForm.value);
+    // console.log("en el save", this.saveForm.value);
     if(this.saveForm.valid) {
       this.saveKpiData.ente_publico = this.id_ente;
       const { description, kpi, total } = this.saveForm.value;
@@ -59,12 +59,12 @@ export class AdmKpisComponent implements OnInit {
 
       this.pt.saveKpi(this.saveKpiData).subscribe({
         next: (data) => {
-          console.log("data", data.data!);
+          // console.log("data", data.data!);
          // this.data = data;
           this.saveForm.reset();
         },
         error: (err) => {
-          console.log("error", err);
+          // console.log("error", err);
         },
         complete: () => {
           this.loadKpis();
@@ -88,9 +88,9 @@ export class AdmKpisComponent implements OnInit {
 
     this.pt.getKpis(ente).subscribe({
       next: (results) => {
-        console.log("results", results);
+        // console.log("results", results);
         const { data } = results;
-        console.log("data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data?.chart.length);
+        // console.log("data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data?.chart.length);
         const labels:string[] = [];
         const res:number[] = [];
         data?.chart.forEach(element => {
@@ -120,10 +120,10 @@ export class AdmKpisComponent implements OnInit {
 
       },  
       error: (err) => {
-        console.log("error", err);
+        // console.log("error", err);
       },
       complete: () => {
-        console.log("complete");
+        // console.log("complete");
       }
     });
   }

@@ -54,10 +54,10 @@ export class AdmUsersComponent implements OnInit {
 
    save( colaborador: Colaborador) {
     colaborador.parentId = this.idAuth;
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el save ",colaborador);
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el save ",colaborador);
     this.ss.save_Colaborador(colaborador).subscribe({
       next: (result) => {
-        console.log(result);
+        // console.log(result);
         if(result.data!.registerColaborador.haveError){
           this.showErrorDinamic(result.data!.registerColaborador.Err);
         }else
@@ -68,7 +68,7 @@ export class AdmUsersComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
       },
       complete: () => {       
        
@@ -81,10 +81,10 @@ export class AdmUsersComponent implements OnInit {
   }
 
   delete( user: delete_user) {
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el delete ",user);
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el delete ",user);
     this.ss.delete_user(user).subscribe({
       next: (result) => {
-        console.log(result);
+        // console.log(result);
         if(result.data!.id === ""){
           this.showErrorDinamic("No se pudo eliminar el usuario");
         }else
@@ -93,7 +93,7 @@ export class AdmUsersComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
       },
       complete: () => {       
        
@@ -105,11 +105,11 @@ export class AdmUsersComponent implements OnInit {
 
   update( user:user_edit ) {
 
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update pather ",user);
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update pather ",user);
 
     this.ss.update_Colaborador(user).subscribe({
       next: (result) => {
-        console.log(result);
+        // console.log(result);
         if(result.data!.updateColaborador.haveError){
           this.showErrorDinamic(result.data!.updateColaborador.Err);
         }else
@@ -118,7 +118,7 @@ export class AdmUsersComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
       },
       complete: () => {       
        
@@ -141,19 +141,19 @@ export class AdmUsersComponent implements OnInit {
         boss: this.idAuth
       }
     }
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el reload ",params);
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el reload ",params);
     this.loadTree(params);   
   }
 
 
   loadTree(params: filterBoss | filterEnte) {    
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el load ",params);
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el load ",params);
     this.auServ.get_tree_colaboradores(params).subscribe({
       next: (result) => {
         const tree: any = result.data!;        
         if(tree.getColaboresTreeData.data !== null){
           this.data = [tree.getColaboresTreeData];
-          console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el load ",this.data);
+          // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el load ",this.data);
         }
         else{
           this.showError();
@@ -161,7 +161,7 @@ export class AdmUsersComponent implements OnInit {
         }  
       },
       error: (err) => {
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
         //this.showErrorDinamic(err);
       }
     });  
@@ -186,9 +186,9 @@ export class AdmUsersComponent implements OnInit {
   //create method to reload component tree before from saved
 
   updateUserData( user:user_edit ) {
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update ",user);
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update ",user);
     this.userEdit = user;  
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el this update ",this.userEdit);
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el this update ",this.userEdit);
     this.showDialog();
   }
   
