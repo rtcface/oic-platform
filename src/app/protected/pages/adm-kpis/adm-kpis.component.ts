@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { kpiAdd, kpiByEnteQueryInput, chart } from '../../models/kpis.interface';
+import { kpiAdd, chart, kpiByEnteQueryInput } from '../../models/kpis.interface';
 import { ProtectedService } from '../../services/protected.service';
 
 @Component({
@@ -15,7 +15,9 @@ export class AdmKpisComponent implements OnInit {
 
   id_ente:string = this.auth.idEnteAuth;
   saveKpiData:kpiAdd = {} as kpiAdd;
+  resultGraph:chart[] = [];
   data: any;
+  
 
   saveForm = this.fb.group({
     kpi: ['',[Validators.required]],
@@ -57,8 +59,8 @@ export class AdmKpisComponent implements OnInit {
 
       this.pt.saveKpi(this.saveKpiData).subscribe({
         next: (data) => {
-          console.log("data", data);
-          this.data = data;
+          console.log("data", data.data!);
+         // this.data = data;
           this.saveForm.reset();
         },
         error: (err) => {
@@ -66,7 +68,7 @@ export class AdmKpisComponent implements OnInit {
         },
         complete: () => {
           this.loadKpis();
-          this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha guardado el kpi...' });   //<-- Mensaje de error
+          this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha guardado el dato correctamente...' });   //<-- Mensaje de error
           this.ngOnInit();
         }
 
@@ -86,9 +88,36 @@ export class AdmKpisComponent implements OnInit {
 
     this.pt.getKpis(ente).subscribe({
       next: (results) => {
-        console.log("data", results);
-        
-        this.data = results;
+        console.log("results", results);
+        const { data } = results;
+        console.log("data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data?.chart.length);
+        const labels:string[] = [];
+        const res:number[] = [];
+        data?.chart.forEach(element => {
+          labels.push(element.kpi);
+          res.push(element.total_casos);
+        }
+        );
+        this.data = {
+          labels: labels,
+          datasets: [
+              {
+                  data: res,
+                  backgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ],
+                  hoverBackgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ]
+              }]    
+          };
+        // this.resultGraph.length
+        // console.log("resultGraph>>>>>>>>", );
+
       },  
       error: (err) => {
         console.log("error", err);

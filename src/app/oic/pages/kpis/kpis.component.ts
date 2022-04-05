@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterService } from 'primeng/api';
-import { OicInterface } from '../../models/oic.interface';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { kpiByEnteQueryInput } from 'src/app/protected/models/kpis.interface';
+import { ProtectedService } from 'src/app/protected/services/protected.service';
+import { OicEnte, OicInterface } from '../../models/oic.interface';
+import { filterWpd } from '../../models/tree.interface';
 import { GetOicService } from '../../services/get-oic.service';
 
 @Component({
@@ -16,8 +20,10 @@ export class KpisComponent implements OnInit {
   data: any;
   
   constructor(
-    private filterService: FilterService,
-    private oic: GetOicService
+  
+    private readonly filterService: FilterService,
+    private readonly oic: GetOicService,
+    private readonly pt: ProtectedService
   ) { }
 
   ngOnInit(): void {
@@ -27,7 +33,7 @@ export class KpisComponent implements OnInit {
       this.oics = resp.data;
     });
 
-    this.genChart();
+    
   }
 
   filterOic(event: any) {
@@ -42,6 +48,37 @@ export class KpisComponent implements OnInit {
     }
 
     this.filteredOic = filtered;
+  }
+
+  loadChart($event: OicEnte) {
+
+    console.log("en el load?>>>>>>>>>>>>>>>>>>>>>>>>>", $event);
+    const fiter: kpiByEnteQueryInput = {
+      ente_publico: $event.ente.id
+    }
+    const ente:kpiByEnteQueryInput=
+    {
+      ente_publico: $event.ente.id
+    }
+    this.loadkpi(ente);
+
+  }
+
+
+  loadCharFinderSelectedOic($event: OicInterface) {
+    
+    const fiter: kpiByEnteQueryInput = {
+      ente_publico: $event.id
+    }
+
+    console.log("en el load?>>>>>>>>>>>>>>>>>>>>>>>>>", $event);
+
+    const ente:kpiByEnteQueryInput=
+    {
+      ente_publico: $event.id
+    }
+    
+    this.loadkpi(ente);    
   }
 
   genChart()
@@ -68,5 +105,54 @@ export class KpisComponent implements OnInit {
           }]    
       };
   }
+
+
+  loadkpi(filter:kpiByEnteQueryInput ) {
+   console.log("en el load?>>>>>>>>>>>>>>>>>>>>>>>>>", filter);
+    this.pt.getKpis(filter).subscribe({
+      next: (results) => {
+        console.log("results", results);
+        const { data } = results;
+        console.log("data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data?.chart.length);
+        const labels:string[] = [];
+        const res:number[] = [];
+        data?.chart.forEach(element => {
+          labels.push(element.kpi);
+          res.push(element.total_casos);
+        }
+        );
+        this.data = {
+          labels: labels,
+          datasets: [
+              {
+                  data: res,
+                  backgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ],
+                  hoverBackgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ]
+              }]    
+          };
+        // this.resultGraph.length
+        // console.log("resultGraph>>>>>>>>", );
+
+      },  
+      error: (err) => {
+        console.log("error", err);
+      },
+      complete: () => {
+        console.log("complete");
+      }
+    });
+  }
+
+
+
+
 
 }

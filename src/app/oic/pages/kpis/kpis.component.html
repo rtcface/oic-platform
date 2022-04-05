@@ -1,8 +1,8 @@
 
 <div class="kpis">
 
-  <div class="message-fider">
-    <app-finder-oic></app-finder-oic>
+  <div class="message-fider">  
+    <app-finder-oic (onEnter)="loadChart( $event )" (onSelectedOicChange)="loadCharFinderSelectedOic( $event )"></app-finder-oic>
     <p-messages></p-messages>
   </div>
 

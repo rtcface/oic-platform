@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { deletePlanWork, planWork, planWorkDataAdd } from '../models/plan-work.interface';
-import { chart, kpiAdd, kpiByEnteQueryInput } from '../models/kpis.interface';
+import { kpiAdd, kpiByEnteQueryInput, resp } from '../models/kpis.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -79,14 +79,14 @@ export class ProtectedService {
   }
 
   // method kpis  for chart
-  getKpis(ente_publico:kpiByEnteQueryInput): Observable<MutationResult<chart[]>> {
+  getKpis(ente_publico:kpiByEnteQueryInput): Observable<MutationResult<resp>> {
     const GET_KPIS = gql`query getKpiByEnte($ente_publico:KpisByEnteQueryInput!){
       chart:getKpisByEnte(input:$ente_publico){
         kpi
         total_casos
       }
     }`;
-    return this.apollo.query<chart[]>({
+    return this.apollo.query<resp>({
       query: GET_KPIS,
       variables: {
         ente_publico
