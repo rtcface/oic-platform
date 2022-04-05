@@ -6,7 +6,7 @@
         <p-panel header="Alta de estadisticas">
         <form class="search-form" [formGroup]="saveForm" autocomplete="off">       
             <p-toast position="top-center"></p-toast>
-            <div class="field col-12 md:col-4 form-item">
+            <!-- <div class="field col-12 md:col-4 form-item">
               <div class="p-inputgroup">
               <span class="p-inputgroup-addon">
                   <i class="pi pi-chart-bar"></i>
@@ -29,6 +29,13 @@
               </span>
               </div>
               <p-message *ngIf="validateField('description')" severity="error" [text]="getErrorMessage('description')"></p-message>       
+            </div> -->
+            <!-- Radio buttom control -->
+            <div class="field col-12 md:col-4 form-item ">
+              <label for="selectTypeCase">Seleccione tipo de caso</label>
+              <p-listbox [options]="optionKpi"  optionLabel="name" id="selectTypeCase" formControlName="typeCase" ></p-listbox>
+
+              <p-message *ngIf="validateField('typeCase')" severity="error" [text]="getErrorMessage('total')"></p-message>    
             </div>
             <div class="field col-12 md:col-4 form-item">
               <div class="p-inputgroup">

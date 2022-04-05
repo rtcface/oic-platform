@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { kpiAdd, chart, kpiByEnteQueryInput } from '../../models/kpis.interface';
+import { kpiAdd, chart, kpiByEnteQueryInput, kpiSelector } from '../../models/kpis.interface';
 import { ProtectedService } from '../../services/protected.service';
 
 @Component({
@@ -17,11 +17,12 @@ export class AdmKpisComponent implements OnInit {
   saveKpiData:kpiAdd = {} as kpiAdd;
   resultGraph:chart[] = [];
   data: any;
+  optionKpi:any[] = [];
+  selectedKpi: any;
   
 
   saveForm = this.fb.group({
-    kpi: ['',[Validators.required]],
-    description: ['',[Validators.required]],
+    typeCase: ['', Validators.required],   
     total: ['',[Validators.required]],
   });
 
@@ -49,12 +50,13 @@ export class AdmKpisComponent implements OnInit {
   }
 
   saveKpi() {
-    // console.log("en el save", this.saveForm.value);
+    console.log("en el save", this.saveForm.value);
     if(this.saveForm.valid) {
       this.saveKpiData.ente_publico = this.id_ente;
-      const { description, kpi, total } = this.saveForm.value;
-      this.saveKpiData.description = description;
-      this.saveKpiData.kpi = kpi;
+      const { total, typeCase } = this.saveForm.value;
+      const tkpi:kpiSelector = typeCase;
+      this.saveKpiData.description = tkpi.name;
+      this.saveKpiData.kpi = tkpi.name;
       this.saveKpiData.total_casos = total;
 
       this.pt.saveKpi(this.saveKpiData).subscribe({
@@ -126,7 +128,16 @@ export class AdmKpisComponent implements OnInit {
         // console.log("complete");
       }
     });
+
+    
+
+    this.optionKpi = [
+      {icon: 'pi pi-chart-bar', name: 'Procedimientos iniciados', value: 1, },
+      {icon: 'pi pi-chart-line', name: 'Procedimientos concluidos', value: 2},
+      {icon: 'pi pi-chart-pie', name: 'Procedimientos canalizados', value: 3},     
+  ];
   }
-
-
+  cambiaData(event: any) {
+    console.log("event", event);
+  }
 }

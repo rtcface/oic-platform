@@ -20,3 +20,9 @@ export interface chart{
 export interface resp{
     chart: [chart];
 }
+
+export interface kpiSelector{
+    name: string;
+    value: string;
+    icon: string;
+}
