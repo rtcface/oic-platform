@@ -9,8 +9,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    @media (max-width: 768px) {
-      height: 50rem;
+    @media (max-width: 768px) {      
+      height: 65rem;
     } 
     
   }
@@ -25,11 +25,18 @@
     {    
         color: var(--text-color-secondary);
     }
+    @media (max-width: 768px) {
+        margin-top: 2rem;
+    }    
   }
 
   .logotipo{   
     margin-left: auto;
     margin-right: auto;
+    @media (max-width: 768px) {
+        margin-top: 2rem;
+    }     
+    
   }
 
   .barra{
@@ -44,6 +51,7 @@
       font-size: 3rem;
       justify-content: center;
       align-items: center;
+      margin-top: 1rem;  
     
   }
   }
