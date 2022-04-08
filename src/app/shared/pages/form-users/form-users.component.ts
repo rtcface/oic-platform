@@ -17,11 +17,17 @@ import { Colaborador, delete_user, user_edit } from '../../models/colaborador.in
 })
 export class FormUsersComponent implements OnInit {
 
- @Input() isSaved:boolean = false;
+ 
  @Input() isSave:boolean = true;
+ 
  @Input() userEdit:user_edit = {} as user_edit;
+ 
+ @Input() isSaved:boolean = false;
+ 
  @Output() onDelete:EventEmitter<any> = new EventEmitter();
+ 
  @Output() onSave:EventEmitter<Colaborador> = new EventEmitter();
+ 
  @Output() onUpdate:EventEmitter<user_edit> = new EventEmitter();
  
 
@@ -53,6 +59,8 @@ export class FormUsersComponent implements OnInit {
 
 
   validateSubmit() {
+
+    console.log(">>>>>>>>>>>>>>>> validateSubmit:>> isSaved:"+this.isSaved, "value form", this.userForm.value);
 
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();     

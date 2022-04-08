@@ -5,9 +5,10 @@ import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
 import { ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { HttpLink } from 'apollo-angular/http';
 import { setContext } from '@apollo/client/link/context';
+import { environment } from 'src/environments/environment';
 
 //const uri = 'http://localhost:3000/graphql'; // <-- add the URL of the GraphQL server here
-const uri = 'https://app-oic.herokuapp.com/graphql'; // <-- add the URL of the GraphQL server here
+const uri = environment.apiUrl // <-- add the URL of the GraphQL server here
 
 // function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
 //   return {

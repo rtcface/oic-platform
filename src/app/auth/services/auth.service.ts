@@ -90,7 +90,9 @@ export class AuthService {
           "email": email,
           "password": password
         }
-      }     
+      },
+      errorPolicy: 'all',
+      fetchPolicy: 'no-cache'     
     }).pipe(       
       tap( auth => { this._user_token = auth.data!; }),
       tap( auth => {       
@@ -140,7 +142,8 @@ export class AuthService {
         variables: {
           "token": localStorage.getItem('token')
         },
-        errorPolicy: 'all'
+        errorPolicy: 'all',
+        fetchPolicy: 'no-cache'
       }).pipe(
         map( auth => {
           if(auth.data)
@@ -213,7 +216,8 @@ export class AuthService {
       const res = this.apollo.query<TreeColaboradores>({ 
         query: GET_TREE_COLABORADORES,
         variables: boss,
-        errorPolicy: 'all'
+        errorPolicy: 'all',
+        fetchPolicy: 'no-cache'
       });
 
      
