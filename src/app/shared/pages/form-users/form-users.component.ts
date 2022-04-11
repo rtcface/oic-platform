@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { ConfirmationService } from 'primeng/api';
@@ -12,7 +12,8 @@ import { Colaborador, delete_user, user_edit } from '../../models/colaborador.in
   selector: 'app-form-users',
   templateUrl: './form-users.component.html',
   styleUrls: ['./form-users.component.scss'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   
 })
 export class FormUsersComponent implements OnChanges {
@@ -50,7 +51,7 @@ export class FormUsersComponent implements OnChanges {
       
     }
   ngOnChanges(changes: SimpleChanges): void {    
-    console.log("en el ngOnChanges", this.userEdit);
+    //console.log("en el ngOnChanges", this.userEdit);
     this.loaduserEdit(this.userEdit);
     if(this.isSaved){
       this.userForm.reset();
@@ -61,7 +62,7 @@ export class FormUsersComponent implements OnChanges {
 
   validateSubmit() {
 
-    console.log(">>>>>>>>>>>>>>>> validateSubmit:>> isSaved:"+this.isSaved, "value form", this.userForm.value);
+    //console.log(">>>>>>>>>>>>>>>> validateSubmit:>> isSaved:"+this.isSaved, "value form", this.userForm.value);
 
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();     
@@ -76,21 +77,14 @@ export class FormUsersComponent implements OnChanges {
   }
 
   updateUser() {
-    // console.log("en el update>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", this.userForm.value);
-    // console.log("en el update>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", this.userEdit);
-
-   
-
+    
     if(this.userForm.invalid){     
-      this.userForm.markAllAsTouched();
-
-     
+      this.userForm.markAllAsTouched();     
     } else {
       const user:user_edit = this.userForm.value;
       user.id = this.userEdit.id;
       this.onUpdate.emit(user);
-    }
-     
+    }     
   }
   
   confirm(event: Event) {
@@ -162,6 +156,11 @@ export class FormUsersComponent implements OnChanges {
     this.ms.add({ severity: 'error', summary: 'Cancelo', detail: `Sera en otra ocasión ${this.userEdit.name}...`});   //<-- Mensaje de error
   }
 
+  counterRender(): boolean{
+
+    console.log("Render de FormUsersComponent");
+    return true;
+  }
   
 
 }

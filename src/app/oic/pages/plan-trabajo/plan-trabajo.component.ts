@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { MessageService, TreeNode } from 'primeng/api';
 
@@ -10,7 +10,8 @@ import { OicEnte, OicInterface } from '../../models/oic.interface';
   selector: 'app-plan-trabajo',
   templateUrl: './plan-trabajo.component.html',
   styleUrls: ['./plan-trabajo.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlanTrabajoComponent implements OnInit {
 

@@ -50,7 +50,7 @@ export class AdmKpisComponent implements OnInit {
   }
 
   saveKpi() {
-    console.log("en el save", this.saveForm.value);
+   // console.log("en el save", this.saveForm.value);
     if(this.saveForm.valid) {
       this.saveKpiData.ente_publico = this.id_ente;
       const { total, typeCase } = this.saveForm.value;
@@ -138,6 +138,6 @@ export class AdmKpisComponent implements OnInit {
   ];
   }
   cambiaData(event: any) {
-    console.log("event", event);
+    //console.log("event", event);
   }
 }
