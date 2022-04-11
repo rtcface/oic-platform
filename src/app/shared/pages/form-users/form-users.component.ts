@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { ConfirmationService } from 'primeng/api';
@@ -15,7 +15,7 @@ import { Colaborador, delete_user, user_edit } from '../../models/colaborador.in
   providers: [ConfirmationService, MessageService]
   
 })
-export class FormUsersComponent implements OnInit {
+export class FormUsersComponent implements OnChanges {
 
  
  @Input() isSave:boolean = true;
@@ -29,10 +29,8 @@ export class FormUsersComponent implements OnInit {
  @Output() onSave:EventEmitter<Colaborador> = new EventEmitter();
  
  @Output() onUpdate:EventEmitter<user_edit> = new EventEmitter();
- 
 
-
-  
+ @Output() onLoadDataUpdate:EventEmitter<user_edit> = new EventEmitter();
 
   userForm = this.fb.group({
     name: ['',[Validators.required, Validators.pattern(this.vs.nameAndLastNamePattern)]],
@@ -49,12 +47,15 @@ export class FormUsersComponent implements OnInit {
     ) { 
 
       // console.log("desde el hijo", this.userEdit);
+      
     }
-    
-   
-
-  ngOnInit(): void {
-    
+  ngOnChanges(changes: SimpleChanges): void {    
+    console.log("en el ngOnChanges", this.userEdit);
+    this.loaduserEdit(this.userEdit);
+    if(this.isSaved){
+      this.userForm.reset();
+    }
+        
   }
 
 
@@ -74,10 +75,13 @@ export class FormUsersComponent implements OnInit {
     
   }
 
-  updateUser() {  
+  updateUser() {
+    // console.log("en el update>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", this.userForm.value);
+    // console.log("en el update>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", this.userEdit);
+
    
-    if(this.userForm.invalid){
-      
+
+    if(this.userForm.invalid){     
       this.userForm.markAllAsTouched();
 
      
@@ -106,6 +110,18 @@ export class FormUsersComponent implements OnInit {
         }
     });
 }
+
+  loaduserEdit(user:user_edit){
+    this.userForm.reset(
+      {
+        name: this.userEdit.name,
+        email: this.userEdit.email,
+        charge: this.userEdit.charge,
+        phone: this.userEdit.phone
+
+      }
+    );
+  }
 
 
   validateField(field: string) {

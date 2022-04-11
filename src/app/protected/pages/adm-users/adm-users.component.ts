@@ -56,17 +56,19 @@ export class AdmUsersComponent implements OnInit {
         // console.log(result);
         if (result.data!.registerColaborador.haveError) {
           this.showMessageDinamic( "error", 'Error',result.data!.registerColaborador.Err);
+          this.isSaved = false;
         } else {
           this.isSaved = true;
-          this.showMessageDinamic( 'success', 'Información', 'Usuario registrado correctamente...');          
+          this.showMessageDinamic( 'success', 'Éxito', 'Usuario registrado correctamente...');          
         }
       },
       error: (err) => {
         // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+        this.isSaved = false;
       },
       complete: () => {
         this.loadTreeFromBoss();
-        this.isSaved = true;
+       
                
       },
     });
@@ -168,9 +170,11 @@ export class AdmUsersComponent implements OnInit {
   }
 
   updateUserData(user: user_edit) {
+    
     // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update ",user);
     this.userEdit = user;
     // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el this update ",this.userEdit);
     this.showDialog();
+    
   }
 }
