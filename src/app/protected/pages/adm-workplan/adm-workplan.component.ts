@@ -4,7 +4,6 @@ import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ChildChild, filterWpd, root, RootChild, tree } from 'src/app/oic/models/tree.interface';
 import { GetOicService } from 'src/app/oic/services/get-oic.service';
-import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { planWork, planWorkDataAdd, deletePlanWork } from '../../models/plan-work.interface';
 import { ProtectedService } from '../../services/protected.service';
 
@@ -51,8 +50,7 @@ export class AdmWorkplanComponent implements OnInit {
     private readonly ms: MessageService,
     private readonly auth: AuthService,
     private readonly fb : FormBuilder,
-    private readonly pt: ProtectedService,
-    private readonly vs : ValidatorsService,
+    private readonly pt: ProtectedService,  
     private readonly cs: ConfirmationService
 
   ) { }
@@ -126,7 +124,7 @@ export class AdmWorkplanComponent implements OnInit {
       .subscribe({
         next: (result) => {
           const res: any = result.data!;
-          // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res.data.label);
+           console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res.data);
           if (res.data.label !== null) {
           <tree[]> [res!.data!];
           //map to TreeNode
@@ -227,19 +225,18 @@ export class AdmWorkplanComponent implements OnInit {
     this.pt.savePlwd(plan).subscribe({
       next: (result) => {
         const res: any = result.data!;
+        this.loadWorkPlan();
+        this.display = false;
+        this.saveForm.reset();
+        this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha guardado el plan de trabajo...' });   //<-- Mensaje de error
+        
         // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
       },
       error: (error) => {
         // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
       },
       complete: () => {
-        this.loadWorkPlan();
-        this.display = false;
-        this.saveForm.reset();
-        this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha guardado el plan de trabajo...' });   //<-- Mensaje de error
-        this.ngOnInit();
-
-        this.reloadCurrentPage();
+      
       }
     });
     // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
@@ -274,7 +271,7 @@ updateFile(){
       this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha actualizado el plan de trabajo...' });   //<-- Mensaje de error
       this.ngOnInit();
 
-      this.reloadCurrentPage();
+      //this.reloadCurrentPage();
     }
   });
   // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
@@ -299,7 +296,7 @@ updateFile(){
         this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha eliminado el plan de trabajo...' });   //<-- Mensaje de error
         this.ngOnInit();
 
-        this.reloadCurrentPage();
+       // this.reloadCurrentPage();
 
       }
     });
@@ -347,8 +344,8 @@ noDelete() {
   this.ms.add({ severity: 'error', summary: 'Cancelo', detail: `Sera en otra ocasión ${this.update_wpd.label}...`});   //<-- Mensaje de error
 }
 
-reloadCurrentPage() {
-  window.location.reload();
- }
+// reloadCurrentPage() {
+//   window.location.reload();
+//  }
 
 }

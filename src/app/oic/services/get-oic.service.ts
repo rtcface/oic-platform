@@ -71,7 +71,8 @@ export class GetOicService {
     return this.apollo.query<tree>({
       query: GET_WORK_PLAN,
       variables: ente,     
-      errorPolicy: 'all'
+      errorPolicy: 'all',
+      fetchPolicy: 'no-cache'
     });
   }
   

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Colaborador, DataColaborador, user_edit, delete_user } from '../models/colaborador.interface';
 
 import { items, menu } from '../models/menu_interface';
@@ -10,6 +10,16 @@ import { RegisterColaborador, UpdateColaborador } from '../models/register-colab
   providedIn: 'root'
 })
 export class SharedService {
+
+  isLoading$ = new Subject<boolean>();
+
+  showLoading(): void {
+    this.isLoading$.next(true);
+  }
+
+  hideLoading(): void {
+    this.isLoading$.next(false);
+  }
 
   private items:items[] = [];
 
@@ -121,6 +131,8 @@ export class SharedService {
      fetchPolicy: 'no-cache'
    });
   }
+
+
 
   
 }

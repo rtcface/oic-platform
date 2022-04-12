@@ -125,8 +125,7 @@ export class FinderOicComponent implements OnInit, OnDestroy {
     this.finderForm.reset();
   }
 
-  counterRender(): boolean {
-    
+  counterRender(): boolean {    
     console.log('Render de finder');
     return true;
   }

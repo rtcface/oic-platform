@@ -13,6 +13,7 @@ import { FinderOicComponent } from './pages/finder-oic/finder-oic.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormUsersComponent } from './pages/form-users/form-users.component';
 import { ViewUsersComponent } from './pages/view-users/view-users.component';
+import { SppinerComponent } from './pages/sppiner/sppiner.component';
 
 
 
@@ -29,6 +30,7 @@ import { ViewUsersComponent } from './pages/view-users/view-users.component';
     FinderOicComponent,
     FormUsersComponent,
     ViewUsersComponent,
+    SppinerComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +48,7 @@ import { ViewUsersComponent } from './pages/view-users/view-users.component';
     FinderOicComponent,
     FormUsersComponent,
     ViewUsersComponent,
+    SppinerComponent,
   ]
 })
 export class SharedModule { }
