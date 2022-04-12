@@ -11,7 +11,7 @@ import { OicEnte, OicInterface } from '../../models/oic.interface';
   templateUrl: './plan-trabajo.component.html',
   styleUrls: ['./plan-trabajo.component.scss'],
   providers: [MessageService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PlanTrabajoComponent implements OnInit {
 
