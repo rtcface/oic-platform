@@ -36,33 +36,33 @@ export class NavMenuDefaultComponent implements OnInit {
       {
         label: 'Inicio',
         icon: 'pi pi-fw pi-home',
-        routerLink: '/oic/home',
+        routerLink: '/oic/oic',
       },
       {
         label: 'Datos del OIC',
         icon: 'pi pi-fw pi-search',
-        routerLink: '/oic/datos-generales',
+        routerLink: '/oic/oic/datos-generales',
+        
       },
       {
         label: 'Plan de Trabajo',
         icon: 'pi pi-fw pi-list',
-        routerLink: '/oic/plan-trabajo',
+        routerLink: '/oic/oic/plan-trabajo',
       },
       {
         label: 'Estadisticas de Procesos',
         icon: 'pi pi-fw pi-chart-bar',
-        routerLink: '/oic/kpis',
+        routerLink: '/oic/oic/kpis',
       },
       {
         label: 'Iniciar Sesión',
         icon: 'pi pi-fw pi-power-off',
-        routerLink: '/auth/',
+        routerLink: '/auth/login',
+        queryParams: {['page']: 'oic'},
+
       },
     ];
   }
 
-  counterRender(): boolean {
-    console.log('Render de nav-menu-default');
-    return true;
-  }
+ 
 }

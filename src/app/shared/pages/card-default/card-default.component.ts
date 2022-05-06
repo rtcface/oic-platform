@@ -14,7 +14,7 @@ export class CardDefaultComponent  {
   login(){
     localStorage.removeItem('token');
     this.authService.logout();
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/auth/login']);
 
 }
 

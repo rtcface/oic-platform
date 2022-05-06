@@ -9,13 +9,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { LoginMainComponent } from './pages/login-main/login-main.component';
 import { SharedModule } from '../shared/shared.module';
+import { MainCardsComponent } from './pages/main-cards/main-cards.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    LoginMainComponent
+    LoginMainComponent,
+    MainCardsComponent
   ],
   imports: [
     CommonModule,

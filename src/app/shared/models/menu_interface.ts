@@ -7,3 +7,8 @@ export interface items {
 export interface menu {
     items: items[];
 }
+
+export interface params_menu {
+    role: string;
+    porta: string;
+}

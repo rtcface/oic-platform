@@ -3,12 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginMainComponent } from './pages/login-main/login-main.component';
+import { MainCardsComponent } from './pages/main-cards/main-cards.component';
 
 const routes: Routes = [
   {
     path: '',
     component:LoginMainComponent,
     children: [
+      {
+        path: '',
+        component: MainCardsComponent
+      },
       {
         path: 'login',
         component: LoginComponent
@@ -19,7 +24,7 @@ const routes: Routes = [
       },
       {
         path:'**',
-        redirectTo:'login'
+        redirectTo:''
       }
     ]
   },

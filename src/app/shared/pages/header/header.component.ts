@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,13 +6,16 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+
+
 export class HeaderComponent {
 
+  @Input() title_page: string = "";
  
-  counterRender(): boolean{
 
-    console.log("Render de header");
-    return true;
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("en el ngOnChanges", this.title_page);
   }
 
 }

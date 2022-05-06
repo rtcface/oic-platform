@@ -16,7 +16,7 @@ const routes: Routes = [
     component: HomeComponent,
     children:[
       {
-        path: 'home',
+        path: '',
         component: OicHomeComponent
       },
       {
