@@ -21,7 +21,7 @@ export class AuthService {
   private _menu:items[] = [];
   private _defaultMenu:items[] = [];
 
-  public role:string = '';
+  public role:string = 'user';
 
   get isLoggedIn(): data |undefined  {
     return { ...this._user_token! };
@@ -33,6 +33,10 @@ export class AuthService {
 
   get idEnteAuth():string{
     return this._user_token?.verify_authentication.user.ente_publico!;
+  }
+
+  get da_role():string{
+    return this.role;
   }
 
   get dmenu():items[]{

@@ -3,7 +3,7 @@ import { Apollo, gql, MutationResult } from 'apollo-angular';
 import { Observable, Subject } from 'rxjs';
 import { Colaborador, DataColaborador, user_edit, delete_user } from '../models/colaborador.interface';
 
-import { items, menu } from '../models/menu_interface';
+import { items, menu, params_menu } from '../models/menu_interface';
 import { RegisterColaborador, UpdateColaborador } from '../models/register-colaborador.iterface';
 
 @Injectable({
@@ -131,6 +131,39 @@ export class SharedService {
      fetchPolicy: 'no-cache'
    });
   }
+
+   get_menu_portal(params:params_menu):items[]{
+     console.log("params", params);
+     const GET_MENU_PORTAL = gql`query da_menu_portal($params:MenuQueryInput!){
+      items:getMenuByType(input:$params){
+        label
+        icon
+        routerLink
+      }  
+    }`;
+      this.apollo.query<menu>({
+        query: GET_MENU_PORTAL,
+        variables: {
+          params
+        },
+        fetchPolicy: 'no-cache'
+      }).pipe().subscribe(({data})=>{
+        console.log(data.items);
+        if(this.items.length === 0){
+          data.items.forEach(element => {
+            this.items.push({
+              label: element.label,
+              icon: element.icon,
+              routerLink: element.routerLink
+            });
+          });
+        }
+
+      });
+      return this.items;
+    }
+
+
 
 
 

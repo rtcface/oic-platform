@@ -10,6 +10,7 @@ import { AuthService } from '../../../auth/services/auth.service';
   styleUrls: ['./card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class CardComponent  {
 
   constructor( private authService:AuthService, private router:Router ) { }
