@@ -59,7 +59,9 @@ export class SharedService {
           this.items.push({
             label: element.label,
             icon: element.icon,
-            routerLink: element.routerLink
+            routerLink: element.routerLink,
+            queryParams: {},
+
           });        
         });
       }     
@@ -151,11 +153,21 @@ export class SharedService {
         console.log(data.items);
         if(this.items.length === 0){
           data.items.forEach(element => {
+            if(element.label == "Iniciar Sesión"){
             this.items.push({
               label: element.label,
               icon: element.icon,
-              routerLink: element.routerLink
+              routerLink: element.routerLink,
+              queryParams: {['page']: 'oic'},
             });
+            }else{
+              this.items.push({
+                label: element.label,
+                icon: element.icon,
+                routerLink: element.routerLink,
+                queryParams: {['page']: 'oic'},
+              });
+            }
           });
         }
 

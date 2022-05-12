@@ -4,14 +4,14 @@
             <ng-template pTemplate="end">
                 <p-overlayPanel [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #op [dismissable]="true" [showCloseIcon]="true">
                     <ng-template pTemplate>
-                        <app-card></app-card>
+                        <app-card [user]="user"></app-card>
                     </ng-template>
                 </p-overlayPanel>
                     <p-avatar
                     shape="circle" 
                     pBadge value="5"     
                     size="large" class="p-avatar-large" pTooltip="Perfil del usuario" tooltipPosition="left">                    
-                    <img src="{{ this.srcAvatar }}" alt="avatar" (click)="op.toggle($event)"  />                   
+                    <img src="{{ user.avatar }}" alt="avatar" (click)="op.toggle($event)"  />                   
                     </p-avatar>                     
             </ng-template>
         </p-menubar>

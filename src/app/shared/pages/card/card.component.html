@@ -1,15 +1,22 @@
 
      <div class="card-login"> 
             <p-avatar  
-            image="{{ isLoggedIn?.verify_authentication?.user?.avatar }}" 
+            image="{{ user.avatar }}" 
             [style]="{'background-color': '#9c27b0', 'color': '#ffffff',
              'width':'6rem', 'height':'6rem'}"  
              styleClass="mr-2" size="xlarge"
              shape="circle" ></p-avatar>
         <div class="card-body">
-            <h5 class="card-title">{{ isLoggedIn?.verify_authentication?.user?.name }}</h5>
-            <p class="card-text">{{ isLoggedIn?.verify_authentication?.user?.email }}</p>
-            <button pButton type="button" label="Cerrar Sesión" icon="pi pi-sign-out" (click)="logout()" class="p-button-text" ></button>
+            <h5 class="card-title">{{ user.name }}</h5>
+            <p class="card-text">{{ user.email }}</p>
+            <div *ngIf="user.isLogin; else noLogin">                
+                <button pButton type="button" label="Cerrar Sesión" icon="pi pi-sign-out" (click)="logout()" class="p-button-text" ></button>
+            </div>
+            <ng-template #noLogin>
+                <button pButton type="button" label="Iniciar Sesión" icon="pi pi-sign-in" (click)="login()" class="p-button-text" ></button>
+            </ng-template>
+            
+
         </div>
     </div>
     

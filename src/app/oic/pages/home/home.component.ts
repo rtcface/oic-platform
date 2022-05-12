@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { params_menu } from '../../../shared/models/menu_interface';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { MenuItem } from 'primeng/api';
+import { user_card } from 'src/app/shared/models/colaborador.interface';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     portal: 'oic',
     role: 'user'
   }
+
+  user: user_card = {
+    name: 'User',
+    email: 'sn@sn.sn',
+    avatar: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+    isLogin: false
+  }
+  
   
 
 

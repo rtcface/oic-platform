@@ -1,3 +1,5 @@
+import { Avatar } from "primeng/avatar";
+
 export interface Colaborador {
     name: string;
     email: string;
@@ -24,6 +26,7 @@ export interface user_edit {
     phone:  string;
 }
 
+
 export interface node{
     node:{
     name: string;
@@ -35,5 +38,12 @@ export interface node{
 
 export interface delete_user{
     id: string;
+}
+
+export interface user_card{
+    name: string;
+    email: string;   
+    avatar: string;
+    isLogin: boolean;
 }
     

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { user_card } from '../../models/colaborador.interface';
 
 
 
@@ -15,13 +16,15 @@ import { MenuItem } from 'primeng/api';
 export class NavMenuComponent implements OnChanges {
 
   @Input() items: MenuItem[] = [];
-  @Input() srcAvatar: string = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+  @Input() user!: user_card;
+  
 
   constructor() {}
   // ngOnInit(): void {    
   //   this.items = this.items;
   // }
   ngOnChanges(changes: SimpleChanges): void {
+    console.log("USER DATA CHANGES>>>>>>>>>>>>>>",this.user);
     // console.log("nav-menu changes" , this.items);
     // console.log("nav-menu changes>>>>>>>>>>>>>>" , changes);
   //  // Asignar el valor currentValue a la propiedad items
