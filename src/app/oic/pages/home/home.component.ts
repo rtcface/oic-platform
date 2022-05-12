@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   items: MenuItem[] = []
   header_title = '' ;
   footer_title = '';
+  queryParams:object={
+    ['page']: 'oic'
+  };
   route!: Subscription;
   params: params_menu = {
     portal: 'oic',
@@ -55,15 +58,21 @@ export class HomeComponent implements OnInit, OnDestroy {
         
 
         console.log("log-home>>>>>>>>>>>>>",this.items);
-        if(type=='oic'){
-          
+        if(type=='oic'){          
           this.header_title = Constantes.header_oic;
           this.footer_title = Constantes.footer_oic;
         }
         if(type=='plt'){
           this.header_title = Constantes.header_plt;
           this.footer_title = Constantes.footer_plt;
+          this.queryParams= {
+                              ['page']: 'plt'
+                            };
         }
+
+        this.items.forEach(element => {
+          element.queryParams = this.queryParams;
+        });
 
       }
       

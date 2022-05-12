@@ -158,14 +158,14 @@ export class SharedService {
               label: element.label,
               icon: element.icon,
               routerLink: element.routerLink,
-              queryParams: {['page']: 'oic'},
+              queryParams: {},
             });
             }else{
               this.items.push({
                 label: element.label,
                 icon: element.icon,
                 routerLink: element.routerLink,
-                queryParams: {['page']: 'oic'},
+                queryParams: {},
               });
             }
           });
