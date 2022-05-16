@@ -51,16 +51,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.params.portal = type;
         this.params.role = this.authService.da_role;
         
-        // console.log("log>>>>>>>>>>>>>",type, this.authService.da_role); 
-        // console.log("log>>>>>>>>>>>>>",this.params);
-        this.items=[];
-        this.items = this.ss.get_menu_portal(this.params);
+         console.log("log>>>>>>>>>>>>>",type, this.authService.da_role); 
+         console.log("log>>>>>>>>>>>>>",this.params);
         
-
+        
         console.log("log-home>>>>>>>>>>>>>",this.items);
         if(type=='oic'){          
           this.header_title = Constantes.header_oic;
           this.footer_title = Constantes.footer_oic;
+          this.items=[];
+          this.items = this.ss.get_menu_portal(this.params);
         }
         if(type=='plt'){
           this.header_title = Constantes.header_plt;
@@ -68,6 +68,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.queryParams= {
                               ['page']: 'plt'
                             };
+          this.items=[];
+          this.items = this.ss.get_menu_portal(this.params);
         }
 
         this.items.forEach(element => {
@@ -79,7 +81,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     );    
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void {   
+    this.items=[];
+    console.log("log-home>>>>>>>>>>>>>=========================",this.items);
     this.route.unsubscribe();
   }
 
