@@ -36,6 +36,7 @@ export class SharedService {
     
 
    get_menu(role:string):items[]{
+     this.clean_menu();
     const GET_MENU = gql`query getMenuForRole($role: String!)
     {
       items(role:$role)
@@ -67,8 +68,7 @@ export class SharedService {
       }     
       });
 
-    return this.items;
-  
+    return this.items;  
 
     
   }
@@ -135,6 +135,7 @@ export class SharedService {
   }
 
    get_menu_portal(params:params_menu):items[]{
+    this.clean_menu();
      console.log("params", params);
      const GET_MENU_PORTAL = gql`query da_menu_portal($params:MenuQueryInput!){
       items:getMenuByType(input:$params){
@@ -172,12 +173,7 @@ export class SharedService {
         }
 
       });
+      console.log("items DESPUES DE CONSULTAR", this.items);
       return this.items;
     }
-
-
-
-
-
-  
 }

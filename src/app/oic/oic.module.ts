@@ -8,6 +8,7 @@ import { OicHomeComponent } from './pages/oic-home/oic-home.component';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { DatosGeneralesComponent } from './pages/datos-generales/datos-generales.component';
 import { PlanTrabajoComponent } from './pages/plan-trabajo/plan-trabajo.component';
+import { PltHomeComponent } from './pages/plt-home/plt-home.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { PlanTrabajoComponent } from './pages/plan-trabajo/plan-trabajo.componen
     KpisComponent,    
     OicHomeComponent, 
     DatosGeneralesComponent, 
-    PlanTrabajoComponent
+    PlanTrabajoComponent, PltHomeComponent
   ],
   imports: [
     CommonModule,

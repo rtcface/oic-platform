@@ -25,7 +25,7 @@ export class NavMenuComponent implements OnChanges {
   // }
   ngOnChanges(changes: SimpleChanges): void {
     console.log("USER DATA CHANGES>>>>>>>>>>>>>>",this.user);
-    // console.log("nav-menu changes" , this.items);
+    console.log("nav-menu changes on change=====>>>>>" , this.items);
     // console.log("nav-menu changes>>>>>>>>>>>>>>" , changes);
   //  // Asignar el valor currentValue a la propiedad items
     for (const propName in changes) {

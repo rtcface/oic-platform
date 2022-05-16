@@ -26,7 +26,7 @@ export class MainCardsComponent implements OnInit {
   }
 
   onClickPlt() {
-    this.router.navigate(['/oic', 'plt'] );
+    this.router.navigate(['/oic/plt', 'plt'] );
     console.log('Click en la Ética Pública');
   }
 

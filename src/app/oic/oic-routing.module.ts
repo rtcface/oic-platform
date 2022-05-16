@@ -7,6 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { KpisComponent } from './pages/kpis/kpis.component';
 import { OicHomeComponent } from './pages/oic-home/oic-home.component';
 import { PlanTrabajoComponent } from './pages/plan-trabajo/plan-trabajo.component';
+import { PltHomeComponent } from './pages/plt-home/plt-home.component';
 
 
 
@@ -17,7 +18,12 @@ const routes: Routes = [
     children:[
       {
         path: '',
-        component: OicHomeComponent
+        component:OicHomeComponent
+      },     
+      {
+        path: 'plt',
+        component: PltHomeComponent, 
+            
       },
       {
         path: 'datos-generales',
@@ -35,7 +41,7 @@ const routes: Routes = [
         path: 'adm-workplan',
         component: AdmWorkplanComponent , 
             
-      },
+      },      
       {
         path:'**',
         redirectTo: 'home'

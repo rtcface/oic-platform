@@ -13,7 +13,7 @@ import { user_card } from 'src/app/shared/models/colaborador.interface';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {  
+export class HomeComponent implements OnInit, OnDestroy {   
   items: MenuItem[] = []
   header_title = '' ;
   footer_title = '';
@@ -51,18 +51,21 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.params.portal = type;
         this.params.role = this.authService.da_role;
         
-         console.log("log>>>>>>>>>>>>>",type, this.authService.da_role); 
+         console.log("log>>>>>>>>>>>>>Conut--+++",type, this.authService.da_role); 
          console.log("log>>>>>>>>>>>>>",this.params);
         
         
         console.log("log-home>>>>>>>>>>>>>",this.items);
-        if(type=='oic'){          
+        if(type=='oic'){    
+          console.log("In OIC --==-0-Params",this.params);      
           this.header_title = Constantes.header_oic;
           this.footer_title = Constantes.footer_oic;
           this.items=[];
           this.items = this.ss.get_menu_portal(this.params);
+          console.log("In OIC --==-0-Items",this.items);
         }
         if(type=='plt'){
+          console.log("In PLT=====-Params",this.params);
           this.header_title = Constantes.header_plt;
           this.footer_title = Constantes.footer_plt;
           this.queryParams= {
@@ -70,6 +73,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                             };
           this.items=[];
           this.items = this.ss.get_menu_portal(this.params);
+          console.log("In PLT=====-Items",this.items);
         }
 
         this.items.forEach(element => {
