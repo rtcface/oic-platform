@@ -134,7 +134,7 @@ export class SharedService {
    });
   }
 
-   get_menu_portal(params:params_menu):items[]{
+   get_menu_portal(params:params_menu, queryParametes:object):items[]{
     this.clean_menu();
      console.log("params", params);
      const GET_MENU_PORTAL = gql`query da_menu_portal($params:MenuQueryInput!){
@@ -159,20 +159,21 @@ export class SharedService {
               label: element.label,
               icon: element.icon,
               routerLink: element.routerLink,
-              queryParams: {},
+              queryParams: queryParametes,
             });
             }else{
               this.items.push({
                 label: element.label,
                 icon: element.icon,
                 routerLink: element.routerLink,
-                queryParams: {},
+                queryParams: queryParametes,
               });
             }
           });
         }
 
       });
+      
       console.log("items DESPUES DE CONSULTAR", this.items);
       return this.items;
     }

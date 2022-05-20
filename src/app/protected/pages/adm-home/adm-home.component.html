@@ -1,8 +1,8 @@
-<app-header></app-header>
-<app-nav-menu></app-nav-menu>
+<app-header [title_page]="header_title"></app-header>
 <div  class="master-body container">
+    <app-nav-menu *ngIf="items.length > 0 " [items]="items" [user]="user"></app-nav-menu>
     <router-outlet></router-outlet>
 </div>
-<app-footer></app-footer>   
+<app-footer [text_footer]="footer_title"></app-footer> 
 <!-- <app-sppiner></app-sppiner> -->
 

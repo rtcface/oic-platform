@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { ValidatorsService } from '../../../shared/services/validators.service';
-import { SharedService } from 'src/app/shared/services/shared.service';
 import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -19,7 +19,7 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./login.component.scss'],
   providers: [MessageService]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   myForm : FormGroup = this.fb.group({
   loginValue: ['',[Validators.required, Validators.pattern(this.vs.emailPattern), Validators.minLength(3)]],
@@ -27,17 +27,27 @@ export class LoginComponent implements OnInit {
   });
     
   role = 'user';
+  route!: Subscription;
+  page = 'oic';
  
   constructor( 
     private fb : FormBuilder,
     private router:Router,
+    private ar: ActivatedRoute,
     private authService:AuthService,
-    private vs:ValidatorsService,
-    private sharedService:SharedService,
+    private vs:ValidatorsService,   
     private readonly ms: MessageService
     ) { }
 
+  ngOnDestroy(): void {
+    this.route.unsubscribe();
+  }
+
   ngOnInit(): void {
+    this.route = this.ar.queryParams.subscribe(params => {
+      this.page = params['page'];
+      console.log("page",this.page);
+    });
   }
 
   async login(){
@@ -57,29 +67,60 @@ export class LoginComponent implements OnInit {
    try {
     const res = await this.authService.login(loginValue,passwordValue).subscribe({
       next: (data) => {  
-
         this.role = data.data?.login?.user?.role!;
-        //console.log("role desde next",this.role);
+        console.log("role desde next",this.role);
        
       },
       error: (err) => {
         this.showError();
       },
-      complete: () => {   
-        switch(this.role){
-          case 'user':
-            this.router.navigate(['/oic']);
-            break;
-          case 'admin':
-            this.router.navigate(['/protected-admin']);
-            break;
-          case 'contralor':
-            this.router.navigate(['/protected']);
-            break;
-          default:
-            this.router.navigate(['/oic']);
-            break;}
-      }
+      complete: () => {  
+
+        if(this.role=='user' && this.page=='oic'){
+          this.router.navigate(['/oic/oic']);
+          return;
+        }
+
+        if(this.role=='user' && this.page=='plt'){
+          this.router.navigate(['/oic/plt/plt']);
+          return;
+        }
+
+        if(this.role=='admin' && this.page=='oic'){
+          this.router.navigate(['/oic/oic/protected-admin']);
+          return;
+        }
+
+        if(this.role=='admin' && this.page=='plt'){
+          this.router.navigate(['/oic/plt/protected-admin']);
+          return;
+        }
+
+        if(this.role=='contralor' && this.page=='oic'){
+          console.log("contralor", this.router);
+          this.router.navigate(['/protected/adm-users'],{queryParams: {type: 'oic'}});
+          return;
+        }
+        
+        if(this.role=='contralor' && this.page=='plt'){
+          this.router.navigate(['/protected/adm-users'],{queryParams: {type: 'plt'}});
+          return;
+        }
+
+      //   switch(this.role){
+      //     case 'user':
+      //       this.router.navigate(['/oic']);
+      //       break;
+      //     case 'admin':
+      //       this.router.navigate(['/protected-admin']);
+      //       break;
+      //     case 'contralor':
+      //       this.router.navigate(['/protected']);
+      //       break;
+      //     default:
+      //       this.router.navigate(['/oic']);
+      //       break;}
+       }
     });    
 
    

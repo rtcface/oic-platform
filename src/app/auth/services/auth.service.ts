@@ -94,8 +94,7 @@ export class AuthService {
           "email": email,
           "password": password
         }
-      },
-      errorPolicy: 'all',
+      },     
       fetchPolicy: 'no-cache'     
     }).pipe(       
       tap( auth => { this._user_token = auth.data!; }),

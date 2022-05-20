@@ -1,7 +1,9 @@
 import { 
   ChangeDetectionStrategy, 
   Component, 
+  EventEmitter, 
   Input,
+  Output,
   SimpleChanges} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
@@ -19,6 +21,7 @@ export class CardComponent implements OnChanges {
 
  
   @Input() user!: user_card;
+  @Output() onClear:EventEmitter<boolean> = new EventEmitter();
   
   constructor( private authService:AuthService, private router:Router ) { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,14 +46,16 @@ export class CardComponent implements OnChanges {
   }
 
   logout(){
+    this.onClear.emit(true);
     localStorage.removeItem('token');
     this.authService.logout();
     this.router.navigate(['/oic']);
+    
 }
 
 login()
 {
-  this.router.navigate(['/login']);
+  this.router.navigate(['/login']); 
 }
 
 counterRender(): boolean{

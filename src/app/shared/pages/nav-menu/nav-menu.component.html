@@ -4,7 +4,7 @@
             <ng-template pTemplate="end">
                 <p-overlayPanel [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #op [dismissable]="true" [showCloseIcon]="true">
                     <ng-template pTemplate>
-                        <app-card [user]="user"></app-card>
+                        <app-card [user]="user" (onClear)="clearMenu()"></app-card>
                     </ng-template>
                 </p-overlayPanel>
                     <p-avatar

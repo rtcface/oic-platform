@@ -45,6 +45,7 @@ export class NavMenuComponent implements OnChanges {
 
   clearMenu() {
     this.items = [];
+    console.log("clear menu desde el componente==================");
   }
 
 

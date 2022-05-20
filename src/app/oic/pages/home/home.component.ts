@@ -45,11 +45,13 @@ export class HomeComponent implements OnInit, OnDestroy {
      }
 
   ngOnInit(): void {
+    this.items = [];
     this.route=this.ar.params.subscribe(     
       ( { type } ) => {       
         
         this.params.portal = type;
-        this.params.role = this.authService.da_role;
+        //this.params.role = this.authService.da_role;       
+        
         
          console.log("log>>>>>>>>>>>>>Conut--+++",type, this.authService.da_role); 
          console.log("log>>>>>>>>>>>>>",this.params);
@@ -60,8 +62,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           console.log("In OIC --==-0-Params",this.params);      
           this.header_title = Constantes.header_oic;
           this.footer_title = Constantes.footer_oic;
-          this.items=[];
-          this.items = this.ss.get_menu_portal(this.params);
+          //this.items=[];
+          this.items = this.ss.get_menu_portal(this.params,this.queryParams);
           console.log("In OIC --==-0-Items",this.items);
         }
         if(type=='plt'){
@@ -71,16 +73,17 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.queryParams= {
                               ['page']: 'plt'
                             };
-          this.items=[];
-          this.items = this.ss.get_menu_portal(this.params);
+          //this.items=[];
+          this.items = this.ss.get_menu_portal(this.params,this.queryParams);
           console.log("In PLT=====-Items",this.items);
+          console.log("log-home-count>>>>>>>>>>>>>",this.items.length);
         }
 
-        this.items.forEach(element => {
-          element.queryParams = this.queryParams;
-        });
+      
+
 
       }
+
       
     );    
   }
