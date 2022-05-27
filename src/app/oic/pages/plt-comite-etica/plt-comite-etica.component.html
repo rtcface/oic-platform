@@ -1,1 +1,20 @@
-<p>plt-comite-etica works!</p>
+<div class="comite-etica">
+    <div class="message-fider">
+      <app-finder-oic (onEnter)="loadTreefromFinder($event)"
+        (onSelectedOicChange)="loadTreeFromFinderSelectedOic($event)"
+        [title]="'Buscador de entes publicos'"
+        ></app-finder-oic>
+      <p-messages></p-messages>
+    </div>
+  
+    <p-divider id="divider-user" layout="vertical" align="center">
+      <i class="pi pi-user mr-2"></i>
+    </p-divider>
+  
+  
+    <app-tree [data]="data" (onNodeSelected)="viewUserData( $event )"></app-tree>
+  
+  </div>
+  <p-dialog header="Datos de contacto" [(visible)]="display">
+    <app-view-users [users]="selectedUser"></app-view-users>
+  </p-dialog>

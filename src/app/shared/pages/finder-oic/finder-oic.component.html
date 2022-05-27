@@ -1,6 +1,6 @@
 <form [formGroup]="finderForm" class="search-form" (ngSubmit)="finderEnte()">
     <div class="label-buscar">
-      <label for="buscar"> Buscador de Organos Internos de Control</label>
+      <label for="buscar"> {{ title }}</label>
     </div>
     <div id="buscar" class="p-fluid">
         <p-autoComplete 

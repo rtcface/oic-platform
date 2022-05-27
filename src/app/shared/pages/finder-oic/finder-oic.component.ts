@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
   Output,
@@ -22,6 +23,9 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FinderOicComponent implements OnInit, OnDestroy {
+
+  @Input() title: string = 'Buscador de Organos Internos de Control';
+
   finderForm: FormGroup = this.fb.group({
     ente: '',
   });

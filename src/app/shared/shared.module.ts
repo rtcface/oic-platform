@@ -15,6 +15,7 @@ import { FormUsersComponent } from './pages/form-users/form-users.component';
 import { ViewUsersComponent } from './pages/view-users/view-users.component';
 import { SppinerComponent } from './pages/sppiner/sppiner.component';
 import { CardMenuComponent } from './pages/card-menu/card-menu.component';
+import { ViewConctactoComponent } from './pages/view-conctacto/view-conctacto.component';
 
 
 
@@ -33,6 +34,7 @@ import { CardMenuComponent } from './pages/card-menu/card-menu.component';
     ViewUsersComponent,
     SppinerComponent,
     CardMenuComponent,
+    ViewConctactoComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +54,7 @@ import { CardMenuComponent } from './pages/card-menu/card-menu.component';
     ViewUsersComponent,
     SppinerComponent,
     CardMenuComponent,
+    ViewConctactoComponent,
   ]
 })
 export class SharedModule { }
