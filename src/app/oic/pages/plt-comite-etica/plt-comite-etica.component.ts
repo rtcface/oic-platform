@@ -60,12 +60,13 @@ loadTreeFromFinderSelectedOic( $event:OicInterface){
 
 loadTree(params: filterBoss | filterEnte) {
   //console.log(">>>>>>>>>>>CARGANDO INFORMACION DEL ARBOL>>>>>>>>>>>>>>>>>>>>", params);
-  this.as.get_tree_colaboradores(params).subscribe({
+  this.as.get_tree_comite(params).subscribe({
     next: (result) => {
+      console.log(result);
       const tree: any = result.data!;
       //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>",tree);
-      if(tree.getColaboresTreeData.data !== null){
-        this.data = [tree.getColaboresTreeData];
+      if(tree.getComiteTreeData.data !== null){
+        this.data = [tree.getComiteTreeData];
       }
       else{
         this.showError();

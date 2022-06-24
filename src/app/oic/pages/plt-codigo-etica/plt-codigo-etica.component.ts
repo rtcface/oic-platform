@@ -28,17 +28,27 @@ export class PltCodigoEticaComponent  {
   showError() {
     this.ms.add({ severity: 'info', summary: 'Información', detail: 'No hay datos del ente solicitado...' });   //<-- Mensaje de error
   }
-  showCodigo($event: OicEnte) {
-    
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", $event);
-    this.display = true;
-    this.name_ente = $event.ente.nombre_ente;
+  showCodigo($event: OicEnte) {    
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>ShowCod", $event);
+    if($event.ente.id=="624c8e3daddddcbcb26e8135"){
+      this.display = true;
+      this.name_ente = $event.ente.nombre_ente;
+      return;
+    }
+    this.display = false;
+    this.showError();
   }
 
   showCodigo2($event: OicInterface) {
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", $event);
-    this.display = true;
-    this.name_ente = $event.nombre_ente;
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> ShowCod2", $event.id, $event.id.includes("622a42575fd04394d83e0702"));
+    if($event.id.includes("624c8e3daddddcbcb26e8135")){
+      console.log("Entre al if");
+      this.display = true;
+      this.name_ente = $event.nombre_ente;
+      return;
+    }
+    this.display = false;
+    this.showError();
   }
 
 }

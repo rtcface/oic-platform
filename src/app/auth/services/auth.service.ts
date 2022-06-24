@@ -228,5 +228,56 @@ export class AuthService {
     return res;
    
   }
+
+  get_tree_comite(boss: filterBoss | filterEnte):Observable<MutationResult<TreeColaboradores>>{
+
+     
+    
+    const GET_TREE_COLABORADORES = gql` query getComiteTreeData($boss:UserColaboradoresQueryInput!){
+      getComiteTreeData(input:$boss){
+        label
+        type
+        styleClass
+        expanded
+        id
+        name
+        charge
+        phone
+        email
+        data{            
+          name
+          avatar
+        }
+        children{     
+          label
+          type
+          styleClass
+          expanded
+          id
+          name
+          charge
+          phone
+          email
+          data{              
+            name
+            avatar
+          }
+          
+        }
+      }
+    }`;
+    
+    const res = this.apollo.query<TreeColaboradores>({ 
+      query: GET_TREE_COLABORADORES,
+      variables: boss,
+      errorPolicy: 'all',
+      fetchPolicy: 'no-cache'
+    });
+
+   
+  
+  return res;
+ 
+}
   
 }
