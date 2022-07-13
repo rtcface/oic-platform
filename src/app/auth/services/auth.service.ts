@@ -83,7 +83,8 @@ export class AuthService {
                                   avatar  
                                   role
                                   colaboradores
-                                  ente_publico                         
+                                  ente_publico
+                                  firstSignIn                         
                                   }
                                 }
                             }`;
@@ -111,6 +112,37 @@ export class AuthService {
       return res;
     }
   }
+
+   change_password(newPassword: string):Observable<boolean> {
+      
+    if (!this.verify_authentication()) {
+      console.log('Data desde la autentication');
+      return of(false);
+      }
+      try {
+        console.log('Data desde el try');
+        const token = localStorage.getItem('token');
+        console.log(newPassword);
+        const CHANGE_PASS = gql`mutation {  
+          changePassword(newPassword:"${newPassword}",token:"${token}"){
+            user,
+            token,
+            Err,
+            haveError
+          } 
+        }`;
+        console.log(CHANGE_PASS,'data=>');
+      this.apollo.mutate({
+          mutation: CHANGE_PASS,
+         fetchPolicy: 'no-cache'
+        });
+        
+      return of(true);        
+      } catch (error) {
+        console.log('error=>',error);
+        return of(false);
+      }     
+   }
 
 
   verify_authentication():Observable<boolean>{

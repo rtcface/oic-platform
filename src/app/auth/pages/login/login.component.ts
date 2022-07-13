@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   role = 'user';
   route!: Subscription;
   page = 'oic';
+  firstSignIn = false;
  
   constructor( 
     private fb : FormBuilder,
@@ -55,11 +56,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.logout();
 
     if(this.myForm.invalid){
-
       this.myForm.markAllAsTouched();      
-      return;
-
-   
+      return;   
     }
 
    const {loginValue,passwordValue} = this.myForm.value;
@@ -68,6 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     const res = await this.authService.login(loginValue,passwordValue).subscribe({
       next: (data) => {  
         this.role = data.data?.login?.user?.role!;
+        this.firstSignIn = data.data?.login?.user?.firstSignIn!;
         console.log("role desde next",this.role);
        
       },
@@ -76,50 +75,40 @@ export class LoginComponent implements OnInit, OnDestroy {
       },
       complete: () => {  
 
-        if(this.role=='user' && this.page=='oic'){
+        if(this.role=='user' && this.page=='oic' && this.firstSignIn){
           this.router.navigate(['/oic/oic']);
           return;
         }
 
-        if(this.role=='user' && this.page=='plt'){
+        if(this.role=='user' && this.page=='plt'  && this.firstSignIn){
           this.router.navigate(['/oic/plt/plt']);
           return;
         }
 
-        if(this.role=='admin' && this.page=='oic'){
+        if(this.role=='admin' && this.page=='oic'  && this.firstSignIn){
           this.router.navigate(['/oic/oic/protected-admin']);
           return;
         }
 
-        if(this.role=='admin' && this.page=='plt'){
+        if(this.role=='admin' && this.page=='plt'  && this.firstSignIn){
           this.router.navigate(['/oic/plt/protected-admin']);
           return;
         }
 
-        if(this.role=='contralor' && this.page=='oic'){
+        if(this.role=='contralor' && this.page=='oic'  && this.firstSignIn){
           console.log("contralor", this.router);
           this.router.navigate(['/protected/adm-users'],{queryParams: {type: 'oic'}});
           return;
         }
         
-        if(this.role=='contralor' && this.page=='plt'){
+        if(this.role=='contralor' && this.page=='plt'  && this.firstSignIn){
           this.router.navigate(['/protected/adm-users'],{queryParams: {type: 'plt'}});
           return;
         }
 
-      //   switch(this.role){
-      //     case 'user':
-      //       this.router.navigate(['/oic']);
-      //       break;
-      //     case 'admin':
-      //       this.router.navigate(['/protected-admin']);
-      //       break;
-      //     case 'contralor':
-      //       this.router.navigate(['/protected']);
-      //       break;
-      //     default:
-      //       this.router.navigate(['/oic']);
-      //       break;}
+        if(!this.firstSignIn){
+         this.router.navigate(['/auth/change-password']);
+        }
        }
     });    
 
