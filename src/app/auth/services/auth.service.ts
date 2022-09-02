@@ -8,7 +8,7 @@ import {data, TreeColaboradores} from '../interfaces/user_token.interface';
 
 import { items } from 'src/app/shared/models/menu_interface';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { filterBoss, filterEnte } from 'src/app/oic/models/tree.interface';
+import { change_password, filterBoss, filterEnte } from 'src/app/oic/models/tree.interface';
 
 
 @Injectable({
@@ -16,8 +16,8 @@ import { filterBoss, filterEnte } from 'src/app/oic/models/tree.interface';
 })
 export class AuthService {
 
-  
-  private _user_token: data |undefined;  
+
+  private _user_token: data |undefined;
   private _menu:items[] = [];
   private _defaultMenu:items[] = [];
 
@@ -29,6 +29,11 @@ export class AuthService {
 
   get idUserAuth():string{
     return this._user_token?.verify_authentication.user.id!;
+  }
+
+  get getEmail():string{
+    return this._user_token?.login.user.email!;
+    
   }
 
   get idEnteAuth():string{
@@ -53,7 +58,7 @@ export class AuthService {
   }
 
 
-  constructor( private apollo:Apollo, private sharedService:SharedService  ) {    
+  constructor( private apollo:Apollo, private sharedService:SharedService  ) {
   }
 
   logout() {
@@ -64,30 +69,30 @@ export class AuthService {
   }
 
    login(email?: string, password?: string): Observable<MutationResult<data>> {
-    
+
     let res = new Observable<MutationResult<data>>();
     try {
-     
-    const LOGIN_POST = gql`mutation login($input: LoginAuthInput!) 
-                            {
-                              login(input:$input)
-                               {
-                                haveError
-                                Err
-                                token
-                                user{
-                                  id
-                                  name
-                                  email
-                                  password
-                                  avatar  
-                                  role
-                                  colaboradores
-                                  ente_publico
-                                  firstSignIn                         
-                                  }
-                                }
-                            }`;
+
+    const LOGIN_POST = gql`mutation login($input: LoginAuthInput!)
+    {
+      login(input:$input)
+        {
+        haveError
+        Err
+        token
+        user{
+          id
+          name
+          email
+          password
+          avatar
+          role
+          colaboradores
+          ente_publico
+          firstSignIn
+          }
+        }
+    }`;
      res = this.apollo.mutate<data>({
       mutation: LOGIN_POST,
       variables: {
@@ -95,17 +100,17 @@ export class AuthService {
           "email": email,
           "password": password
         }
-      },     
-      fetchPolicy: 'no-cache'     
-    }).pipe(       
+      },
+      fetchPolicy: 'no-cache'
+    }).pipe(
       tap( auth => { this._user_token = auth.data!; }),
-      tap( auth => {       
-        localStorage.setItem('token', this._user_token?.login.token!); 
+      tap( auth => {
+        localStorage.setItem('token', this._user_token?.login.token!);
         this.saveRole(this._user_token?.login.user.role!);
-        this._menu = this.sharedService.get_menu( this.role ); 
+        this._menu = this.sharedService.get_menu( this.role );
       }),
     );
-   
+
     return res;
   } catch (error) {
       // console.log('catch in try',error);
@@ -113,35 +118,50 @@ export class AuthService {
     }
   }
 
-   change_password(newPassword: string):Observable<boolean> {
-      
+   change_password(usePass:change_password): Observable<MutationResult<data>> {
+    
+    let request = new Observable<MutationResult<data>>();
+    
+    console.log("desde el auth service");
     if (!this.verify_authentication()) {
       console.log('Data desde la autentication');
-      return of(false);
+      //TODO: add edirect to login
       }
+      
       try {
-        console.log('Data desde el try');
-        const token = localStorage.getItem('token');
-        console.log(newPassword);
-        const CHANGE_PASS = gql`mutation {  
-          changePassword(newPassword:"${newPassword}",token:"${token}"){
-            user,
-            token,
-            Err,
+        usePass.usePass.email = this.getEmail;
+        console.log('Data desde el try');      
+        const CHANGE_PASS = gql`mutation changePass($usePass:UserChangePassInput!){
+          login:changePassword(input:$usePass){
             haveError
-          } 
+            Err
+            token
+            user{
+              id
+              name
+              email
+              password
+              avatar
+              role
+              colaboradores
+              ente_publico
+              firstSignIn
+              }
+          }
         }`;
-        console.log(CHANGE_PASS,'data=>');
-      this.apollo.mutate({
+       request = this.apollo.mutate<data>({
           mutation: CHANGE_PASS,
+          variables: usePass ,
          fetchPolicy: 'no-cache'
         });
-        
-      return of(true);        
+        console.log(request);
+        return request;     
       } catch (error) {
         console.log('error=>',error);
-        return of(false);
-      }     
+        return request;
+      }
+
+     
    }
 
 
@@ -152,25 +172,25 @@ export class AuthService {
       if(!localStorage.getItem('token')){
         return of(false);
       }
-     
-      const VERIFY_AUTENTICATION = gql` query verify_authentication($token: String!) { 
-                                                verify_authentication (token:$token)
-                                                {
-                                                  haveError
-                                                  Err
-                                                  token
-                                                  user{
-                                                    id
-                                                    name
-                                                    email
-                                                    password
-                                                    avatar
-                                                    role
-                                                    colaboradores
-                                                    ente_publico                                                                                    
-                                                    }
-                                                  }
-                                              }`;
+
+      const VERIFY_AUTENTICATION = gql` query verify_authentication($token: String!) {
+        verify_authentication (token:$token)
+        {
+          haveError
+          Err
+          token
+          user{
+            id
+            name
+            email
+            password
+            avatar
+            role
+            colaboradores
+            ente_publico
+            }
+          }
+      }`;
 
       return this.apollo.query<data>({
         query: VERIFY_AUTENTICATION,
@@ -182,38 +202,38 @@ export class AuthService {
       }).pipe(
         map( auth => {
           if(auth.data)
-          {            
-          this._user_token = auth.data!; 
-         // console.log('verify_authentication',this._user_token.verify_authentication.user.role);
+          {
+          this._user_token = auth.data!;
+          console.log('verify_authentication',this._user_token.verify_authentication.user.role);
           this.saveRole(this._user_token.verify_authentication.user.role);
           if(this.role)
             {
-              
+
             }else
             {
               this.role = 'user';
-             
-            }  
-            this._menu = this.sharedService.get_menu( this.role );     
+
+            }
+            this._menu = this.sharedService.get_menu( this.role );
           return !auth.data?.verify_authentication.haveError;
           }else
           {
             return false;
           }
         }),
-      );     
-      
+      );
+
     } catch (error) {
       // console.log('catch in try',error);
       return of(false);
-    }   
-   
+    }
+
   }
 
    get_tree_colaboradores(boss: filterBoss | filterEnte):Observable<MutationResult<TreeColaboradores>>{
 
-     
-    
+
+
       const GET_TREE_COLABORADORES = gql` query getColaboresTreeData($boss:UserColaboradoresQueryInput!){
         getColaboresTreeData(input:$boss){
           label
@@ -225,11 +245,11 @@ export class AuthService {
           charge
           phone
           email
-          data{            
+          data{
             name
             avatar
           }
-          children{     
+          children{
             label
             type
             styleClass
@@ -239,32 +259,32 @@ export class AuthService {
             charge
             phone
             email
-            data{              
+            data{
               name
               avatar
             }
-            
+
           }
         }
       }`;
-      
-      const res = this.apollo.query<TreeColaboradores>({ 
+
+      const res = this.apollo.query<TreeColaboradores>({
         query: GET_TREE_COLABORADORES,
         variables: boss,
         errorPolicy: 'all',
         fetchPolicy: 'no-cache'
       });
 
-     
-    
+
+
     return res;
-   
+
   }
 
   get_tree_comite(boss: filterBoss | filterEnte):Observable<MutationResult<TreeColaboradores>>{
 
-     
-    
+
+
     const GET_TREE_COLABORADORES = gql` query getComiteTreeData($boss:UserColaboradoresQueryInput!){
       getComiteTreeData(input:$boss){
         label
@@ -276,11 +296,11 @@ export class AuthService {
         charge
         phone
         email
-        data{            
+        data{
           name
           avatar
         }
-        children{     
+        children{
           label
           type
           styleClass
@@ -290,26 +310,26 @@ export class AuthService {
           charge
           phone
           email
-          data{              
+          data{
             name
             avatar
           }
-          
+
         }
       }
     }`;
-    
-    const res = this.apollo.query<TreeColaboradores>({ 
+
+    const res = this.apollo.query<TreeColaboradores>({
       query: GET_TREE_COLABORADORES,
       variables: boss,
       errorPolicy: 'all',
       fetchPolicy: 'no-cache'
     });
 
-   
-  
+
+
   return res;
- 
+
 }
-  
+
 }

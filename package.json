@@ -25,6 +25,7 @@
     "chart.js": "^3.7.1",
     "firebase": "^9.4.0",
     "graphql": "^16.3.0",
+    "ngx-deploy-ftp": "^1.1.0",
     "primeicons": "^5.0.0",
     "primeng": "^13.1.1",
     "rxfire": "^6.0.0",
