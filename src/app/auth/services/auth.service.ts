@@ -6,7 +6,7 @@ import {Apollo, gql, MutationResult} from 'apollo-angular';
 
 import {data, TreeColaboradores} from '../interfaces/user_token.interface';
 
-import { items } from 'src/app/shared/models/menu_interface';
+import { items, params_menu } from 'src/app/shared/models/menu_interface';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { change_password, filterBoss, filterEnte } from 'src/app/oic/models/tree.interface';
 
@@ -16,6 +16,14 @@ import { change_password, filterBoss, filterEnte } from 'src/app/oic/models/tree
 })
 export class AuthService {
 
+  queryParams:object={
+    ['page']: 'oic'
+  };
+  
+  params: params_menu = {
+    portal: 'oic',
+    role: 'user'
+  }
 
   private _user_token: data |undefined;
   private _menu:items[] = [];
@@ -48,10 +56,6 @@ export class AuthService {
     return this._menu;
   }
 
-  get menuDefault():items[]{
-    return this._defaultMenu = this.sharedService.get_menu('user');
-  }
-
   saveRole(role:string){
     const SAVE_ROLE = role;
     this.role = SAVE_ROLE;
@@ -68,8 +72,8 @@ export class AuthService {
     this.sharedService.clean_menu();
   }
 
-   login(email?: string, password?: string): Observable<MutationResult<data>> {
-
+   login(email?: string, password?: string, portal?: string): Observable<MutationResult<data>> {
+   
     let res = new Observable<MutationResult<data>>();
     try {
 
@@ -105,9 +109,12 @@ export class AuthService {
     }).pipe(
       tap( auth => { this._user_token = auth.data!; }),
       tap( auth => {
+        this.params.role=this._user_token?.login.user.role!;
+        this.params.portal=portal!;
         localStorage.setItem('token', this._user_token?.login.token!);
-        this.saveRole(this._user_token?.login.user.role!);
-        this._menu = this.sharedService.get_menu( this.role );
+        localStorage.setItem('portal', portal!);
+        this.saveRole(this.params.role);
+        this._menu = this.sharedService.get_menu_portal( this.params, this.queryParams );
       }),
     );
 
@@ -169,7 +176,7 @@ export class AuthService {
 
     try {
 
-      if(!localStorage.getItem('token')){
+      if(!localStorage.getItem('token') || !localStorage.getItem('portal')){
         return of(false);
       }
 
@@ -204,17 +211,18 @@ export class AuthService {
           if(auth.data)
           {
           this._user_token = auth.data!;
-          console.log('verify_authentication',this._user_token.verify_authentication.user.role);
-          this.saveRole(this._user_token.verify_authentication.user.role);
+          //console.log('verify_authentication',this._user_token.verify_authentication.user.role);
+          this.params.role=this._user_token.verify_authentication.user.role;
+          this.params.portal=localStorage.getItem('portal')!;
+          this.saveRole(this.params.role);
           if(this.role)
             {
 
             }else
             {
               this.role = 'user';
-
             }
-            this._menu = this.sharedService.get_menu( this.role );
+            this._menu = this.sharedService.get_menu_portal( this.params, this.queryParams );
           return !auth.data?.verify_authentication.haveError;
           }else
           {

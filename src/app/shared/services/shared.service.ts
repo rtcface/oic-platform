@@ -136,7 +136,7 @@ export class SharedService {
 
    get_menu_portal(params:params_menu, queryParametes:object):items[]{
     this.clean_menu();
-     console.log("params", params);
+     console.log("params", params,"queryParams",queryParametes);
      const GET_MENU_PORTAL = gql`query da_menu_portal($params:MenuQueryInput!){
       items:getMenuByType(input:$params){
         label

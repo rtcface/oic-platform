@@ -9,6 +9,9 @@ import { AdmHomeComponent } from './pages/adm-home/adm-home.component';
 import { SharedModule } from '../shared/shared.module';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import {  ReactiveFormsModule } from '@angular/forms';
+import { AdmPltCodigoEticaComponent } from './pages/adm-plt-codigo-etica/adm-plt-codigo-etica.component';
+import { AdmPltComiteComponent } from './pages/adm-plt-comite/adm-plt-comite.component';
+import { AdmPltRulesComponent } from './pages/adm-plt-rules/adm-plt-rules.component';
 
 
 @NgModule({
@@ -17,7 +20,10 @@ import {  ReactiveFormsModule } from '@angular/forms';
     AdmWorkplanComponent,
     AdmUsersComponent,
     AdmKpisComponent,
-    AdmHomeComponent
+    AdmHomeComponent,
+    AdmPltCodigoEticaComponent,
+    AdmPltComiteComponent,
+    AdmPltRulesComponent
   ],
   imports: [
     CommonModule,

@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    const {loginValue,passwordValue} = this.myForm.value;
 
    try {
-    const res = await this.authService.login(loginValue,passwordValue).subscribe({
+    const res = await this.authService.login(loginValue,passwordValue,this.page).subscribe({
       next: (data) => {  
         this.role = data.data?.login?.user?.role!;
         this.firstSignIn = data.data?.login?.user?.firstSignIn!;
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         this.showError();
-      },
+      },  
       complete: () => {  
 
         if(this.role=='user' && this.page=='oic' && this.firstSignIn){
@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
         
         if(this.role=='contralor' && this.page=='plt'  && this.firstSignIn){
-          this.router.navigate(['/protected/adm-users'],{queryParams: {type: 'plt'}});
+          this.router.navigate(['/protected/plt'],{queryParams: {type: 'plt'}});
           return;
         }
 
