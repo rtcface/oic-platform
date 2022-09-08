@@ -1,1 +1,22 @@
-<p>adm-plt-rules works!</p>
+<p-messages></p-messages>
+<div class="datos-generales">
+    <p-panel header="Reglas de integracion">     
+     
+      <div *ngFor="let rule of rules" class="field-checkbox">
+          <p-checkbox name="group2"
+           value="rule" [value]="rule"            
+           [inputId]="rule.key" 
+           [disabled]="rule.key === 'R'">
+          </p-checkbox>
+          <label [for]="rule.key">{{rule.name}}</label>
+      </div>
+
+      <button pButton type="button" label="Atualizar reglas" class="p-button-outlined"></button>
+      
+    </p-panel>
+
+    
+</div>  
+<p-dialog header="Datos de contacto" >
+  
+</p-dialog>

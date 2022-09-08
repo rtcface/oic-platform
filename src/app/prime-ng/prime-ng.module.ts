@@ -3,6 +3,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
@@ -26,7 +27,6 @@ import { TreeSelectModule } from 'primeng/treeselect';
 
 
 
-
 @NgModule({
   exports:[
     AutoCompleteModule,
@@ -34,6 +34,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
     ButtonModule,
     CardModule,
     ChartModule,
+    CheckboxModule,
     ConfirmPopupModule,
     DialogModule,
     DividerModule,
