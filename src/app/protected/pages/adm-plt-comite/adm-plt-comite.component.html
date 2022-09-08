@@ -1,15 +1,15 @@
 <p-messages></p-messages>
 <div class="datos-generales">
-    <p-panel header="Alta de colaborador">     
-        
+    <p-panel header="Alta de integrante">     
+      <app-form-add-member></app-form-add-member>
     </p-panel>
 
     <p-divider id="divider-user" layout="vertical" align="center">
       <i class="pi pi-user mr-2"></i>
     </p-divider>
     
-    <p-panel header="Datos del Organo Interno de Control">
-      
+    <p-panel header="Comités de Ética">
+      <app-tree [data]="data" ></app-tree>
     </p-panel>  
 </div>  
 <p-dialog header="Datos de contacto" >

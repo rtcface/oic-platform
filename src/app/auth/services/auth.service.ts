@@ -293,8 +293,8 @@ export class AuthService {
 
 
 
-    const GET_TREE_COLABORADORES = gql` query getComiteTreeData($boss:UserColaboradoresQueryInput!){
-      getComiteTreeData(input:$boss){
+    const GET_TREE_COLABORADORES = gql` query getCommitteMembesTreeData($boss:UserColaboradoresQueryInput!){
+      TreeColaboradoresData:getCommitteMembesTreeData(input:$boss){
         label
         type
         styleClass

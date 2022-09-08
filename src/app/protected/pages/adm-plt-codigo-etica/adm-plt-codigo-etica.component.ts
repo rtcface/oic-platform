@@ -11,5 +11,9 @@ export class AdmPltCodigoEticaComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  display: boolean = false;
+  showDialog() {
+    this.display = true;
+  }
 
 }

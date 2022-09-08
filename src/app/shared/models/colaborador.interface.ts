@@ -46,4 +46,10 @@ export interface user_card{
     avatar: string;
     isLogin: boolean;
 }
-    
+
+export interface edit_cdo {
+    id: string;
+    title: string;
+    url: string;
+  
+}

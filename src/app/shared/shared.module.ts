@@ -17,6 +17,8 @@ import { SppinerComponent } from './pages/sppiner/sppiner.component';
 import { CardMenuComponent } from './pages/card-menu/card-menu.component';
 import { ViewConctactoComponent } from './pages/view-conctacto/view-conctacto.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { FormAddCdoComponent } from './pages/form-add-cdo/form-add-cdo.component';
+import { FormAddMemberComponent } from './pages/form-add-member/form-add-member.component';
 
 
 
@@ -37,6 +39,8 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
     CardMenuComponent,
     ViewConctactoComponent,
     StatisticsComponent,
+    FormAddCdoComponent,
+    FormAddMemberComponent,
   ],
   imports: [
     CommonModule,
@@ -57,7 +61,9 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
     SppinerComponent,
     CardMenuComponent,
     ViewConctactoComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    FormAddCdoComponent,
+    FormAddMemberComponent,
   ]
 })
 export class SharedModule { }
