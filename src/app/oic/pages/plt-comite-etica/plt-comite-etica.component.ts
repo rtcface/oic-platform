@@ -65,8 +65,8 @@ loadTree(params: filterBoss | filterEnte) {
       console.log(result);
       const tree: any = result.data!;
       //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>",tree);
-      if(tree.getComiteTreeData.data !== null){
-        this.data = [tree.getComiteTreeData];
+      if(tree.TreeColaboradoresData.data !== null){
+        this.data = [tree.TreeColaboradoresData];
       }
       else{
         this.showError();

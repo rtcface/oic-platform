@@ -12,15 +12,16 @@ import { Colaborador } from 'src/app/shared/models/colaborador.interface';
 export class AdmPltComiteComponent implements OnInit {
   data: TreeNode[] = [];
   constructor( private readonly auServ: AuthService) { }
-  idAuth: string = this.auServ.idUserAuth;
+  idEnteAuth: string = this.auServ.idEnteAuth;
   ngOnInit(): void {
     this.loadTreeFromBoss();
   }
 
   loadTreeFromBoss() {
-    const params: filterBoss = {
+    console.log("in load");
+    const params: filterEnte = {
       boss: {
-        boss: "631a24a995474a3a768c9e6c",
+        ente: this.idEnteAuth,
       },
     };
      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el reload ",params);
