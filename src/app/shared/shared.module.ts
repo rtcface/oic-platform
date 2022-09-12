@@ -19,6 +19,7 @@ import { ViewConctactoComponent } from './pages/view-conctacto/view-conctacto.co
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { FormAddCdoComponent } from './pages/form-add-cdo/form-add-cdo.component';
 import { FormAddMemberComponent } from './pages/form-add-member/form-add-member.component';
+import { FormRegisterHistoyComponent } from './pages/form-register-histoy/form-register-histoy.component';
 
 
 
@@ -41,6 +42,7 @@ import { FormAddMemberComponent } from './pages/form-add-member/form-add-member.
     StatisticsComponent,
     FormAddCdoComponent,
     FormAddMemberComponent,
+    FormRegisterHistoyComponent,
   ],
   imports: [
     CommonModule,
@@ -64,6 +66,7 @@ import { FormAddMemberComponent } from './pages/form-add-member/form-add-member.
     StatisticsComponent,
     FormAddCdoComponent,
     FormAddMemberComponent,
+    FormRegisterHistoyComponent
   ]
 })
 export class SharedModule { }

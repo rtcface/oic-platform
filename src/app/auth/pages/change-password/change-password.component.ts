@@ -103,7 +103,7 @@ export class ChangePasswordComponent implements OnInit {
 
 
   showError() {
-    this.ms.add({ severity: 'error', summary: 'Error', detail: 'Usuario y/o Contraña incorrectos'});   //<-- Mensaje de error
+    this.ms.add({ severity: 'error', summary: 'Error', detail: 'Usuario y/o Contraseña incorrectos'});   //<-- Mensaje de error
   }
 
   showSuccess() {

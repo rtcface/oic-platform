@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   //TODO: Remove USER DATA 
   myForm : FormGroup = this.fb.group({
   loginValue: ['crosalioev@gmail.com',[Validators.required, Validators.pattern(this.vs.emailPattern), Validators.minLength(3)]],
-  passwordValue:  ['t3mp0r4l',[Validators.required]]
+  passwordValue:  ['T3mp0r4l',[Validators.required]]
   });
     
   role = 'user';
@@ -135,7 +135,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   showError() {
-    this.ms.add({ severity: 'error', summary: 'Error', detail: 'Usuario y/o Contraña incorrectos'});   //<-- Mensaje de error
+    this.ms.add({ severity: 'error', summary: 'Error', detail: 'Usuario y/o Contraseña incorrectos'});   //<-- Mensaje de error
   }
 
 

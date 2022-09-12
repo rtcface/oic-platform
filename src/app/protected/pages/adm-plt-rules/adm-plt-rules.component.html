@@ -1,22 +1,21 @@
 <p-messages></p-messages>
-<div class="datos-generales">
-    <p-panel header="Reglas de integracion">     
-     
-      <div *ngFor="let rule of rules" class="field-checkbox">
-          <p-checkbox name="group2"
-           value="rule" [value]="rule"            
-           [inputId]="rule.key" 
-           [disabled]="rule.key === 'R'">
-          </p-checkbox>
-          <label [for]="rule.key">{{rule.name}}</label>
-      </div>
 
-      <button pButton type="button" label="Atualizar reglas" class="p-button-outlined"></button>
-      
+<div class="datos-generales">
+    <p-panel header="Reglas de integracion">  
+      <app-form-register-histoy></app-form-register-histoy>
     </p-panel>
+    <p-divider id="divider-user" layout="vertical" align="center">
+      <i class="pi pi-user mr-2"></i>
+    </p-divider>
+    
+    <p-panel header="Etadisticas">
+     <label>Lorem ipsum dolor sit amet, consectetur adip</label>
+    </p-panel>  
 
     
 </div>  
 <p-dialog header="Datos de contacto" >
   
 </p-dialog>
+
+
