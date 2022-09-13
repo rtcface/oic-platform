@@ -10,8 +10,6 @@ export interface kpiByEnteQueryInput {
     ente_publico: string;
 }
 
-
-
 export interface chart{   
     kpi: string;
     total_casos: number;    

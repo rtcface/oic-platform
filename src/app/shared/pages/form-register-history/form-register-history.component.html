@@ -1,0 +1,112 @@
+<form class="history-form" [formGroup]="historyForm"  autocomplete="off">    
+    <div class="p-fluid grid">
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <input type="hidden" formControlName="ente_publico" value="historyEdit.ente_publico">
+                <p-checkbox [binary]="true" inputId="p1" formControlName="p1" [value]="historyEdit.p1"></p-checkbox>
+                <label for="p1"> Actuación pública.</label>
+            </div>
+        </div>
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p2" formControlName="p2" [value]="historyEdit.p2"></p-checkbox>
+                <label for="p2"> Información pública.</label>
+            </div>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p3" formControlName="p3" [value]="historyEdit.p3"></p-checkbox>
+                <label for="p3"> Contrataciones públicas, licencias, permisos, autorización y concesiones.</label>
+            </div>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p4" formControlName="p4" [value]="historyEdit.p4"></p-checkbox>
+                <label for="p4"> Programas gubernamentales.</label>
+            </div>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p5" formControlName="p5" [value]="historyEdit.p5"></p-checkbox>
+                <label for="p5"> Programas de política social.</label>
+            </div>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p6" formControlName="p6" [value]="historyEdit.p6"></p-checkbox>
+                <label for="p6"> Trámites y servicios.</label>
+            </div>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p7" formControlName="p7" [value]="historyEdit.p7"></p-checkbox>
+                <label for="p7"> Recursos Humanos.</label>
+            </div>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p8" formControlName="p8" [value]="historyEdit.p8"></p-checkbox>
+                <label for="p8"> Administración de bienes muebles e inmuebles.</label>
+            </div>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p9" formControlName="p9" [value]="historyEdit.p9"></p-checkbox>
+                <label for="p9"> Procesos de evaluación.</label>
+            </div>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p10" formControlName="p10" [value]="historyEdit.p10"></p-checkbox>
+                <label for="p10"> Control interno.</label>
+            </div>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p11" formControlName="p11" [value]="historyEdit.p11"></p-checkbox>
+                <label for="p11"> Procedimiento Administrativo.</label>
+            </div>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p12" formControlName="p12" [value]="historyEdit.p12"></p-checkbox>
+                <label for="p12"> Desempeño permanente con integridad.</label>
+            </div>
+        </div> 
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p13" formControlName="p13"[value]="historyEdit.p13"></p-checkbox>
+                <label for="p13"> Cooperación con la integridad.</label>
+            </div>
+        </div>
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p14" formControlName="p14" [value]="historyEdit.p14"></p-checkbox>
+                <label for="p14"> Comportamiento digno.</label>
+            </div>
+        </div>
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p15" formControlName="p15" [value]="historyEdit.p15"></p-checkbox>
+                <label for="p15"> Prevención de la discriminación.</label>
+            </div>
+        </div>
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="p16" formControlName="p16" [value]="historyEdit.p16"></p-checkbox>
+                <label for="p16"> Prevención de acoso laboral.</label>
+            </div>
+        </div>
+        <div class="field col-12 md:col-4 form-item">
+            <div class="field-checkbox">
+                <button pButton pRipple 
+                type="button" label="Actualizar reglas de integridad" 
+                (click)="saveSubmit()" 
+                class="p-button-outlined" 
+                [formGroup]="historyForm"
+                icon="pi pi-check-square"></button>
+            </div>
+        </div>
+
+    </div>
+</form>

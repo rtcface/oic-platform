@@ -50,6 +50,5 @@ export interface user_card{
 export interface edit_cdo {
     id: string;
     title: string;
-    url: string;
-  
+    url: string;  
 }

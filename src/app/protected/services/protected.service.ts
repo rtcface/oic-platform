@@ -95,6 +95,13 @@ export class ProtectedService {
     });
   }
 
+  // get method Integration Rules
+
+  // getIntegrationRules(ente_publico:kpiByEnteQueryInput): Observable<MutationResult<>> {
+
+  // }
+
+  
 
 
 
