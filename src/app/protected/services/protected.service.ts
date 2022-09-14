@@ -3,6 +3,7 @@ import { Apollo, gql, MutationResult } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { deletePlanWork, planWork, planWorkDataAdd } from '../models/plan-work.interface';
 import { kpiAdd, kpiByEnteQueryInput, resp } from '../models/kpis.interface';
+import { history_save, rules } from 'src/app/shared/models/history.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -97,9 +98,54 @@ export class ProtectedService {
 
   // get method Integration Rules
 
-  // getIntegrationRules(ente_publico:kpiByEnteQueryInput): Observable<MutationResult<>> {
+  getIntegrationRules(ente_publico:kpiByEnteQueryInput): Observable<MutationResult<rules>> {
+    const GET_RULES = gql`query getHistoryRules($ente_publico: HistoryRuleByEnteInput!){
+      rules:getHistoryIntegrityRulesByEnte(input:$ente_publico){
+       ente_publico
+       p1
+       p2
+       p3
+       p4
+       p5
+       p6
+       p7
+       p8
+       p9
+       p10
+       p11
+       p12
+       p13
+       p14
+       p15
+       p16
+     }
+     }`;
+      return this.apollo.query<rules>({
+        query: GET_RULES,
+        variables: {
+          ente_publico
+        },
+        fetchPolicy: 'no-cache'
+      });
 
-  // }
+  }
+
+   // methods for save rules
+
+   saveRules(history:history_save): Observable<MutationResult> {
+     console.log(history);
+    const SAVE_RULE = gql`mutation updateHistory($history:IntegrityRuleHistoryUpdateInput!){
+       updateHistoryRules(input:$history){   
+       ente_publico     }
+}`;
+    return this.apollo.mutate({
+      mutation: SAVE_RULE,
+      variables: {
+        history
+      },
+      fetchPolicy: 'no-cache'
+    });
+  }
 
   
 
