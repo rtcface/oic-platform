@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { history_save } from 'src/app/shared/models/history.interface';
+import {  history_update } from 'src/app/shared/models/history.interface';
 import { kpiByEnteQueryInput } from '../../models/kpis.interface';
 import { ProtectedService } from '../../services/protected.service';
+import { history_init } from '../../../shared/models/history.interface';
 
 @Component({
   selector: 'app-adm-plt-rules',
@@ -10,7 +11,7 @@ import { ProtectedService } from '../../services/protected.service';
   styleUrls: ['./adm-plt-rules.component.scss']
 })
 export class AdmPltRulesComponent implements OnInit {
-  data:history_save = { } as history_save;
+  data:history_update = { } as history_update;
   ent:kpiByEnteQueryInput = {} as kpiByEnteQueryInput;
 
   constructor(  
@@ -23,11 +24,11 @@ export class AdmPltRulesComponent implements OnInit {
 
   loadRules(){
     this.ent.ente_publico = this.auServ.idEnteAuth;
-   this.ps.getIntegrationRules(this.ent).subscribe({
+    this.ps.getIntegrationRules(this.ent).subscribe({
     next: (result) => {
       if (result.data?.rules[0] !== null) {        
         this.data = result.data?.rules[0]!;
-        //console.log("in the parent",this.data);
+        console.log("in the parent",this.data);
         // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el load ",this.data);
       } else {
        // this.showMessageDinamic( 'error', 'Información', 'No hay datos del ente solicitado...');
@@ -38,15 +39,38 @@ export class AdmPltRulesComponent implements OnInit {
        console.log("error", err);
     },
     complete: () => {
-       console.log("complete",this.data);
-    }
+       const register:history_init={
+        ente_publico: this.ent.ente_publico
+       }
+       if ( this.data == undefined) 
+          {
+            this.ps.initRules(register).subscribe(
+              {
+                next:(result) => {
+                  console.log(result);
+                },
+                error(err) {
+                    console.log(err);
+                },
+                complete: () => {
+                  console.log('cam____');
+                  this.loadRules();
+                }
+              }
+            );
+          }
+      }
    });
 
   }
 
-  saveSubmit(ruleSave:history_save){
+  saveSubmit(ruleSave:history_update){
     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>this",ruleSave);
-    this.ps.saveRules(ruleSave).subscribe({
+    if(this.data)
+
+
+
+    this.ps.updateRules(ruleSave).subscribe({
       next: (result) => {
         console.log("Aqui>>>>>>>>>>>>>>>>>>>",result);
       }, error: (err) => {
