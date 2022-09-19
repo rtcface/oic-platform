@@ -58,7 +58,7 @@ export class FormRegisterHistoryComponent implements OnChanges {
 
   loadHistory(item:history_update){
       if(item != undefined){
-        console.log(">>>>>>loadHistory"+item);
+        console.log(">>>>>>loadHistory"+ JSON.stringify(item));
         this.historyForm.reset(
           {
           id: item.id,
@@ -82,8 +82,6 @@ export class FormRegisterHistoryComponent implements OnChanges {
           }
         );
       }
-     
-    
   }
 
 }

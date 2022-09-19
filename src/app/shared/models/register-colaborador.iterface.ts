@@ -14,3 +14,9 @@ export interface UpdateColaborador {
 }
 }
 
+export interface registerMember {
+    registerMember: {
+    id: string;
+    email: string;
+}
+}

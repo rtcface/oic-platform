@@ -117,21 +117,6 @@ export class AdmUsersComponent implements OnInit {
     });
   }
 
-  // showMessageOK() {
-  //   this.ms.add({
-  //     severity: 'success',
-  //     summary: 'Guardado',
-  //     detail: 'Guardado con exito',
-  //   });
-  // }
-  // showMessageDeleteOK() {
-  //   this.ms.add({
-  //     severity: 'success',
-  //     summary: 'Guardado',
-  //     detail: 'el usuario se elemino con exito',
-  //   });
-  // }
-
   loadTreeFromBoss() {
     const params: filterBoss = {
       boss: {

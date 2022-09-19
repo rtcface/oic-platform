@@ -1,17 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { MessageService, TreeNode } from 'primeng/api';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { filterBoss, filterEnte } from 'src/app/oic/models/tree.interface';
-import { Colaborador } from 'src/app/shared/models/colaborador.interface';
+import { Colaborador, delete_user, user_edit } from 'src/app/shared/models/colaborador.interface';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-adm-plt-comite',
   templateUrl: './adm-plt-comite.component.html',
-  styleUrls: ['./adm-plt-comite.component.scss']
+  styleUrls: ['./adm-plt-comite.component.scss'],
+  providers: [MessageService],
 })
 export class AdmPltComiteComponent implements OnInit {
+  isSave: boolean = false;
+  isSaved: boolean = false;
   data: TreeNode[] = [];
-  constructor( private readonly auServ: AuthService) { }
+  userEdit: user_edit = {} as user_edit;
+  constructor( 
+    private readonly auServ: AuthService,
+    private readonly ms: MessageService,
+    private readonly ss: SharedService) 
+    { }
+    
   idEnteAuth: string = this.auServ.idEnteAuth;
   ngOnInit(): void {
     this.loadTreeFromBoss();
@@ -49,14 +59,99 @@ export class AdmPltComiteComponent implements OnInit {
     });
   }
 
+  display: boolean = false;
 
-  save() {
-   
-   
+  showDialog() {
+    this.display = true;
   }
-  
+
+  onNodeSelect(event: any) {
+    this.showDialog();
+  }
+
   purgeTree() {
     this.data = [];
   }
 
+  save(colaborador: Colaborador) {
+    colaborador.parentId = "631b4cd556c7051a8804ffe5";
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el save ",colaborador);
+    this.ss.save_Member(colaborador).subscribe({
+      next: (result) => {
+         console.log(result);
+        if (result.data !== undefined && result.data !== null) {
+          this.isSaved = true;
+          this.showMessageDinamic( 'success', 'Éxito', 'Usuario registrado correctamente...');   
+         
+        } else {
+          this.showMessageDinamic( "error", 'Error', 'Algo sali mal ;-()');
+          this.isSaved = false;
+        }
+      },
+      error: (err) => {
+         console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+        this.isSaved = false;
+      },
+      complete: () => {
+        this.loadTreeFromBoss();
+       
+               
+      },
+    });
+  }
+
+  delete(user: delete_user) {
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el delete ",user);
+    this.ss.delete_user(user).subscribe({
+      next: (result) => {
+        // console.log(result);
+        if (result.data!.id === '') {
+          this.showMessageDinamic( 'error', 'Error', 'No se pudo eliminar el usuario...');
+        } else {
+          this.showMessageDinamic( 'success', 'Información', 'Usuario eliminado correctamente...');
+        }
+      },
+      error: (err) => {
+        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+      },
+      complete: () => {
+        this.loadTreeFromBoss();
+        this.display = false;
+      },
+    });
+  }
+
+  update(user: user_edit) {
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update pather ",user);
+
+    this.ss.update_Colaborador(user).subscribe({
+      next: (result) => {
+        // console.log(result);
+        if (result.data!.updateColaborador.haveError) {
+          this.showMessageDinamic( "error", 'Error',result.data!.updateColaborador.Err);
+        } else {
+          this.showMessageDinamic( "success", 'Información', 'Usuario actualizado correctamente...');
+        }
+      },
+      error: (err) => {
+        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+      },
+      complete: () => {
+        this.loadTreeFromBoss();
+        this.display = false;
+      },
+    });
+  }
+  showMessageDinamic(severity:string ,summary: string, detail: string) {
+    this.ms.add({ severity, summary, detail}); //<-- Mensaje de error
+  }
+
+  updateUserData(user: user_edit) {
+    
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update ",user);
+    this.userEdit = user;
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el this update ",this.userEdit);
+    this.showDialog();
+    
+  }
 }

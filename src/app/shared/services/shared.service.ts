@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Colaborador, DataColaborador, user_edit, delete_user } from '../models/colaborador.interface';
 
 import { items, menu, params_menu } from '../models/menu_interface';
-import { RegisterColaborador, UpdateColaborador } from '../models/register-colaborador.iterface';
+import { RegisterColaborador, registerMember, UpdateColaborador } from '../models/register-colaborador.iterface';
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +94,26 @@ export class SharedService {
      fetchPolicy: 'no-cache'
    });
   }
+
+  save_Member(colaborador:Colaborador): Observable<MutationResult<registerMember>> {
+    colaborador.phone = colaborador.phone.toString();    
+    const SAVE_COLABORADOR = 
+    gql`mutation addMember($colaborador:EthicsCommitteMemberRegisterInput!)
+      {
+        registerMember(input:$colaborador){
+          id
+          email       
+        }
+      }`;
+
+return this.apollo.mutate<registerMember>({
+ mutation: SAVE_COLABORADOR,
+ variables: {
+   colaborador
+ },
+ fetchPolicy: 'no-cache'
+});
+}
 
   update_Colaborador(colaborador:user_edit): Observable<MutationResult<UpdateColaborador>> {
     colaborador.name = colaborador.name.toUpperCase();

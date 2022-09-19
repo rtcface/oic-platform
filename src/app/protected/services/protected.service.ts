@@ -101,6 +101,7 @@ export class ProtectedService {
   getIntegrationRules(ente_publico:kpiByEnteQueryInput): Observable<MutationResult<rules>> {
     const GET_RULES = gql`query getHistoryRules($ente_publico: HistoryRuleByEnteInput!){
       rules:getHistoryIntegrityRulesByEnte(input:$ente_publico){
+       id
        ente_publico
        p1
        p2
@@ -133,30 +134,26 @@ export class ProtectedService {
    // methods for update rules
 
    updateRules(history:history_update): Observable<MutationResult> {
-     console.log(history);
-     const { ente_publico } = {...history};
-     console.log(history)
-    const SAVE_RULE = gql`mutation updateHistory($history:IntegrityRuleHistoryUpdateInput!){
-       updateHistoryRules(input:$history){   
+      const { ente_publico, ...rest} = history;  
+        const SAVE_RULE = gql`mutation updateHistory($rest:IntegrityRuleHistoryUpdateInput!){
+       updateHistoryRules(input:$rest){   
        ente_publico     }
     }`;
     return this.apollo.mutate({
       mutation: SAVE_RULE,
       variables: {
-        history
+        rest
       },
       fetchPolicy: 'no-cache'
     });
   }
 
   initRules(register:history_init): Observable<MutationResult> {
-
     const INIT_RULE = gql`mutation registerHistory($register:IntegrityRuleHistoryInput!){
       registerHistoryRules(input:$register){
         ente_publico        
       }
     }`;
-
     return this.apollo.mutate({
       mutation: INIT_RULE,
       variables: {
