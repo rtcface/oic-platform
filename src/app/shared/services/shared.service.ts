@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult } from 'apollo-angular';
 import { Observable, Subject } from 'rxjs';
-import { Colaborador, DataColaborador, user_edit, delete_user } from '../models/colaborador.interface';
+import { Colaborador, DataColaborador, user_edit, delete_user, President } from '../models/colaborador.interface';
 
 import { items, menu, params_menu } from '../models/menu_interface';
-import { RegisterColaborador, registerMember, UpdateColaborador } from '../models/register-colaborador.iterface';
+import { findPresident, RegisterColaborador, registerMember, registerPresident, UpdateColaborador } from '../models/register-colaborador.iterface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,7 @@ export class SharedService {
   }
 
   private items:items[] = [];
+
 
   get menuitems():items[]{
     return this.items;
@@ -115,6 +116,31 @@ return this.apollo.mutate<registerMember>({
 });
 }
 
+
+save_President(colaborador:Colaborador, ente_publico:string): Observable<MutationResult<registerPresident>> {
+  colaborador.phone = colaborador.phone.toString();
+  const president:President ={
+    email:colaborador.email,
+    ente_publico,
+    name:colaborador.name,
+    phone: colaborador.phone
+  }     
+  const SAVE_COLABORADOR = 
+  gql`mutation addPresident($president:EthicsCommitteRegisterInput!){
+    registerPresident(input:$president){
+      email
+      id
+    }
+  }`;
+
+return this.apollo.mutate<registerPresident>({
+mutation: SAVE_COLABORADOR,
+variables: {
+  president
+},
+fetchPolicy: 'no-cache'
+});
+}
   update_Colaborador(colaborador:user_edit): Observable<MutationResult<UpdateColaborador>> {
     colaborador.name = colaborador.name.toUpperCase();
     colaborador.charge = colaborador.charge.toUpperCase();
@@ -137,10 +163,48 @@ return this.apollo.mutate<registerMember>({
    });
   }
 
+  update_Member(colaborador:user_edit): Observable<MutationResult<UpdateColaborador>> {   
+    colaborador.phone = colaborador.phone.toString();    
+    const UPDATE_COLABORADOR = 
+    gql`mutation updateColaborador($colaborador:UserUpdateColaboradorInput!)
+      {
+        updateColaborador:updateColaboradorCmm(input:$colaborador){
+          haveError    
+          Err       
+        }
+      }`;
+
+   return this.apollo.mutate<UpdateColaborador>({
+     mutation: UPDATE_COLABORADOR,
+     variables: {
+       colaborador
+     },
+     fetchPolicy: 'no-cache'
+   });
+  }
+
+
   delete_user(user:delete_user): Observable<MutationResult<delete_user>> {
     const DELETE_USER = 
     gql`mutation deleteUser($user:UserDeleteInput!){
       inactivateUser(input:$user){
+        id
+      }
+    }`;
+
+   return this.apollo.mutate<delete_user>({
+     mutation: DELETE_USER,
+     variables: {
+       user
+     },
+     fetchPolicy: 'no-cache'
+   });
+  }
+
+  delete_member(user:delete_user): Observable<MutationResult<delete_user>> {
+    const DELETE_USER = 
+    gql`mutation inactivateUserCmm($user:UserDeleteInput!){
+      inactivateUserCmm(input:$user){
         id
       }
     }`;
@@ -197,4 +261,34 @@ return this.apollo.mutate<registerMember>({
       console.log("items DESPUES DE CONSULTAR", this.items);
       return this.items;
     }
+
+   get_president(ente_publico: string): Observable<MutationResult<findPresident>> {
+    
+   
+    const GET_PRESIDENT = gql`{
+      PresidetByEnte(input:"${ente_publico}"){
+        id
+      }
+    }`;
+
+   return  this.apollo.query<findPresident>({
+      query: GET_PRESIDENT,
+      
+      fetchPolicy: 'no-cache'
+    })
+
+    
+
+  }
+
+
+
+
+
+
+
+
+
+
+  
 }

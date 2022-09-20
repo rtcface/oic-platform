@@ -34,7 +34,7 @@ export class FormUsersComponent implements OnChanges {
  @Output() onLoadDataUpdate:EventEmitter<user_edit> = new EventEmitter();
 
   userForm = this.fb.group({
-    name: ['',[Validators.required, Validators.pattern(this.vs.nameAndLastNamePattern)]],
+    name: ['',[Validators.required ]],
     email: ['',[Validators.required, Validators.pattern(this.vs.emailPattern)]],
     charge: ['',[Validators.required, Validators.minLength(3)]],
     phone: [,[Validators.required, Validators.pattern(this.vs.phonePattern)]],    

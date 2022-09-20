@@ -20,3 +20,19 @@ export interface registerMember {
     email: string;
 }
 }
+
+export interface registerPresident {
+    registerPresident: {
+    id: string;
+    email: string;
+}
+}
+
+
+export interface findPresident{
+
+    PresidetByEnte:{
+        id: string;
+      }
+
+}

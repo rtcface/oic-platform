@@ -8,6 +8,13 @@ export interface Colaborador {
     parentId: string;
 }
 
+export interface President {
+    name: string;
+    email: string;    
+    phone:  string;
+    ente_publico: string;
+}
+
 export interface DataColaborador {
     colaborador: {
         name: string;
