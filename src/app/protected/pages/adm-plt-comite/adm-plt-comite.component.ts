@@ -16,6 +16,7 @@ export class AdmPltComiteComponent implements OnInit {
   isSaved: boolean = false;
   data: TreeNode[] = [];
   userEdit: user_edit = {} as user_edit;
+  id_president: string = "";
   constructor(
     private readonly auServ: AuthService,
     private readonly ms: MessageService,
@@ -25,6 +26,7 @@ export class AdmPltComiteComponent implements OnInit {
   idEnteAuth: string = this.auServ.idEnteAuth;
   ngOnInit(): void {
     this.loadTreeFromBoss();
+    this.findPresident(this.auServ.idEnteAuth);
   }
 
   loadTreeFromBoss() {
@@ -72,19 +74,14 @@ export class AdmPltComiteComponent implements OnInit {
     this.showDialog();
   }
 
-  purgeTree() {
-    this.data = [];
-  }
-
-  save(colaborador: Colaborador) {
-    console.log('aqui', colaborador);
-
+  findPresident(ente_publico:string){
     this.ss.get_president(this.idEnteAuth).subscribe({
       next: (result) => {
         console.log(result);
-        colaborador.parentId = result.data?.PresidetByEnte.id!;
+        this.id_president = result.data?.PresidetByEnte.id!;
       },
       error: (err) => {
+        this.id_president="";
         console.log(err);        
       },
       complete: () => {
@@ -92,7 +89,17 @@ export class AdmPltComiteComponent implements OnInit {
       },
     });
 
-    console.log('ntoeuteotausntaoutaoh', colaborador.parentId);
+  }
+
+  purgeTree() {
+    this.data = [];
+  }
+
+  save(colaborador: Colaborador) {
+    console.log('aqui', colaborador);
+    colaborador.parentId=this.id_president;
+
+    console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', colaborador.parentId);
         //colaborador.parentId="631b4cd556c7051a8804ffe5";
         if (colaborador.parentId !== '' && colaborador.parentId !== undefined) {
           console.log(

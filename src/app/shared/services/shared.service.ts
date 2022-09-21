@@ -124,7 +124,8 @@ save_President(colaborador:Colaborador, ente_publico:string): Observable<Mutatio
     ente_publico,
     name:colaborador.name,
     phone: colaborador.phone
-  }     
+  }
+  console.log(president);     
   const SAVE_COLABORADOR = 
   gql`mutation addPresident($president:EthicsCommitteRegisterInput!){
     registerPresident(input:$president){
