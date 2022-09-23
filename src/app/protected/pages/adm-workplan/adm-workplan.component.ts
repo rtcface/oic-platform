@@ -75,7 +75,7 @@ export class AdmWorkplanComponent implements OnInit {
   }
 
   nodeSelect(event: any) {
-    // console.log(event);  
+    // //console.log(event);  
 
     if(event.node.id && event.node.isChild){
       this.display = true;
@@ -89,7 +89,7 @@ export class AdmWorkplanComponent implements OnInit {
     if(event.node.isRoot)
     {
       this.id_Anio = event.node.id;
-      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", event.node);     
+      // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", event.node);     
       this.displayForm = true;
     }
     else{
@@ -124,7 +124,7 @@ export class AdmWorkplanComponent implements OnInit {
       .subscribe({
         next: (result) => {
           const res: any = result.data!;
-           console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res.data);
+           //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res.data);
           if (res.data.label !== null) {
           <tree[]> [res!.data!];
           //map to TreeNode
@@ -166,7 +166,7 @@ export class AdmWorkplanComponent implements OnInit {
          
         },
         error: (error) => {
-          // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+          // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
         }
 
       });
@@ -211,7 +211,7 @@ export class AdmWorkplanComponent implements OnInit {
   }
 
   saveFile() {
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", this.saveForm.value);
+    // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", this.saveForm.value);
     if(this.saveForm.invalid){      
       this.saveForm.markAllAsTouched();
     }else{
@@ -230,21 +230,21 @@ export class AdmWorkplanComponent implements OnInit {
         this.saveForm.reset();
         this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha guardado el plan de trabajo...' });   //<-- Mensaje de error
         
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
       },
       error: (error) => {
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
       },
       complete: () => {
       
       }
     });
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
+    // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
   }
 }
 
 updateFile(){
-  // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", this.update_wpd.id);
+  // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", this.update_wpd.id);
   if(this.updateForm.invalid){
     this.updateForm.markAllAsTouched();
   }
@@ -259,10 +259,10 @@ updateFile(){
   this.pt.updatePlwd(plan).subscribe({
     next: (result) => {
       const res: any = result.data!;
-      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+      // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
     },
     error: (error) => {
-      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+      // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
     },
     complete: () => {
       this.loadWorkPlan();
@@ -274,7 +274,7 @@ updateFile(){
       //this.reloadCurrentPage();
     }
   });
-  // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
+  // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
 }
 }
 
@@ -284,10 +284,10 @@ updateFile(){
     this.pt.deletePlwd(pw).subscribe({
       next: (result) => {
         const res: any = result.data!;
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
       },
       error: (error) => {
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
       },
       complete: () => {
         this.loadWorkPlan();
@@ -308,10 +308,10 @@ updateFile(){
     this.pt.updatePlwd(pw).subscribe({
       next: (result) => {
         const res: any = result.data!;
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
       },
       error: (error) => {
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
       },
       complete: () => {
         this.loadWorkPlan();

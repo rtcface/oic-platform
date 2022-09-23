@@ -30,10 +30,10 @@ export class CardComponent implements OnChanges {
       let change = changes[propName];
       let currentValue = change.currentValue;
       let previousValue = change.previousValue;
-      console.log(propName + ': currentValue = ' + currentValue + ', previousValue = ' + previousValue);
+      //console.log(propName + ': currentValue = ' + currentValue + ', previousValue = ' + previousValue);
 
       if (propName === 'user') {
-        console.log("user changes>>>>>>>>>>>>>>" , changes[propName].currentValue);
+        //console.log("user changes>>>>>>>>>>>>>>" , changes[propName].currentValue);
         this.user = changes[propName].currentValue;}
 
       }
@@ -41,7 +41,7 @@ export class CardComponent implements OnChanges {
 
  
   get isLoggedIn() {    
-   // console.log("from card",this.authService.isLoggedIn?.login);
+   // //console.log("from card",this.authService.isLoggedIn?.login);
     return this.authService.isLoggedIn;
   }
 
@@ -59,7 +59,7 @@ login()
 }
 
 counterRender(): boolean{
-  console.log("Render de card");
+  //console.log("Render de card");
   return true;
 }
 

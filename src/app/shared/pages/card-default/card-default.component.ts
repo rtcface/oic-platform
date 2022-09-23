@@ -20,7 +20,7 @@ export class CardDefaultComponent  {
 
 counterRender(): boolean{
 
-  console.log("Render de default-card");
+  //console.log("Render de default-card");
   return true;
 }
 

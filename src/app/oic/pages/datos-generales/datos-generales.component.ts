@@ -39,7 +39,7 @@ loadTreefromFinder( $event:OicEnte){
     }
   }
   this.loadTree(params);
-  //console.log("this.ente desde hijo",$event.ente.id);  
+  //////console.log("this.ente desde hijo",$event.ente.id);  
 }
 
 loadTreeFromFinderSelectedOic( $event:OicInterface){

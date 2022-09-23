@@ -51,14 +51,14 @@ export class FormRegisterHistoryComponent implements OnChanges {
  
 
   saveSubmit(){
-    console.log(this.historyForm.value);
+    //console.log(this.historyForm.value);
     this.onSave.emit(this.historyForm.value);
   }
 
 
   loadHistory(item:history_update){
       if(item != undefined){
-        console.log(">>>>>>loadHistory"+ JSON.stringify(item));
+        //console.log(">>>>>>loadHistory"+ JSON.stringify(item));
         this.historyForm.reset(
           {
           id: item.id,

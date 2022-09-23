@@ -9,15 +9,15 @@ export class TypePortalGuard implements CanActivate, CanLoad {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean > | boolean  {
-      console.log('canActivate');
+      //console.log('canActivate');
     return false;
   }
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-      console.log('canLoad');
-      console.log(route);
-      console.log(segments);
+      //console.log('canLoad');
+      //console.log(route);
+      //console.log(segments);
     return false;
   }
 }

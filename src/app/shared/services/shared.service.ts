@@ -55,7 +55,7 @@ export class SharedService {
       },
       fetchPolicy: 'no-cache'
     }).pipe().subscribe(({data})=>{      
-     //console.log(data.items);
+     ////console.log(data.items);
       if(this.items.length === 0){
         data.items.forEach(element => {
           this.items.push({
@@ -125,7 +125,7 @@ save_President(colaborador:Colaborador, ente_publico:string): Observable<Mutatio
     name:colaborador.name,
     phone: colaborador.phone
   }
-  console.log(president);     
+  //console.log(president);     
   const SAVE_COLABORADOR = 
   gql`mutation addPresident($president:EthicsCommitteRegisterInput!){
     registerPresident(input:$president){
@@ -221,7 +221,7 @@ fetchPolicy: 'no-cache'
 
    get_menu_portal(params:params_menu, queryParametes:object):items[]{
     this.clean_menu();
-     console.log("params", params,"queryParams",queryParametes);
+     //console.log("params", params,"queryParams",queryParametes);
      const GET_MENU_PORTAL = gql`query da_menu_portal($params:MenuQueryInput!){
       items:getMenuByType(input:$params){
         label
@@ -236,7 +236,7 @@ fetchPolicy: 'no-cache'
         },
         fetchPolicy: 'no-cache'
       }).pipe().subscribe(({data})=>{
-        console.log(data.items);
+        //console.log(data.items);
         if(this.items.length === 0){
           data.items.forEach(element => {
             if(element.label == "Iniciar Sesión"){
@@ -259,7 +259,7 @@ fetchPolicy: 'no-cache'
 
       });
       
-      console.log("items DESPUES DE CONSULTAR", this.items);
+      //console.log("items DESPUES DE CONSULTAR", this.items);
       return this.items;
     }
 

@@ -15,7 +15,7 @@ export class HeaderComponent {
  
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("en el ngOnChanges", this.title_page);
+    //console.log("en el ngOnChanges", this.title_page);
   }
 
 }

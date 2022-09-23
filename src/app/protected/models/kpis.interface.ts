@@ -1,4 +1,5 @@
 import { data } from '../../auth/interfaces/user_token.interface';
+import { UrlSegment } from '@angular/router';
 export interface kpiAdd {
     ente_publico: string;
     kpi: string;
@@ -23,4 +24,32 @@ export interface kpiSelector{
     name: string;
     value: string;
     icon: string;
+}
+
+export interface cdoEthic{
+    id: string;
+    description: string;
+    url: string;
+    ente_publico: string;
+}
+
+export interface updateCdoEthic{
+    id: string;
+    description: string;
+    url:string;
+}
+
+export interface requestCdo{
+    cdo:cdoEthic;
+}
+
+export interface cdoSaveEthic{
+    id: string;
+    description: string;
+    url: string;
+    ente_publico: string;
+}
+
+export interface delete_cdo{
+    id: string;
 }

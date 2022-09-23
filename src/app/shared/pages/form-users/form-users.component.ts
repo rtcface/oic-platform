@@ -47,11 +47,11 @@ export class FormUsersComponent implements OnChanges {
     private readonly ms: MessageService
     ) { 
 
-      // console.log("desde el hijo", this.userEdit);
+      // //console.log("desde el hijo", this.userEdit);
       
     }
   ngOnChanges(changes: SimpleChanges): void {    
-    //console.log("en el ngOnChanges", this.userEdit);
+    ////console.log("en el ngOnChanges", this.userEdit);
     this.loaduserEdit(this.userEdit);
     if(this.isSaved){
       this.userForm.reset();
@@ -62,12 +62,12 @@ export class FormUsersComponent implements OnChanges {
 
   validateSubmit() {
 
-    //console.log(">>>>>>>>>>>>>>>> validateSubmit:>> isSaved:"+this.isSaved, "value form", this.userForm.value);
+    ////console.log(">>>>>>>>>>>>>>>> validateSubmit:>> isSaved:"+this.isSaved, "value form", this.userForm.value);
 
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();     
     } else {
-      // console.log("en el submi>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", this.userForm.value);
+      // //console.log("en el submi>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", this.userForm.value);
       this.onSave.emit(this.userForm.value);
       if(this.isSaved){
       this.userForm.reset();
@@ -158,7 +158,7 @@ export class FormUsersComponent implements OnChanges {
 
   counterRender(): boolean{
 
-    console.log("Render de FormUsersComponent");
+    //console.log("Render de FormUsersComponent");
     return true;
   }
   

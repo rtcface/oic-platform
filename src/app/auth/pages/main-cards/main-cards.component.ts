@@ -22,12 +22,12 @@ export class MainCardsComponent implements OnInit {
 
   onClickOic() {
     this.router.navigate(['/oic', 'oic' ]);
-    console.log('Click en el Órgano Interno de Control');
+    //console.log('Click en el Órgano Interno de Control');
   }
 
   onClickPlt() {
     this.router.navigate(['/oic/plt', 'plt'] );
-    console.log('Click en la Ética Pública');
+    //console.log('Click en la Ética Pública');
   }
 
 }

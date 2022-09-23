@@ -24,13 +24,13 @@ export class NavMenuComponent implements OnChanges {
   //   this.items = this.items;
   // }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("USER DATA CHANGES>>>>>>>>>>>>>>",this.user);
-    console.log("nav-menu changes on change=====>>>>>" , this.items);
-    // console.log("nav-menu changes>>>>>>>>>>>>>>" , changes);
+    //console.log("USER DATA CHANGES>>>>>>>>>>>>>>",this.user);
+    //console.log("nav-menu changes on change=====>>>>>" , this.items);
+    // //console.log("nav-menu changes>>>>>>>>>>>>>>" , changes);
   //  // Asignar el valor currentValue a la propiedad items
     for (const propName in changes) {
       if (propName === 'items') {
-        console.log("nav-menu changes>>>>>>>>>>>>>>" , changes[propName].currentValue);
+        //console.log("nav-menu changes>>>>>>>>>>>>>>" , changes[propName].currentValue);
         this.items = changes[propName].currentValue;
         // this.ngOnInit();
       }
@@ -39,13 +39,13 @@ export class NavMenuComponent implements OnChanges {
   } 
  
   counterRender(): boolean{
-    console.log("Render de nav-menu");
+    //console.log("Render de nav-menu");
     return true;
   }
 
   clearMenu() {
     this.items = [];
-    console.log("clear menu desde el componente==================");
+    //console.log("clear menu desde el componente==================");
   }
 
 

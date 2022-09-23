@@ -69,7 +69,7 @@ export class PlanTrabajoComponent implements OnInit {
       }
     }
     this.loadWpd(fiter);
-    // console.log("this.ente desde hijo", $event.id);
+    // //console.log("this.ente desde hijo", $event.id);
   }
 
   loadWpd(filter: filterWpd) {
@@ -78,7 +78,7 @@ export class PlanTrabajoComponent implements OnInit {
       .subscribe({
         next: (result) => {
           const tree: any = result.data!;
-          // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", tree.data.label);
+          // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", tree.data.label);
           if (tree.data.label !== null) {
           <tree[]> [tree!.data!];
           //map to TreeNode
@@ -116,7 +116,7 @@ export class PlanTrabajoComponent implements OnInit {
          
         },
         error: (error) => {
-          // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+          // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
         }
 
       });

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { deletePlanWork, planWork, planWorkDataAdd } from '../models/plan-work.interface';
-import { kpiAdd, kpiByEnteQueryInput, resp } from '../models/kpis.interface';
+import { kpiAdd, kpiByEnteQueryInput, requestCdo, resp } from '../models/kpis.interface';
 import {  history_init, history_update, rules } from 'src/app/shared/models/history.interface';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class ProtectedService {
 
 
   savePlwd(planWorkDataAdd: planWorkDataAdd): Observable<MutationResult> {
-    // console.log(planWorkDataAdd);
+    // //console.log(planWorkDataAdd);
     const SAVE_PLWD = gql`mutation addPlan($planWorkDataAdd:PlanWorkChildRegisterInput!){
       addPlanWorkChild(input:$planWorkDataAdd){
         id        
@@ -30,7 +30,7 @@ export class ProtectedService {
   }
 
   updatePlwd(planWorkDataupdate: planWork): Observable<MutationResult> {
-    // console.log(planWorkDataupdate,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>planWorkDataupdate");
+    // //console.log(planWorkDataupdate,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>planWorkDataupdate");
     const UPDATE_PLWD = gql`mutation update($planWorkDataupdate:PlanWorkChildUpdate!){
       updatePlanWorkChild(input:$planWorkDataupdate){
         id
@@ -46,7 +46,7 @@ export class ProtectedService {
   }
 
   deletePlwd(planWorkDataDelete: deletePlanWork): Observable<MutationResult> {
-    // console.log(planWorkDataDelete);
+    // //console.log(planWorkDataDelete);
     const DELETE_PLWD = gql`mutation inactivePw($planWorkDataDelete:PlanWorkDeleteInput!){
       inactivatePlanWork(input:$planWorkDataDelete){
         id
@@ -64,7 +64,7 @@ export class ProtectedService {
   // methods for kpis register
 
   saveKpi(kpiDataAdd: kpiAdd): Observable<MutationResult> {
-    // console.log(kpiDataAdd);
+    // //console.log(kpiDataAdd);
     const SAVE_KPI = gql`mutation addKpis($kpiDataAdd:KpisRegisterInput!){  
       addKpis(input:$kpiDataAdd){
         id   
@@ -164,13 +164,20 @@ export class ProtectedService {
     
   }
 
-
-
+  loadCdoEthic(ente:kpiByEnteQueryInput): Observable<MutationResult<requestCdo>>{
+    const { ente_publico }=ente;
+    const LOAD_CDO_ETHIC = gql`query getCdoEthic{
+      cdo:getCdoEthicByEnte(ente_publico:"${ente_publico}"){
+        id
+        description
+        url
+        ente_publico        
+      }
+    }`;
+    return this.apollo.query<requestCdo>({
+      query: LOAD_CDO_ETHIC,
+      fetchPolicy: 'no-cache'
+    });
+  }
   
-
-
-
-
-
-
 }

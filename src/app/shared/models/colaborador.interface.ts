@@ -54,8 +54,4 @@ export interface user_card{
     isLogin: boolean;
 }
 
-export interface edit_cdo {
-    id: string;
-    title: string;
-    url: string;  
-}
+

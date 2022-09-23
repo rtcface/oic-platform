@@ -16,7 +16,7 @@ export class ViewUsersComponent implements OnInit {
   }
 
   counterRender(): boolean {
-    console.log('Render de view-users');
+    //console.log('Render de view-users');
     return true;
   }
   

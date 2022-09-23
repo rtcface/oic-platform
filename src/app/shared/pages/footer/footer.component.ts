@@ -13,7 +13,7 @@ export class FooterComponent  {
   anio:number = new Date().getFullYear();
   
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("en el ngOnChanges", this.text_footer);
+    //console.log("en el ngOnChanges", this.text_footer);
 
     
   }

@@ -33,7 +33,7 @@ export class TreeComponent implements OnInit {
     //this.onShowMessage.emit(true);
     const { name,email,charge,phone,id } = event.node;  
     this.onNodeSelected.emit({name,email,charge,phone,id}); 
-    //console.log(name);
+    ////console.log(name);
   }
 
   purgeTree() {
@@ -41,7 +41,7 @@ export class TreeComponent implements OnInit {
   }
 
   counterRender(): boolean {
-    console.log('Render de tree');
+    //console.log('Render de tree');
     return true;
   }
 

@@ -56,15 +56,15 @@ export class FinderOicComponent implements OnInit, OnDestroy {
       next: (data) => {
         <OicInterfaceGql>data.data;
         this.oics = data.data!;
-        //console.log("this.oics",this.oics);
+        ////console.log("this.oics",this.oics);
 
-        //console.log("a",a.items);
+        ////console.log("a",a.items);
       },
       error: (err) => {
-        // console.log(err);
+        // //console.log(err);
       },
       complete: () => {
-        // console.log('complete');
+        // //console.log('complete');
       },
     })
     );
@@ -74,42 +74,42 @@ export class FinderOicComponent implements OnInit, OnDestroy {
     // in a real application, make a request to a
     // remote url with the query and return filtered results,
     // for demo we filter at client side
-    // console.log("event",event);
+    // //console.log("event",event);
     let filtered: any[] = [];
     let query = event.query;
     this.getDataEnte(query);
-    // console.log("query",query);
-    // console.log("this.oics ->>>>>>>>>>>>>>>desde el evento >>>",this.oics);
-    // console.log("this.oics.length ->>>>>>>>>>>>>>>>>>>>>>> desde el evento",this.oics!.items.length);
+    // //console.log("query",query);
+    // //console.log("this.oics ->>>>>>>>>>>>>>>desde el evento >>>",this.oics);
+    // //console.log("this.oics.length ->>>>>>>>>>>>>>>>>>>>>>> desde el evento",this.oics!.items.length);
     for (let i = 0; i < this.oics!.items.length; i++) {
-      // console.log("desde el for",this.oics!.items.length);
+      // //console.log("desde el for",this.oics!.items.length);
       let oicItem = this.oics!.items[i];
-      // console.log("oicItem",oicItem);
-      // console.log("oicItem.nombre >> ates de if",oicItem.nombre_ente);
+      // //console.log("oicItem",oicItem);
+      // //console.log("oicItem.nombre >> ates de if",oicItem.nombre_ente);
       // if (oicItem.nombre_ente.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-      //   console.log("oicItem.nombre >> desde el if",oicItem.nombre_ente);
+      //   //console.log("oicItem.nombre >> desde el if",oicItem.nombre_ente);
 
       // }
       filtered.push(oicItem);
     }
 
     this.filteredOic = filtered;
-    // console.log("filteredOic",this.filteredOic);
+    // //console.log("filteredOic",this.filteredOic);
   }
 
   getDataEnte(query: any) {
-    // console.log("query",query);
+    // //console.log("query",query);
     this.oic.getOicFromGraph(query).subscribe({
       next: (data) => {
         <OicInterfaceGql>data.data;
         this.oics = data.data!;
-        //console.log("this.oics desde el evento",this.oics);
+        ////console.log("this.oics desde el evento",this.oics);
       },
       error: (err) => {
-        // console.log(err);
+        // //console.log(err);
       },
       complete: () => {
-        // console.log('complete');
+        // //console.log('complete');
       },
     });
   }
@@ -117,7 +117,7 @@ export class FinderOicComponent implements OnInit, OnDestroy {
   finderEnte() {
     //const { ente } = this.fiderForm.value;
     this.onEnter.emit(this.finderForm.value);
-    // console.log("Data emitida",this.finderForm.value);
+    // //console.log("Data emitida",this.finderForm.value);
     // clear the input
     this.finderForm.reset();
   }
@@ -125,12 +125,12 @@ export class FinderOicComponent implements OnInit, OnDestroy {
   onSelectOic(oic: OicInterface) {
     this.selectedOic = oic;
     this.onSelectedOicChange.emit(oic);
-    // console.log("selectedOic",this.selectedOic);
+    // //console.log("selectedOic",this.selectedOic);
     this.finderForm.reset();
   }
 
   counterRender(): boolean {    
-    console.log('Render de finder');
+    //console.log('Render de finder');
     return true;
   }
 }

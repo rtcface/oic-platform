@@ -120,7 +120,7 @@ export class AuthService {
 
     return res;
   } catch (error) {
-      // console.log('catch in try',error);
+      // //console.log('catch in try',error);
       return res;
     }
   }
@@ -129,15 +129,15 @@ export class AuthService {
     
     let request = new Observable<MutationResult<data>>();
     
-    console.log("desde el auth service");
+    //console.log("desde el auth service");
     if (!this.verify_authentication()) {
-      console.log('Data desde la autentication');
+      //console.log('Data desde la autentication');
       //TODO: add edirect to login
       }
       
       try {
         usePass.usePass.email = this.getEmail;
-        console.log('Data desde el try');      
+        //console.log('Data desde el try');      
         const CHANGE_PASS = gql`mutation changePass($usePass:UserChangePassInput!){
           login:changePassword(input:$usePass){
             haveError
@@ -161,10 +161,10 @@ export class AuthService {
           variables: usePass ,
          fetchPolicy: 'no-cache'
         });
-        console.log(request);
+        //console.log(request);
         return request;     
       } catch (error) {
-        console.log('error=>',error);
+        //console.log('error=>',error);
         return request;
       }
 
@@ -211,7 +211,7 @@ export class AuthService {
           if(auth.data)
           {
           this._user_token = auth.data!;
-          //console.log('verify_authentication',this._user_token.verify_authentication.user.role);
+          ////console.log('verify_authentication',this._user_token.verify_authentication.user.role);
           this.params.role=this._user_token.verify_authentication.user.role;
           this.params.portal=localStorage.getItem('portal')!;
           this.saveRole(this.params.role);
@@ -232,7 +232,7 @@ export class AuthService {
       );
 
     } catch (error) {
-      // console.log('catch in try',error);
+      // //console.log('catch in try',error);
       return of(false);
     }
 

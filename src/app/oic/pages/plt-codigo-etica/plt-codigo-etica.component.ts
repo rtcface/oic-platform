@@ -29,7 +29,7 @@ export class PltCodigoEticaComponent  {
     this.ms.add({ severity: 'info', summary: 'Información', detail: 'No hay datos del ente solicitado...' });   //<-- Mensaje de error
   }
   showCodigo($event: OicEnte) {    
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>ShowCod", $event);
+    //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>ShowCod", $event);
     if($event.ente.id=="624c8e3daddddcbcb26e8135"){
       this.display = true;
       this.name_ente = $event.ente.nombre_ente;
@@ -40,9 +40,9 @@ export class PltCodigoEticaComponent  {
   }
 
   showCodigo2($event: OicInterface) {
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> ShowCod2", $event.id, $event.id.includes("622a42575fd04394d83e0702"));
+    //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> ShowCod2", $event.id, $event.id.includes("622a42575fd04394d83e0702"));
     if($event.id.includes("624c8e3daddddcbcb26e8135")){
-      console.log("Entre al if");
+      //console.log("Entre al if");
       this.display = true;
       this.name_ente = $event.nombre_ente;
       return;

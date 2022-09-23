@@ -30,36 +30,33 @@ export class AdmPltComiteComponent implements OnInit {
   }
 
   loadTreeFromBoss() {
-    console.log('in load');
+    //console.log('in load');
     const params: filterEnte = {
       boss: {
         ente: this.idEnteAuth,
       },
     };
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el reload ', params);
+    //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el reload ', params);
     this.loadTree(params);
   }
 
   loadTree(params: filterBoss | filterEnte) {
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el load ', params);
+    //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el load ', params);
     this.auServ.get_tree_comite(params).subscribe({
       next: (result) => {
         const tree: any = result.data!;
-        console.log(result);
-        console.log(tree);
+        //console.log(result);
+        //console.log(tree);
         if (tree.TreeColaboradoresData.data !== null) {
           this.data = [tree.TreeColaboradoresData];
-          console.log(
-            '>>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el load del coite',
-            this.data
-          );
+          //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el load del coite',  this.data    );
         } else {
           // this.showMessageDinamic( 'error', 'Información', 'No hay datos del ente solicitado...');
           this.purgeTree();
         }
       },
       error: (err) => {
-        console.log(`este es el errer ${err}`);
+        //console.log(`este es el errer ${err}`);
       },
     });
   }
@@ -77,12 +74,12 @@ export class AdmPltComiteComponent implements OnInit {
   findPresident(ente_publico:string){
     this.ss.get_president(this.idEnteAuth).subscribe({
       next: (result) => {
-        console.log(result);
+        //console.log(result);
         this.id_president = result.data?.PresidetByEnte.id!;
       },
       error: (err) => {
         this.id_president="";
-        console.log(err);        
+        //console.log(err);        
       },
       complete: () => {
         
@@ -96,19 +93,16 @@ export class AdmPltComiteComponent implements OnInit {
   }
 
   save(colaborador: Colaborador) {
-    console.log('aqui', colaborador);
+    //console.log('aqui', colaborador);
     colaborador.parentId=this.id_president;
 
-    console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', colaborador.parentId);
+    //console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', colaborador.parentId);
         //colaborador.parentId="631b4cd556c7051a8804ffe5";
         if (colaborador.parentId !== '' && colaborador.parentId !== undefined) {
-          console.log(
-            '>>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el save ',
-            colaborador
-          );
+          //console.log(       '>>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el save ', colaborador );
           this.ss.save_Member(colaborador).subscribe({
             next: (result) => {
-              console.log(result);
+              //console.log(result);
               if (result.data !== undefined && result.data !== null) {
                 this.isSaved = true;
                 this.showMessageDinamic(
@@ -122,10 +116,7 @@ export class AdmPltComiteComponent implements OnInit {
               }
             },
             error: (err) => {
-              console.log(
-                '>>>>>>>>>>>>>>>>>>>>>>>>>>>4Error en la consulta',
-                err
-              );
+              //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>4Error en la consulta',err);
               this.isSaved = false;
             },
             complete: () => {
@@ -135,7 +126,7 @@ export class AdmPltComiteComponent implements OnInit {
         } else {
           this.ss.save_President(colaborador, this.idEnteAuth).subscribe({
             next: (result) => {
-              console.log(result);
+              //console.log(result);
               if (result.data !== undefined && result.data !== null) {
                 this.isSaved = true;
                 this.showMessageDinamic(
@@ -149,10 +140,7 @@ export class AdmPltComiteComponent implements OnInit {
               }
             },
             error: (err) => {
-              console.log(
-                '>>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta',
-                err
-              );
+              //console.log(    '>>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta',  err );
               this.isSaved = false;
             },
             complete: () => {
@@ -163,10 +151,10 @@ export class AdmPltComiteComponent implements OnInit {
   }
 
   delete(user: delete_user) {
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el delete ', user);
+    //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el delete ', user);
     this.ss.delete_member(user).subscribe({
       next: (result) => {
-        console.log(result);
+        //console.log(result);
         if (result.data!.id === '') {
           this.showMessageDinamic(
             'error',
@@ -182,7 +170,7 @@ export class AdmPltComiteComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta', err);
+        //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta', err);
       },
       complete: () => {
         this.loadTreeFromBoss();
@@ -192,11 +180,11 @@ export class AdmPltComiteComponent implements OnInit {
   }
 
   update(user: user_edit) {
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update pather ",user);
+    // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update pather ",user);
 
     this.ss.update_Member(user).subscribe({
       next: (result) => {
-        // console.log(result);
+        // //console.log(result);
         if (result.data!.updateColaborador.haveError) {
           this.showMessageDinamic(
             'error',
@@ -212,7 +200,7 @@ export class AdmPltComiteComponent implements OnInit {
         }
       },
       error: (err) => {
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
       },
       complete: () => {
         this.loadTreeFromBoss();
@@ -225,9 +213,9 @@ export class AdmPltComiteComponent implements OnInit {
   }
 
   updateUserData(user: user_edit) {
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update ",user);
+    // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update ",user);
     this.userEdit = user;
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el this update ",this.userEdit);
+    // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el this update ",this.userEdit);
     this.showDialog();
   }
 }

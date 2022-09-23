@@ -67,7 +67,7 @@ export class GetOicService {
              }
            }      
          }`;
-    // console.log(ente,"este es el ente");
+    // //console.log(ente,"este es el ente");
     return this.apollo.query<tree>({
       query: GET_WORK_PLAN,
       variables: ente,     

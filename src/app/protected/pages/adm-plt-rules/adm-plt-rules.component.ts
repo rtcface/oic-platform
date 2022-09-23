@@ -32,8 +32,8 @@ export class AdmPltRulesComponent implements OnInit {
     next: (result) => {
       if (result.data?.rules[0] !== null && result.data?.rules[0] !== undefined) {        
         this.data = result.data?.rules[0]!;
-        console.log("in the parent",this.data);
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el load ",this.data);
+        //console.log("in the parent",this.data);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el load ",this.data);
       } else {
         const register:history_init={
           ente_publico: this.ent.ente_publico
@@ -41,10 +41,10 @@ export class AdmPltRulesComponent implements OnInit {
         this.ps.initRules(register).subscribe(
           {
             next:(result) => {
-              console.log(result);
+              //console.log(result);
             },
             error(err) {
-                console.log(err);
+                //console.log(err);
             },
             complete: () => {             
               this.loadRules();
@@ -54,10 +54,10 @@ export class AdmPltRulesComponent implements OnInit {
       }      
     },  
     error: (err) => {
-       console.log("error", err);
+       //console.log("error", err);
     },
     complete: () => {
-       console.log('compleate')
+       //console.log('compleate')
       }
    });
 
@@ -72,12 +72,12 @@ export class AdmPltRulesComponent implements OnInit {
           this.showMessageDinamic( "success", 'Actualización', 'Las reglas de integracion se actualizaron correctament...');
         }else{
           this.showMessageDinamic( "error", 'Error', 'Algo sali mal ;-(');
-          console.log(`Err ${result.errors}`);
+          //console.log(`Err ${result.errors}`);
         }        
       
       }, error: (err) => {
         this.showMessageDinamic( "error", 'Error', 'Algo sali mal ;-(');
-         console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+         //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
       },
       complete: () => {
         this.loadRules();        

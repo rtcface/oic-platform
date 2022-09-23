@@ -53,21 +53,21 @@ export class HomeComponent implements OnInit, OnDestroy {
         //this.params.role = this.authService.da_role;       
         
         
-         console.log("log>>>>>>>>>>>>>Conut--+++",type, this.authService.da_role); 
-         console.log("log>>>>>>>>>>>>>",this.params);
+         //console.log("log>>>>>>>>>>>>>Conut--+++",type, this.authService.da_role); 
+         //console.log("log>>>>>>>>>>>>>",this.params);
         
         
-        console.log("log-home>>>>>>>>>>>>>",this.items);
+        //console.log("log-home>>>>>>>>>>>>>",this.items);
         if(type=='oic'){    
-          console.log("In OIC --==-0-Params",this.params);      
+          //console.log("In OIC --==-0-Params",this.params);      
           this.header_title = Constantes.header_oic;
           this.footer_title = Constantes.footer_oic;
           //this.items=[];
           this.items = this.ss.get_menu_portal(this.params,this.queryParams);
-          console.log("In OIC --==-0-Items",this.items);
+          //console.log("In OIC --==-0-Items",this.items);
         }
         if(type=='plt'){
-          console.log("In PLT=====-Params",this.params);
+          //console.log("In PLT=====-Params",this.params);
           this.header_title = Constantes.header_plt;
           this.footer_title = Constantes.footer_plt;
           this.queryParams= {
@@ -75,8 +75,8 @@ export class HomeComponent implements OnInit, OnDestroy {
                             };
           //this.items=[];
           this.items = this.ss.get_menu_portal(this.params,this.queryParams);
-          console.log("In PLT=====-Items",this.items);
-          console.log("log-home-count>>>>>>>>>>>>>",this.items.length);
+          //console.log("In PLT=====-Items",this.items);
+          //console.log("log-home-count>>>>>>>>>>>>>",this.items.length);
         }
 
       
@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {   
     this.items=[];
-    console.log("log-home>>>>>>>>>>>>>=========================",this.items);
+    //console.log("log-home>>>>>>>>>>>>>=========================",this.items);
     this.route.unsubscribe();
   }
 

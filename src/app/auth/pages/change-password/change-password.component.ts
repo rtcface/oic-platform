@@ -64,13 +64,13 @@ export class ChangePasswordComponent implements OnInit {
     
     const request = await this.authService.change_password(params).subscribe({
       next: (result) => {
-        console.log(result);
+       //console.log(result);
         this.role = result.data?.login?.user?.role!;
         this.firstSignIn = result.data?.login?.user?.firstSignIn!;
-        console.log("role desde next",this.role);
+      //console.log("role desde next",this.role);
       },
       error: (err) => {
-        console.log(err);
+        //console.log(err);
         this.showError();
       },
       complete: () => {

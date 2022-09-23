@@ -22,8 +22,8 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
   //TODO: Remove USER DATA 
   myForm : FormGroup = this.fb.group({
-  loginValue: ['',[Validators.required, Validators.pattern(this.vs.emailPattern), Validators.minLength(3)]],
-  passwordValue:  ['',[Validators.required]]
+  loginValue: ['crosalioev@gmail.com',[Validators.required, Validators.pattern(this.vs.emailPattern), Validators.minLength(3)]],
+  passwordValue:  ['t3mp0r4l',[Validators.required]]
   });
     
   role = 'user';
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route = this.ar.queryParams.subscribe(params => {
       this.page = params['page'];
-      console.log("page",this.page);
+      ////console.log("page",this.page);
     });
   }
 
@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       next: (data) => {  
         this.role = data.data?.login?.user?.role!;
         this.firstSignIn = data.data?.login?.user?.firstSignIn!;
-        console.log("role desde next",this.role);
+        //console.log("role desde next",this.role);
        
       },
       error: (err) => {
@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
 
         if(this.role=='contralor' && this.page=='oic'  && this.firstSignIn){
-          console.log("contralor", this.router);
+          //console.log("contralor", this.router);
           this.router.navigate(['/protected/adm-users'],{queryParams: {type: 'oic'}});
           return;
         }
@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    
     
    } catch (error) {
-    //  console.log("Este es el error:===>",error);
+    //  //console.log("Este es el error:===>",error);
    }
   
    
