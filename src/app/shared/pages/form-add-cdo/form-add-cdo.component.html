@@ -17,11 +17,16 @@
                     <i class="pi pi-align-justify"></i>
                 </span>
                 <span class="p-float-label">
-                    <input type="text" id="inputName" pInputText class="p-inputtext-lg"> 
-                    <label for="inputName">Titulo:</label>
+                    <input type="text" 
+                    id="inputDescription" 
+                    formControlName="description" 
+                    [value]="cdoEdit.description" 
+                    pInputText 
+                    class="p-inputtext-lg"> 
+                    <label for="inputDescription">Titulo:</label>
                 </span>
             </div>
-            <p-message *ngIf="validateField('name')" severity="error" [text]="getErrorMessage('name')"></p-message>
+            <p-message *ngIf="validateField('description')" severity="error" [text]="getErrorMessage('description')"></p-message>
         </div>
         <div class="field col-12 md:col-4 form-item">
             <div class="p-inputgroup">
@@ -29,23 +34,29 @@
                     <i class="pi pi-link"></i>
                 </span>
                 <span class="p-float-label">
-                    <input type="text" id="inputUrl" class="p-inputtext-lg"> 
+                    <input type="text" 
+                    id="inputUrl" 
+                    pInputText
+                    class="p-inputtext-lg" 
+                    formControlName="url" 
+                    [value]="cdoEdit.url"> 
                     <label for="inputUrl">Url:</label>
                 </span>
             </div>
-            <p-message *ngIf="validateField('name')" severity="error" [text]="getErrorMessage('name')"></p-message>
+            <p-message *ngIf="validateField('url')" severity="error" [text]="getErrorMessage('url')"></p-message>
         </div>       
           <!-- Boton de guardar -->
           <div *ngIf="isSave; else update" ng class="field col-12 md:col-4 form-item">            
             <button pButton pRipple type="button" label="Guardar"
             (click)="validateSubmit()" class="p-button-outlined"
-            [formGroup]="userForm" icon="pi pi-user-plus"></button>            
+            [disabled]="existeCode"
+            [formGroup]="cdoEthicForm" icon="pi pi-user-plus" ></button>            
         </div>
         <ng-template #update>
             <div class="field col-12 md:col-4 form-item">
                 <button pButton pRipple type="button" label="Actualizar"
                  (click)="updateUser()" 
-                 [formGroup]="userForm" 
+                 [formGroup]="cdoEthicForm" 
                  class="p-button-outlined p-button-success" icon="pi pi-user-edit" ></button>
             </div>
         </ng-template>

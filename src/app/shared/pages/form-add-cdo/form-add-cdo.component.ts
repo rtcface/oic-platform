@@ -14,7 +14,9 @@ import { ValidatorsService } from '../../services/validators.service';
 })
 export class FormAddCdoComponent implements OnChanges{
 
-  @Input() isSave:boolean = true;
+ @Input() existeCode:boolean = false;
+
+ @Input() isSave:boolean = true;
  
  @Input() cdoEdit:updateCdoEthic = {} as updateCdoEthic;
  
@@ -29,9 +31,9 @@ export class FormAddCdoComponent implements OnChanges{
  @Output() onLoadDataUpdate:EventEmitter<updateCdoEthic> = new EventEmitter();
 
   cdoEthicForm = this.fb.group({
-    description: ['',[Validators.required ]],
+    description: ['',[Validators.required]],
     url: ['',[Validators.required]],
-    ente_publico: ['',[Validators.required]],       
+    ente_publico: [''],       
   });
  
 
@@ -42,8 +44,12 @@ export class FormAddCdoComponent implements OnChanges{
     private readonly ms: MessageService
   ) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    throw new Error('Method not implemented.');
+  ngOnChanges(changes: SimpleChanges): void { 
+    this.changeStatusForm();
+  }
+
+  changeStatusForm(){
+    this.existeCode ? this.cdoEthicForm.disable() : this.cdoEthicForm.enable();
   }
 
   confirm(event: Event){
@@ -61,7 +67,39 @@ export class FormAddCdoComponent implements OnChanges{
     });
   }
 
+  validateField(field: string) {
+    return this.cdoEthicForm.get(field)?.invalid && this.cdoEthicForm.get(field)?.touched;
+  }
 
+  getErrorMessage(field: string) {      
+    
+    const message:string = "Debe ingresar un valor válido";
+    return this.cdoEthicForm.get(field)?.hasError('required') ? message :'';
+          
+  }
+
+  validateSubmit() {
+    
+    if (this.cdoEthicForm.invalid) {
+      this.cdoEthicForm.markAllAsTouched();     
+    } else {
+      console.log(this.cdoEthicForm.value);
+      this.onSave.emit(this.cdoEthicForm.value);
+      if(this.isSaved){
+      this.cdoEthicForm.reset();
+      }
+    }
+  }
+    
+  updateUser() {    
+    if(this.cdoEthicForm.invalid){     
+      this.cdoEthicForm.markAllAsTouched();     
+    } else {
+      const cdo:updateCdoEthic = this.cdoEthicForm.value;
+      cdo.id = this.cdoEdit.id;
+      this.onUpdate.emit(cdo);
+    }     
+  }
   
 
 

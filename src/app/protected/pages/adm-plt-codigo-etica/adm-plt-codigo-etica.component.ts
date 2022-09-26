@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { kpiByEnteQueryInput, updateCdoEthic } from '../../models/kpis.interface';
+import { cdoSaveEthic, kpiByEnteQueryInput, updateCdoEthic } from '../../models/kpis.interface';
 import { ProtectedService } from '../../services/protected.service';
 
 @Component({
@@ -41,8 +41,8 @@ export class AdmPltCodigoEticaComponent implements OnInit, OnChanges {
   loadCdoEthic(ente: string){
 
     const ente_publico:kpiByEnteQueryInput = {
-      ente_publico: "631b660356c7051a8805004b"//ente
-    }
+      ente_publico: ente //"631b660356c7051a8805004b"//
+     }
    
     const cdoEthic = this.ps.loadCdoEthic(ente_publico).subscribe({
       next: (result) => {
@@ -61,6 +61,35 @@ export class AdmPltCodigoEticaComponent implements OnInit, OnChanges {
       }
     });
 
+  }
+
+  saveCdo( cdo:cdoSaveEthic ){
+    cdo.ente_publico= this.idEnteAuth;
+
+    this.ps.registerCdoEthica(cdo).subscribe({
+      next: (result) => {
+        console.log(result);
+        if(result.data?.cdo.id !== null && result.data?.cdo.id !== undefined){
+          this.isSaved = true;
+          this.showMessageDinamic( 'success', 'Éxito', 'Usuario registrado correctamente...');
+        }
+      },
+      error: (err) => {
+        console.log(err);        
+          this.showMessageDinamic( "error", 'Error',err);
+          this.isSaved = false;
+      },
+      complete: () => {
+        this.loadCdoEthic(this.idEnteAuth);
+      }
+    });
+
+    console.log("in save",cdo);
+  }
+
+
+  showMessageDinamic(severity:string ,summary: string, detail: string) {
+    this.msgs.add({ severity, summary, detail}); //<-- Mensaje de error
   }
 
 }

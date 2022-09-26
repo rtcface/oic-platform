@@ -43,8 +43,7 @@ export interface requestCdo{
     cdo:cdoEthic;
 }
 
-export interface cdoSaveEthic{
-    id: string;
+export interface cdoSaveEthic{   
     description: string;
     url: string;
     ente_publico: string;
@@ -52,4 +51,12 @@ export interface cdoSaveEthic{
 
 export interface delete_cdo{
     id: string;
+}
+
+export interface resApiAddCdo{
+    id: string;
+}
+
+export interface cdo{
+    cdo:resApiAddCdo;
 }
