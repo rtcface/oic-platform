@@ -13,11 +13,18 @@
     </p-divider>
     
     <p-panel header="Código de Ética">
-      <button pButton type="button"class="p-button-outlined" (click)="showDialog()">
+      <button pButton 
+      type="button"class="p-button-outlined"
+      (click)="updateCdoData( cdoEthic )" 
+      [disabled]="btnEditCdo">
         {{ btnMessage }}
       </button>
     </p-panel>  
 </div>  
 <p-dialog header="Actualizar Código de Ética" [(visible)]="display" >
-  <app-form-add-cdo></app-form-add-cdo>
+  <app-form-add-cdo 
+  (onDelete)="delete($event)"
+  [cdoEdit]="cdoEthic"
+  [isSave]="isSave" 
+  ></app-form-add-cdo>
 </p-dialog>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { deletePlanWork, planWork, planWorkDataAdd } from '../models/plan-work.interface';
-import { cdo, cdoSaveEthic, kpiAdd, kpiByEnteQueryInput, requestCdo, resApiAddCdo, resp } from '../models/kpis.interface';
+import { cdo, cdoSaveEthic, delete_cdo, kpiAdd, kpiByEnteQueryInput, requestCdo, resApiAddCdo, resp } from '../models/kpis.interface';
 import {  history_init, history_update, rules } from 'src/app/shared/models/history.interface';
 
 @Injectable({
@@ -181,19 +181,39 @@ export class ProtectedService {
   }
 
   registerCdoEthica(cdo:cdoSaveEthic): Observable<MutationResult<cdo>> {
-    const INIT_RULE = gql`mutation addcdoEthic($cdo:CodeEthicsRegisterInput!){
+    const REGISTER_CDO = gql`mutation addcdoEthic($cdo:CodeEthicsRegisterInput!){
       cdo:addCodeEthics(input:$cdo){
         id
       }
     }`;
     return this.apollo.mutate<cdo>({
-      mutation: INIT_RULE,
+      mutation: REGISTER_CDO,
       variables: {
         cdo
       },
       fetchPolicy: 'no-cache'
     });
     
+  }
+
+  delete_cdo(cdo:delete_cdo): Observable<MutationResult<cdo>>{
+    const DELETE_CDO_ETHIC = gql`mutation delete_cdo($cdo: CodeEthicsDeleteInput!){
+      cdo:deleteEthicCode(input:$cdo){
+        id
+      }
+    }`;
+    return this.apollo.mutate<cdo>({
+      mutation: DELETE_CDO_ETHIC,
+      variables: {
+        cdo
+      },
+      fetchPolicy: 'no-cache'
+    });
+    
+
+
+
+
   }
   
 }

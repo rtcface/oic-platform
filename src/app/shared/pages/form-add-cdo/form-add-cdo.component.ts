@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Out
 import { Validators, FormBuilder } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { cdoSaveEthic, delete_cdo, updateCdoEthic } from 'src/app/protected/models/kpis.interface';
-import {  Colaborador, delete_user,  } from '../../models/colaborador.interface';
 import { ValidatorsService } from '../../services/validators.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { ValidatorsService } from '../../services/validators.service';
   templateUrl: './form-add-cdo.component.html',
   styleUrls: ['./form-add-cdo.component.scss'],
   providers: [ConfirmationService, MessageService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  
 })
 export class FormAddCdoComponent implements OnChanges{
 
@@ -45,7 +44,25 @@ export class FormAddCdoComponent implements OnChanges{
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void { 
+    this.counterRender();
     this.changeStatusForm();
+    this.loadCdoEdit(this.cdoEdit);
+    if(this.isSaved){
+      console.log("entre en is saved")
+      this.cdoEthicForm.reset();
+    }
+
+
+  }
+
+  loadCdoEdit(cdo:updateCdoEthic){
+    console.log("from form update");
+    this.cdoEthicForm.reset(
+      {
+       description: cdo.description,
+       url: cdo.url
+      }
+    );
   }
 
   changeStatusForm(){
@@ -91,7 +108,7 @@ export class FormAddCdoComponent implements OnChanges{
     }
   }
     
-  updateUser() {    
+  updateCdo() {    
     if(this.cdoEthicForm.invalid){     
       this.cdoEthicForm.markAllAsTouched();     
     } else {
@@ -100,13 +117,11 @@ export class FormAddCdoComponent implements OnChanges{
       this.onUpdate.emit(cdo);
     }     
   }
-  
 
+  counterRender(): boolean{
 
-
- 
-
-
- 
+    console.log("Render de FormUsersComponent");
+    return true;
+  }
 
 }

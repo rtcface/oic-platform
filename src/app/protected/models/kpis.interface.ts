@@ -46,7 +46,7 @@ export interface requestCdo{
 export interface cdoSaveEthic{   
     description: string;
     url: string;
-    ente_publico: string;
+    ente_publico: string;   
 }
 
 export interface delete_cdo{

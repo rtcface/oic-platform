@@ -52,7 +52,7 @@ export class FormUsersComponent implements OnChanges {
     }
   ngOnChanges(changes: SimpleChanges): void {    
     ////console.log("en el ngOnChanges", this.userEdit);
-    this.loaduserEdit(this.userEdit);
+    this.loaduserEdit();
     if(this.isSaved){
       this.userForm.reset();
     }
@@ -105,7 +105,7 @@ export class FormUsersComponent implements OnChanges {
     });
 }
 
-  loaduserEdit(user:user_edit){
+  loaduserEdit(){
     this.userForm.reset(
       {
         name: this.userEdit.name,

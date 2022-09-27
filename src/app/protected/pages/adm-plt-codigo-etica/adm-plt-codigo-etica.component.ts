@@ -1,20 +1,22 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { cdoSaveEthic, kpiByEnteQueryInput, updateCdoEthic } from '../../models/kpis.interface';
+import { cdoSaveEthic, delete_cdo, kpiByEnteQueryInput, updateCdoEthic } from '../../models/kpis.interface';
 import { ProtectedService } from '../../services/protected.service';
 
 @Component({
   selector: 'app-adm-plt-codigo-etica',
   templateUrl: './adm-plt-codigo-etica.component.html',
   styleUrls: ['./adm-plt-codigo-etica.component.scss'],
-  providers: [ MessageService ]
+  providers: [ MessageService ],
 })
 export class AdmPltCodigoEticaComponent implements OnInit, OnChanges {
   idEnteAuth: string =this.asr.idEnteAuth;
   btnMessage: string = "";
   isSaved: boolean = false;
+  isSave: boolean = false;
   existsCdo: boolean = false;
+  btnEditCdo: boolean = true;
   cdoEthic: updateCdoEthic = {} as updateCdoEthic;
   
   constructor(
@@ -48,8 +50,14 @@ export class AdmPltCodigoEticaComponent implements OnInit, OnChanges {
       next: (result) => {
         console.log(result);
         if (result.data?.cdo.description){
-          this.btnMessage= result.data?.cdo.description!;
+
+          this.cdoEthic.description = result.data?.cdo.description!
+          this.cdoEthic.url = result.data?.cdo.url!;
+          this.cdoEthic.id = result.data?.cdo.id!;
+
+          this.btnMessage= this.cdoEthic.description;
           this.existsCdo=true;
+          this.btnEditCdo=false;
         }
       },
       error: (err) => {
@@ -75,7 +83,7 @@ export class AdmPltCodigoEticaComponent implements OnInit, OnChanges {
         }
       },
       error: (err) => {
-        console.log(err);        
+        //console.log(err);        
           this.showMessageDinamic( "error", 'Error',err);
           this.isSaved = false;
       },
@@ -84,12 +92,45 @@ export class AdmPltCodigoEticaComponent implements OnInit, OnChanges {
       }
     });
 
-    console.log("in save",cdo);
+    //console.log("in save",cdo);
   }
 
 
   showMessageDinamic(severity:string ,summary: string, detail: string) {
     this.msgs.add({ severity, summary, detail}); //<-- Mensaje de error
   }
+
+  updateCdoData(cdo:updateCdoEthic ) {   
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update ",cdo);
+    this.cdoEthic = cdo;
+    // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el this update ",this.userEdit);
+    this.showDialog();
+  }
+
+  delete(cdo: delete_cdo) {
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el delete ",cdo);
+    this.ps.delete_cdo(cdo).subscribe({
+      next: (result) => {
+        //console.log(result.data?.cdo.id);
+        if (result.data?.cdo.id) {
+          this.showMessageDinamic( 'success', 'Información', 'Código de Ética eliminado correctamente...');        
+          this.btnEditCdo=true;
+        } else {
+          this.showMessageDinamic( 'error', 'Error', 'No se pudo eliminar...');
+        }
+      },
+      error: (err) => {
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+      },
+      complete: () => {
+        this.loadCdoEthic(this.idEnteAuth);
+        this.display = false;
+      },
+    });
+  }
+
+
+
+
 
 }
