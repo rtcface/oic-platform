@@ -187,7 +187,7 @@ export class AdmPltComiteComponent implements OnInit {
         // //console.log(result);
         if (result.data!.updateColaborador.haveError) {
           this.showMessageDinamic(
-            'error',
+          'error',
             'Error',
             result.data!.updateColaborador.Err
           );

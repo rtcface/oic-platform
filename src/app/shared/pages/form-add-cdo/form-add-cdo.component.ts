@@ -9,9 +9,9 @@ import { ValidatorsService } from '../../services/validators.service';
   templateUrl: './form-add-cdo.component.html',
   styleUrls: ['./form-add-cdo.component.scss'],
   providers: [ConfirmationService, MessageService],
-  
+ 
 })
-export class FormAddCdoComponent implements OnChanges{
+export class FormAddCdoComponent implements OnChanges {
 
  @Input() existeCode:boolean = false;
 
@@ -32,7 +32,7 @@ export class FormAddCdoComponent implements OnChanges{
   cdoEthicForm = this.fb.group({
     description: ['',[Validators.required]],
     url: ['',[Validators.required]],
-    ente_publico: [''],       
+    ente_publico: [''],  
   });
  
 
@@ -42,27 +42,28 @@ export class FormAddCdoComponent implements OnChanges{
     private readonly confirmationService: ConfirmationService,
     private readonly ms: MessageService
   ) { }
+ 
 
   ngOnChanges(changes: SimpleChanges): void { 
-    this.counterRender();
-    this.changeStatusForm();
-    this.loadCdoEdit(this.cdoEdit);
+    //this.counterRender();
+    //this.changeStatusForm();
+    this.loadCdoEdit();
     if(this.isSaved){
-      console.log("entre en is saved")
+      // console.log("entre en is saved")
       this.cdoEthicForm.reset();
     }
 
 
   }
 
-  loadCdoEdit(cdo:updateCdoEthic){
-    console.log("from form update");
+  loadCdoEdit(){
     this.cdoEthicForm.reset(
       {
-       description: cdo.description,
-       url: cdo.url
+       description: this.cdoEdit.description,
+       url: this.cdoEdit.url
       }
     );
+   
   }
 
   changeStatusForm(){
@@ -80,6 +81,9 @@ export class FormAddCdoComponent implements OnChanges{
         }
         this.onDelete.emit(del_cdo);        
       },
+      reject: () => {
+        this.noDelete();        
+      }
       
     });
   }
@@ -113,6 +117,7 @@ export class FormAddCdoComponent implements OnChanges{
       this.cdoEthicForm.markAllAsTouched();     
     } else {
       const cdo:updateCdoEthic = this.cdoEthicForm.value;
+
       cdo.id = this.cdoEdit.id;
       this.onUpdate.emit(cdo);
     }     
@@ -123,5 +128,11 @@ export class FormAddCdoComponent implements OnChanges{
     console.log("Render de FormUsersComponent");
     return true;
   }
+
+   // create message for cancel button click
+   noDelete() {
+    this.ms.add({ severity: 'error', summary: 'Cancelo', detail: `Sera en otra ocasión ${this.cdoEdit.description}...`});   //<-- Mensaje de error
+  }
+
 
 }

@@ -24,7 +24,8 @@
 <p-dialog header="Actualizar Código de Ética" [(visible)]="display" >
   <app-form-add-cdo 
   (onDelete)="delete($event)"
+  (onUpdate)="update($event)"
   [cdoEdit]="cdoEthic"
-  [isSave]="isSave" 
+  [isSave]="isSave"
   ></app-form-add-cdo>
 </p-dialog>

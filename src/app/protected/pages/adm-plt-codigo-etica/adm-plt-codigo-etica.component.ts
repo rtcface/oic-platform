@@ -41,7 +41,7 @@ export class AdmPltCodigoEticaComponent implements OnInit, OnChanges {
   }
 
   loadCdoEthic(ente: string){
-
+    console.log("en el load",ente );
     const ente_publico:kpiByEnteQueryInput = {
       ente_publico: ente //"631b660356c7051a8805004b"//
      }
@@ -65,26 +65,25 @@ export class AdmPltCodigoEticaComponent implements OnInit, OnChanges {
             this.existsCdo=false;
       },
       complete: () => {
-        //console.log("Termine");
+        console.log("Termine");
       }
     });
 
   }
 
   saveCdo( cdo:cdoSaveEthic ){
-    cdo.ente_publico= this.idEnteAuth;
-
-    this.ps.registerCdoEthica(cdo).subscribe({
+    const save: cdoSaveEthic = { description:cdo.description, url:cdo.url, ente_publico: this.idEnteAuth} as cdoSaveEthic;
+    this.ps.registerCdoEthica(save).subscribe({
       next: (result) => {
         console.log(result);
         if(result.data?.cdo.id !== null && result.data?.cdo.id !== undefined){
           this.isSaved = true;
-          this.showMessageDinamic( 'success', 'Éxito', 'Usuario registrado correctamente...');
+          this.showMessageDinamic( 'success', 'Éxito', 'Código de Ética registrado correctamente...');
         }
       },
       error: (err) => {
         //console.log(err);        
-          this.showMessageDinamic( "error", 'Error',err);
+          this.showMessageDinamic( "error", 'Error',"Al parecer hay error");
           this.isSaved = false;
       },
       complete: () => {
@@ -101,8 +100,10 @@ export class AdmPltCodigoEticaComponent implements OnInit, OnChanges {
   }
 
   updateCdoData(cdo:updateCdoEthic ) {   
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update ",cdo);
+    //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el update ",cdo);
     this.cdoEthic = cdo;
+
+   
     // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> Desde el this update ",this.userEdit);
     this.showDialog();
   }
@@ -121,6 +122,7 @@ export class AdmPltCodigoEticaComponent implements OnInit, OnChanges {
       },
       error: (err) => {
         // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta",err);
+        this.showMessageDinamic( 'error', 'Error', 'No se pudo eliminar...');
       },
       complete: () => {
         this.loadCdoEthic(this.idEnteAuth);
@@ -129,6 +131,27 @@ export class AdmPltCodigoEticaComponent implements OnInit, OnChanges {
     });
   }
 
+  update(cdo:updateCdoEthic){
+    const data:updateCdoEthic = {description:cdo.description,id:cdo.id,url:cdo.url} as updateCdoEthic ;
+    console.log(data,"in update");
+    this.ps.update_cdo(data).subscribe({
+      next:(result) => {
+        console.log(result);
+        if(result.data?.cdo.id !== null && result.data?.cdo.id !== undefined){
+          this.showMessageDinamic( 'success', 'Éxito', 'Código de Ética registrado correctamente...');
+        }
+      },
+      error:(err) =>{
+        console.log(err);
+        this.showMessageDinamic( 'error', 'Error', 'Ups al parecer hubo un error... '+err.message);
+      },
+      complete:() => {
+        this.loadCdoEthic(this.idEnteAuth);
+        this.display = false;
+      }
+    });
+
+  }
 
 
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { deletePlanWork, planWork, planWorkDataAdd } from '../models/plan-work.interface';
-import { cdo, cdoSaveEthic, delete_cdo, kpiAdd, kpiByEnteQueryInput, requestCdo, resApiAddCdo, resp } from '../models/kpis.interface';
+import { cdo, cdoSaveEthic, delete_cdo, kpiAdd, kpiByEnteQueryInput, requestCdo, resApiAddCdo, resp, updateCdoEthic } from '../models/kpis.interface';
 import {  history_init, history_update, rules } from 'src/app/shared/models/history.interface';
 
 @Injectable({
@@ -213,6 +213,27 @@ export class ProtectedService {
 
 
 
+
+  }
+
+  update_cdo(cdo:updateCdoEthic): Observable<MutationResult<cdo>> {
+     console.log(cdo, 'update in PS')
+     
+     
+    const UPDATE_CDO_ETHIC = gql`mutation updateCdoEthic($cdo:CodeEthicsUpdateInput!)
+    {
+      cdo:updateCodeEthics(input:$cdo){
+            id            			  
+      }
+    }`;
+
+    return this.apollo.mutate<cdo>({
+      mutation: UPDATE_CDO_ETHIC,
+      variables:{
+        cdo
+      },
+      fetchPolicy: 'no-cache'
+    });
 
   }
   
