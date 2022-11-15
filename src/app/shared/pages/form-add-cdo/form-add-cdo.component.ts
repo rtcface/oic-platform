@@ -46,7 +46,7 @@ export class FormAddCdoComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void { 
     //this.counterRender();
-    //this.changeStatusForm();
+    this.changeStatusForm();
     this.loadCdoEdit();
     if(this.isSaved){
       // console.log("entre en is saved")

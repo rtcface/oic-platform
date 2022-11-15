@@ -22,8 +22,10 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
   //TODO: Remove USER DATA 
   myForm : FormGroup = this.fb.group({
-  loginValue: ['crosalioev@gmail.com',[Validators.required, Validators.pattern(this.vs.emailPattern), Validators.minLength(3)]],
-  passwordValue:  ['t3mp0r4l',[Validators.required]]
+  // loginValue: ['crosalioev@gmail.com',[Validators.required, Validators.pattern(this.vs.emailPattern), Validators.minLength(3)]],
+  // passwordValue:  ['t3mp0r4l',[Validators.required]]
+  loginValue: ['',[Validators.required, Validators.pattern(this.vs.emailPattern), Validators.minLength(3)]],
+  passwordValue:  ['',[Validators.required]]
   });
     
   role = 'user';
