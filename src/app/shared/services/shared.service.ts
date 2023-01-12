@@ -40,6 +40,10 @@ export class SharedService {
     this.isLoading$.next(true);
   }
 
+  graficaReload():void{
+    
+  }
+
   hideLoading(): void {
     this.isLoading$.next(false);
   }
@@ -318,118 +322,118 @@ export class SharedService {
     });
   }
 
-    getEntesList(): ente[] { 
-    const array:[{}]= [{}];
-    try {
-      const GET_ENTES_PUBLICOS = gql`
-        query RegresaEntes {
-          entes: getEnte {
-            id
-            nombre_ente
-          }
-        }
-      `;
-    this.apollo
-        .query<entesRequest>({
-          query: GET_ENTES_PUBLICOS,
-          fetchPolicy: 'no-cache',
-        }).subscribe({
-          next: ((dat) => {
-            const { data } = dat;
-            data.entes.forEach((ent) => {
-               array.push({
-                id:"naoeh",
-                nombre_ente: "othuoaen"
-              });
-            })
-           })
-        });
+  //   getEntesList(): ente[] { 
+  //   const array:[{}]= [{}];
+  //   try {
+  //     const GET_ENTES_PUBLICOS = gql`
+  //       query RegresaEntes {
+  //         entes: getEnte {
+  //           id
+  //           nombre_ente
+  //         }
+  //       }
+  //     `;
+  //   this.apollo
+  //       .query<entesRequest>({
+  //         query: GET_ENTES_PUBLICOS,
+  //         fetchPolicy: 'no-cache',
+  //       }).subscribe({
+  //         next: ((dat) => {
+  //           const { data } = dat;
+  //           data.entes.forEach((ent) => {
+  //              array.push({
+  //               id:"naoeh",
+  //               nombre_ente: "othuoaen"
+  //             });
+  //           })
+  //          })
+  //       });
               
-      }catch (error) {
-     console.log(error);
-    }
-    console.log(this.namesEntesList,"afuera",array[0]);
-    return this.namesEntesList;
-  }
+  //     }catch (error) {
+  //    console.log(error);
+  //   }
+  //   console.log(this.namesEntesList,"afuera",array[0]);
+  //   return this.namesEntesList;
+  // }
 
-  getListNamesEntes():string[]{
-    const namesEntes: string[] = [];
-    console.log(this.getEntesList()); 
-    return namesEntes;
-  } 
+  // getListNamesEntes():string[]{
+  //   const namesEntes: string[] = [];
+  //   console.log(this.getEntesList()); 
+  //   return namesEntes;
+  // } 
 
-  getStadisticsByEnte(ente: history_init) {
+  // getStadisticsByEnte(ente: history_init) {
    
-    let count = 0;
-    try {
-      const GET_STADISTICS = gql`
-        query getHistory($ente: HistoryRuleByEnteInput!) {
-          staditics: getHistoryIntegrityRulesByEnte(input: $ente) {
-            p1
-            p2
-            p3
-            p4
-            p5
-            p6
-            p7
-            p8
-            p9
-            p10
-            p11
-            p12
-            p13
-            p14
-            p15
-            p16
-          }
-        }
-      `;
-       this.apollo
-        .query<staditics_request>({
-          query: GET_STADISTICS,
-          variables: {
-            ente,
-          },
-          fetchPolicy: 'no-cache',
-        })
-        .pipe(
-          tap((dat) => {
+  //   let count = 0;
+  //   try {
+  //     const GET_STADISTICS = gql`
+  //       query getHistory($ente: HistoryRuleByEnteInput!) {
+  //         staditics: getHistoryIntegrityRulesByEnte(input: $ente) {
+  //           p1
+  //           p2
+  //           p3
+  //           p4
+  //           p5
+  //           p6
+  //           p7
+  //           p8
+  //           p9
+  //           p10
+  //           p11
+  //           p12
+  //           p13
+  //           p14
+  //           p15
+  //           p16
+  //         }
+  //       }
+  //     `;
+  //      this.apollo
+  //       .query<staditics_request>({
+  //         query: GET_STADISTICS,
+  //         variables: {
+  //           ente,
+  //         },
+  //         fetchPolicy: 'no-cache',
+  //       })
+  //       .pipe(
+  //         tap((dat) => {
 
-           if(dat.data.staditics[0] !== undefined) {
+  //          if(dat.data.staditics[0] !== undefined) {
 
-            console.log(dat.data.staditics[0],ente,'<<<<<<<<<<<');
+  //           console.log(dat.data.staditics[0],ente,'<<<<<<<<<<<');
 
-            dat.data.staditics[0].p1 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p2 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p3 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p4 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p5 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p6 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p7 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p8 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p9 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p10 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p11 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p12 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p13 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p14 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p15 ? (count = count + 1) : (count = count);
-            dat.data.staditics[0].p16 ? (count = count + 1) : (count = count);
-            return (count * 100) / 16;
-           }
-           return 0;     
-          })
-        )
-        .subscribe(({ data }) => {
-          console.log(data);
-          return (count * 100) / 16;
-        });
-    } catch (error) {
-      console.log("-----------------------------",error);
-      return 0;
-    }
-    return 0;         
-  }
+  //           dat.data.staditics[0].p1 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p2 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p3 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p4 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p5 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p6 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p7 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p8 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p9 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p10 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p11 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p12 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p13 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p14 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p15 ? (count = count + 1) : (count = count);
+  //           dat.data.staditics[0].p16 ? (count = count + 1) : (count = count);
+  //           return (count * 100) / 16;
+  //          }
+  //          return 0;     
+  //         })
+  //       )
+  //       .subscribe(({ data }) => {
+  //         console.log(data);
+  //         return (count * 100) / 16;
+  //       });
+  //   } catch (error) {
+  //     console.log("-----------------------------",error);
+  //     return 0;
+  //   }
+  //   return 0;         
+  // }
 
 
   getStadistics():Observable< MutationResult<Graficas> >{
