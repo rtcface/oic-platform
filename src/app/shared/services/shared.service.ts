@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult } from 'apollo-angular';
-import { catchError, Observable, Subject, Subscription, tap } from 'rxjs';
+import { catchError, Observable, of, Subject, Subscription, tap } from 'rxjs';
 import {
   Colaborador,
   DataColaborador,
@@ -15,10 +15,13 @@ import {
   staditics,
   dataset,
   ente,
+  Data,
+  GraphqlRequest,
 } from '../models/history.interface';
 
 import { items, menu, params_menu } from '../models/menu_interface';
 import { data } from 'src/app/auth/interfaces/user_token.interface';
+import { Graficas } from '../models/history.interface';
 import {
   findPresident,
   RegisterColaborador,
@@ -429,33 +432,28 @@ export class SharedService {
   }
 
 
-  getStadistics(entes: ente[]):staditics{
-    console.log(entes,"----------from Service--------");
-    const  result: staditics = {} as staditics;
-    const ds: dataset = {} as dataset;    
-    const porcentages: number[] = [];
-    const backgroundColor: Array<string> = [
-      '#EC407A',
-      '#AB47BC',
-      '#42A5F5',
-      '#7E57C2',
-      '#66BB6A',
-      '#FFCA28',
-      '#26A69A',
-    ];
-    ds.label = 'Porcentaje de avance';
-    ds.backgroundColor = backgroundColor;
-    
-    //const dat = this.getListNamesEntes();
-    //console.log(dat,"lista de entes");
-    return result;
+  getStadistics():Observable< MutationResult<Graficas> >{
+    // console.log("----------from Service--------");    
+    try {
+      const GET_GRAFICO = gql`
+      query getGrafico {
+        Data:getGraficos{
+          labels,
+          datasets{
+            label
+            backgroundColor
+            data
+          }
+        }
+      }`;
+        return this.apollo.query<Graficas>({
+          query: GET_GRAFICO,
+          fetchPolicy: 'no-cache'
+        });     
+    } catch (error) {     
+      return of< MutationResult<Graficas>>( {} as MutationResult<Graficas>)
+    }   
   }
-
-
-  
-
-
-
 }
 
 

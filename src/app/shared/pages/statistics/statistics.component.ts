@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 import { OicGraphqlServiceService } from 'src/app/graphql/services/oic-graphql-service.service';
-import { ente, entesRequest } from '../../models/history.interface';
+import { ente, entesRequest, Graficas } from '../../models/history.interface';
 import { SharedService } from '../../services/shared.service';
+import { data } from '../../../auth/interfaces/user_token.interface';
 
 
 
@@ -20,8 +21,8 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   stackedOptions: any;
   listNamesPublicBody: string[] = [];
   porcentageByente: number[] = [];
-  private getEntesSubscription: Subscription = new Subscription();
-  private getNamesListSubscription: Subscription = new Subscription();
+  private graficasSubscriptions : Subscription = new Subscription();
+  
   //Data
   // {
   //     labels: [
@@ -109,15 +110,22 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   constructor(private ss: SharedService, private readonly gp:OicGraphqlServiceService) {}
 
   ngOnDestroy(): void {
-    this.getEntesSubscription.unsubscribe();
-    this.getNamesListSubscription.unsubscribe();
+    this.graficasSubscriptions.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.getEntesList();
-    this.getNamesList();
-    this.basicData = this.ss.getStadistics(this.namesEntesList);
-    this.horizontalOptions = {
+    
+    this.graficasSubscriptions.add(
+
+      this.ss.getStadistics().subscribe(
+        {
+          next: ({data}) => {           
+            this.basicData = data?.Data;
+          }        
+        }
+      )      
+    );
+      this.horizontalOptions = {
       indexAxis: 'y',
       plugins: {
         legend: {
@@ -147,18 +155,5 @@ export class StatisticsComponent implements OnInit, OnDestroy {
     };
   }
 
-  getEntesList() {
-    this.getEntesSubscription = this.gp.getEntes().subscribe((ente) => {      
-        this.namesEntesList=ente;
-        //console.log(this.namesEntesList);
-      });
-  }
-
-  getNamesList() {
-    this.getNamesListSubscription = this.gp.getNamesEntes().subscribe(
-      (listName) => {
-        console.log("other")
-        console.log(listName,"--------")
-      });
-  }
+  
 }

@@ -65,9 +65,27 @@ export interface staditics {
     datasets: dataset;
 }
 
+export interface Graficas {
+    Data:Data;
+}
+
+export interface Data{    
+    labels: string[];
+    datasets: dataset;
+}
+
+
 export interface dataset {
     label: string;
     backgroundColor: string[];
     data:number[];
 }
+
+export interface GraphqlRequest{
+    data:Data,
+    loading:boolean,
+    networkStatus: number
+}
+
+
 
