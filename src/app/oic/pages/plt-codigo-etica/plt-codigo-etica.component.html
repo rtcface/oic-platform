@@ -1,0 +1,21 @@
+<div class="cdo-etica">
+    <div class="message-fider">
+      <app-finder-oic (onEnter)="showCodigo(  $event  )"
+        (onSelectedOicChange)="showCodigo2(  $event  )"
+        [title]="'Buscador de entes publicos'"
+        ></app-finder-oic>
+        <p-messages></p-messages>
+    </div>
+  
+    <p-divider id="divider-user" layout="vertical" align="center" >
+      <i class="pi pi-user mr-2"></i>
+    </p-divider>
+  
+    <div *ngIf="display">
+      <button pButton type="button"class="p-button-outlined">
+        <a [href]="url">Descargar Código de Ética de {{ name_ente }}</a>
+      </button>
+    </div>
+  
+  </div>
+  

@@ -3,11 +3,13 @@ import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from "primeng/inputtext";
+import { ListboxModule } from 'primeng/listbox';
 import { MenubarModule } from 'primeng/menubar';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
@@ -21,10 +23,6 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
-import { ListboxModule } from 'primeng/listbox';
-
-
-
 
 
 
@@ -36,6 +34,7 @@ import { ListboxModule } from 'primeng/listbox';
     ButtonModule,
     CardModule,
     ChartModule,
+    CheckboxModule,
     ConfirmPopupModule,
     DialogModule,
     DividerModule,
@@ -47,7 +46,7 @@ import { ListboxModule } from 'primeng/listbox';
     OrganizationChartModule,
     OverlayPanelModule,
     PanelModule,
-    PasswordModule,
+    PasswordModule,   
     ToastModule,
     ToolbarModule,
     TooltipModule,

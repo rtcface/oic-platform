@@ -13,4 +13,5 @@ export interface user_register {
     role: string;
     createByGoogle: boolean;    
     ente_publico: string;
+    firstSignIn: boolean;
 }

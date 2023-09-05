@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginMainComponent } from './pages/login-main/login-main.component';
+import { MainCardsComponent } from './pages/main-cards/main-cards.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -10,8 +12,16 @@ const routes: Routes = [
     component:LoginMainComponent,
     children: [
       {
+        path: '',
+        component: MainCardsComponent
+      },
+      {
         path: 'login',
         component: LoginComponent
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent
       },
       {
         path: 'register',
@@ -19,7 +29,7 @@ const routes: Routes = [
       },
       {
         path:'**',
-        redirectTo:'login'
+        redirectTo:''
       }
     ]
   },

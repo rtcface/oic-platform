@@ -1,0 +1,31 @@
+<p-messages></p-messages>
+<div class="datos-generales">
+    <p-panel header="Registrar Código de Ética">     
+      <app-form-add-cdo 
+      [existeCode]="existsCdo" 
+      (onSave)="saveCdo( $event )"
+      [isSaved]="isSaved">
+    </app-form-add-cdo>
+    </p-panel>
+
+    <p-divider id="divider-user" layout="vertical" align="center">
+      <i class="pi pi-user mr-2"></i>
+    </p-divider>
+    
+    <p-panel header="Código de Ética">
+      <button pButton 
+      type="button"class="p-button-outlined"
+      (click)="updateCdoData( cdoEthic )" 
+      [disabled]="btnEditCdo">
+        {{ btnMessage }}
+      </button>
+    </p-panel>  
+</div>  
+<p-dialog header="Actualizar Código de Ética" [(visible)]="display" >
+  <app-form-add-cdo 
+  (onDelete)="delete($event)"
+  (onUpdate)="update($event)"
+  [cdoEdit]="cdoEthic"
+  [isSave]="isSave"
+  ></app-form-add-cdo>
+</p-dialog>

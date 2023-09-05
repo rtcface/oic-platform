@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { TypePortalGuard } from './oic/guards/type-portal.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'oic',
+    redirectTo: 'auth',
     pathMatch: 'full',       
   },  
   {
@@ -30,12 +31,12 @@ const routes: Routes = [
     canActivate: [ AuthGuard ] 
   },
   {
-    path: 'oic',
-    loadChildren: () => import('./oic/oic.module').then(m => m.OicModule)
+    path: 'oic/:type',
+    loadChildren: () => import('./oic/oic.module').then(m => m.OicModule),
   },
   {
     path: '**',
-    redirectTo: 'oic'
+    redirectTo: 'auth'
   }
 
 ];

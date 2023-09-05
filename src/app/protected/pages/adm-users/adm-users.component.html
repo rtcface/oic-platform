@@ -2,7 +2,8 @@
 <div class="datos-generales">
     <p-panel header="Alta de colaborador">     
         <app-form-users
-        (onSave)="save( $event )"       
+        (onSave)="save( $event )"
+        [isSaved]="isSaved"       
         ></app-form-users>
     </p-panel>
 
@@ -18,8 +19,7 @@
   <app-form-users     
   (onDelete)="delete( $event )" 
   (onUpdate)="update( $event )" 
-  [isSave]="isSave"
-  [isSaved]="isSaved"
+  [isSave]="isSave" 
   [userEdit]="userEdit"
   ></app-form-users>
 </p-dialog>

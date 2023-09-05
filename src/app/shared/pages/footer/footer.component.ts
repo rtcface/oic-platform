@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  styleUrls: ['./footer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent  {
 
+  @Input() text_footer: string = "";
+  
   anio:number = new Date().getFullYear();
   
-  constructor() { }
+  ngOnChanges(changes: SimpleChanges): void {
+    //console.log("en el ngOnChanges", this.text_footer);
 
-  ngOnInit(): void {
+    
   }
 
 }

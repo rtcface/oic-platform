@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-oic-home',
   templateUrl: './oic-home.component.html',
-  styleUrls: ['./oic-home.component.scss']
+  styleUrls: ['./oic-home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
-export class OicHomeComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class OicHomeComponent  {
+ 
 }

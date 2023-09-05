@@ -48,4 +48,11 @@ export interface filterWpd{
     }
 }
 
+export interface change_password{
+    usePass: {
+        email: string;
+        password : string;
+        newPassword : string;
+    }
+}
 

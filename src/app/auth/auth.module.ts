@@ -8,20 +8,26 @@ import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { LoginMainComponent } from './pages/login-main/login-main.component';
+import { SharedModule } from '../shared/shared.module';
+import { MainCardsComponent } from './pages/main-cards/main-cards.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    LoginMainComponent
+    LoginMainComponent,
+    MainCardsComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
     PrimeNgModule,
     ReactiveFormsModule,
-    InputTextModule
+    InputTextModule,
+    SharedModule
   ]
 })
 export class AuthModule { }

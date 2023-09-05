@@ -1,0 +1,55 @@
+.search-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 60rem;    
+}
+
+
+
+
+//create scss for button save and update in form-users.component.scss
+
+.btn-save{
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-color);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 0 none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+        background-color: var(--btn-primary-hover-bg);
+        color: var(--btn-primary-hover-color);
+    }
+}
+
+.btn-update{
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-color);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 0 none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+        background-color: var(--btn-primary-hover-bg);
+        color: var(--btn-primary-hover-color);
+    }
+}
+
+
+
+.form-item{
+    display: flex;   
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: .7rem;
+    width: 20rem;
+}

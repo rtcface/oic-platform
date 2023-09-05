@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { MessageService, TreeNode } from 'primeng/api';
 
@@ -10,7 +10,8 @@ import { OicEnte, OicInterface } from '../../models/oic.interface';
   selector: 'app-plan-trabajo',
   templateUrl: './plan-trabajo.component.html',
   styleUrls: ['./plan-trabajo.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PlanTrabajoComponent implements OnInit {
 
@@ -68,7 +69,7 @@ export class PlanTrabajoComponent implements OnInit {
       }
     }
     this.loadWpd(fiter);
-    // console.log("this.ente desde hijo", $event.id);
+    // //console.log("this.ente desde hijo", $event.id);
   }
 
   loadWpd(filter: filterWpd) {
@@ -77,7 +78,7 @@ export class PlanTrabajoComponent implements OnInit {
       .subscribe({
         next: (result) => {
           const tree: any = result.data!;
-          // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", tree.data.label);
+          // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", tree.data.label);
           if (tree.data.label !== null) {
           <tree[]> [tree!.data!];
           //map to TreeNode
@@ -115,7 +116,7 @@ export class PlanTrabajoComponent implements OnInit {
          
         },
         error: (error) => {
-          // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+          // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
         }
 
       });

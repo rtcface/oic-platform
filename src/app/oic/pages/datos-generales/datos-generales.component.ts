@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { OicInterface, OicEnte } from '../../models/oic.interface';
@@ -11,9 +11,10 @@ import { user_edit } from '../../../shared/models/colaborador.interface';
   selector: 'app-datos-generales',
   templateUrl: './datos-generales.component.html',
   styleUrls: ['./datos-generales.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
-export class DatosGeneralesComponent implements OnInit {
+export class DatosGeneralesComponent  {
 
   data: TreeNode[] = [];
   filter: filterBoss | filterEnte | null = null;
@@ -28,13 +29,6 @@ export class DatosGeneralesComponent implements OnInit {
     private readonly as: AuthService,
     private readonly ms: MessageService
     ) { }
-  
-
-  ngOnInit(): void {
-    
-  }
-
-  
 
 loadTreefromFinder( $event:OicEnte){
   this.ente = $event.ente.id;
@@ -45,7 +39,7 @@ loadTreefromFinder( $event:OicEnte){
     }
   }
   this.loadTree(params);
-  //console.log("this.ente desde hijo",$event.ente.id);  
+  //////console.log("this.ente desde hijo",$event.ente.id);  
 }
 
 loadTreeFromFinderSelectedOic( $event:OicInterface){

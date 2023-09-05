@@ -1,0 +1,84 @@
+<p-panel header="Datos de contacto">
+  <div class="contacto">      
+  <p-card header="Lic. Arturo Flores López" 
+subheader="Jefe de Departamento
+Asuntos Jurídicos" 
+[style]="{width: '400px'}" 
+styleClass="p-card-shadow">
+    <ng-template pTemplate="header">       
+        <img src="https://saetlax.org/wp-content/uploads/2021/04/Arturo-Flores.jpg" alt="Card" class="img-hearder-card">
+    </ng-template>
+    <div class="datos-gen">
+      <p>
+        <span class="label-datos">NOMBRE: </span>
+        <span class="datos">Lic. Arturo Flores López</span>
+      </p>
+      <p>
+        <span class="label-datos">CARGO: </span>
+        <span class="datos">Jefe de Departamento
+            Asuntos Jurídicos</span>
+      </p>
+      <p>
+        <span class="label-datos">TEL: </span>
+        <span class="datos">2461892520</span>       
+      </p>
+      <p>
+        <span class="label-datos">EXT: </span>
+        <span class="datos">105</span>
+      </p>
+      <p>
+        <span class="label-datos">Horario de atención : </span> <br>
+        <span class="datos">Lunes a viernes, 9:00 a 17:00 h.</span>
+      </p>
+      <p>
+        <span class="label-datos">EMAIL: juridico@saetlax.org</span>         
+      </p>
+      <!-- <p>
+        <span class="redes-sociales"> 
+          <i class="pi pi-facebook" style="font-size: 2rem"></i>
+          <i class="pi pi-twitter" style="font-size: 2rem"></i>
+          <i class="pi pi-instagram" style="font-size: 2rem"></i>
+        </span>
+      </p>    -->
+    </div>  
+  
+  </p-card>
+    <p-divider id="divider-user" layout="vertical" align="center" >
+      <i class="pi pi-user mr-2"></i>
+    </p-divider>
+
+    <div >
+      <form class="search-form" 
+       autocomplete="off">    
+        <div class="p-fluid grid">
+          <div class="p-field p-col-12 p-md-6 form-item">
+            <label for="firstname">Nombre</label>
+            <input type="text" pInputText placeholder="Nombre" id="firstname" name="firstname" />
+          </div>
+          <div class="p-field p-col-12 p-md-6 form-item">
+            <label for="lastname">Apellido</label>
+            <input type="text" pInputText placeholder="Apellido" id="lastname" name="lastname" />
+          </div>
+          <div class="p-field p-col-12 p-md-6 form-item">
+            <label for="email">Email</label>
+            <input type="text" pInputText placeholder="Email" id="email" name="email" />
+          </div>
+          <div class="p-field p-col-12 p-md-6 form-item">
+            <label for="phone">Teléfono</label>
+            <input type="text" pInputText placeholder="Teléfono" id="phone" name="phone" />
+          </div>
+          <div class="p-field p-col-12 p-md-6 form-item">
+            <label for="message">Mensaje</label>
+            <textarea rows="4" pInputTextarea placeholder="Mensaje" id="message" name="message"></textarea>
+          </div>
+          <div class="p-field p-col-12 p-md-6 form-item">
+            <button pButton type="submit" label="Enviar" class="p-button-success" icon="pi pi-check"></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-panel>
+
+
+

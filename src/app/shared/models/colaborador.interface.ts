@@ -1,9 +1,18 @@
+import { Avatar } from "primeng/avatar";
+
 export interface Colaborador {
     name: string;
     email: string;
     charge: string;
     phone:  string;
     parentId: string;
+}
+
+export interface President {
+    name: string;
+    email: string;    
+    phone:  string;
+    ente_publico: string;
 }
 
 export interface DataColaborador {
@@ -24,6 +33,7 @@ export interface user_edit {
     phone:  string;
 }
 
+
 export interface node{
     node:{
     name: string;
@@ -36,4 +46,12 @@ export interface node{
 export interface delete_user{
     id: string;
 }
-    
+
+export interface user_card{
+    name: string;
+    email: string;   
+    avatar: string;
+    isLogin: boolean;
+}
+
+

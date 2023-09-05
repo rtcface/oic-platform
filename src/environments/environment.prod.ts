@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://pdetlax.ddns.net:5005/graphql',
 };

@@ -4,7 +4,6 @@ import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ChildChild, filterWpd, root, RootChild, tree } from 'src/app/oic/models/tree.interface';
 import { GetOicService } from 'src/app/oic/services/get-oic.service';
-import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { planWork, planWorkDataAdd, deletePlanWork } from '../../models/plan-work.interface';
 import { ProtectedService } from '../../services/protected.service';
 
@@ -51,8 +50,7 @@ export class AdmWorkplanComponent implements OnInit {
     private readonly ms: MessageService,
     private readonly auth: AuthService,
     private readonly fb : FormBuilder,
-    private readonly pt: ProtectedService,
-    private readonly vs : ValidatorsService,
+    private readonly pt: ProtectedService,  
     private readonly cs: ConfirmationService
 
   ) { }
@@ -77,7 +75,7 @@ export class AdmWorkplanComponent implements OnInit {
   }
 
   nodeSelect(event: any) {
-    // console.log(event);  
+    // //console.log(event);  
 
     if(event.node.id && event.node.isChild){
       this.display = true;
@@ -91,7 +89,7 @@ export class AdmWorkplanComponent implements OnInit {
     if(event.node.isRoot)
     {
       this.id_Anio = event.node.id;
-      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", event.node);     
+      // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", event.node);     
       this.displayForm = true;
     }
     else{
@@ -126,7 +124,7 @@ export class AdmWorkplanComponent implements OnInit {
       .subscribe({
         next: (result) => {
           const res: any = result.data!;
-          // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res.data.label);
+           //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res.data);
           if (res.data.label !== null) {
           <tree[]> [res!.data!];
           //map to TreeNode
@@ -168,7 +166,7 @@ export class AdmWorkplanComponent implements OnInit {
          
         },
         error: (error) => {
-          // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+          // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
         }
 
       });
@@ -213,7 +211,7 @@ export class AdmWorkplanComponent implements OnInit {
   }
 
   saveFile() {
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", this.saveForm.value);
+    // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", this.saveForm.value);
     if(this.saveForm.invalid){      
       this.saveForm.markAllAsTouched();
     }else{
@@ -227,27 +225,26 @@ export class AdmWorkplanComponent implements OnInit {
     this.pt.savePlwd(plan).subscribe({
       next: (result) => {
         const res: any = result.data!;
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
-      },
-      error: (error) => {
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
-      },
-      complete: () => {
         this.loadWorkPlan();
         this.display = false;
         this.saveForm.reset();
         this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha guardado el plan de trabajo...' });   //<-- Mensaje de error
-        this.ngOnInit();
-
-        this.reloadCurrentPage();
+        
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+      },
+      error: (error) => {
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+      },
+      complete: () => {
+      
       }
     });
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
+    // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
   }
 }
 
 updateFile(){
-  // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", this.update_wpd.id);
+  // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", this.update_wpd.id);
   if(this.updateForm.invalid){
     this.updateForm.markAllAsTouched();
   }
@@ -262,10 +259,10 @@ updateFile(){
   this.pt.updatePlwd(plan).subscribe({
     next: (result) => {
       const res: any = result.data!;
-      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+      // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
     },
     error: (error) => {
-      // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+      // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
     },
     complete: () => {
       this.loadWorkPlan();
@@ -274,10 +271,10 @@ updateFile(){
       this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha actualizado el plan de trabajo...' });   //<-- Mensaje de error
       this.ngOnInit();
 
-      this.reloadCurrentPage();
+      //this.reloadCurrentPage();
     }
   });
-  // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
+  // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", plan);
 }
 }
 
@@ -287,10 +284,10 @@ updateFile(){
     this.pt.deletePlwd(pw).subscribe({
       next: (result) => {
         const res: any = result.data!;
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
       },
       error: (error) => {
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
       },
       complete: () => {
         this.loadWorkPlan();
@@ -299,7 +296,7 @@ updateFile(){
         this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha eliminado el plan de trabajo...' });   //<-- Mensaje de error
         this.ngOnInit();
 
-        this.reloadCurrentPage();
+       // this.reloadCurrentPage();
 
       }
     });
@@ -311,10 +308,10 @@ updateFile(){
     this.pt.updatePlwd(pw).subscribe({
       next: (result) => {
         const res: any = result.data!;
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> a", res);
       },
       error: (error) => {
-        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
+        // //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>Error en la consulta", error);
       },
       complete: () => {
         this.loadWorkPlan();
@@ -347,8 +344,8 @@ noDelete() {
   this.ms.add({ severity: 'error', summary: 'Cancelo', detail: `Sera en otra ocasión ${this.update_wpd.label}...`});   //<-- Mensaje de error
 }
 
-reloadCurrentPage() {
-  window.location.reload();
- }
+// reloadCurrentPage() {
+//   window.location.reload();
+//  }
 
 }

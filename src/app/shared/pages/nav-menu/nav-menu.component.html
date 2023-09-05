@@ -1,17 +1,17 @@
 <nav class="nav-bar container">
     <div class="nav-menu">
-        <p-menubar [model]="items">
+        <p-menubar id="menuBar" [model]="items" >
             <ng-template pTemplate="end">
                 <p-overlayPanel [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" #op [dismissable]="true" [showCloseIcon]="true">
                     <ng-template pTemplate>
-                        <app-card></app-card>
+                        <app-card [user]="user" (onClear)="clearMenu()"></app-card>
                     </ng-template>
                 </p-overlayPanel>
                     <p-avatar
                     shape="circle" 
                     pBadge value="5"     
                     size="large" class="p-avatar-large" pTooltip="Perfil del usuario" tooltipPosition="left">                    
-                    <img src="{{ isLoggedIn?.verify_authentication?.user?.avatar}}" alt="avatar" (click)="op.toggle($event)"  />                   
+                    <img src="{{ user.avatar }}" alt="avatar" (click)="op.toggle($event)"  />                   
                     </p-avatar>                     
             </ng-template>
         </p-menubar>

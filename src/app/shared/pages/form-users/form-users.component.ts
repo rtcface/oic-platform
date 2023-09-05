@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { ConfirmationService } from 'primeng/api';
@@ -12,24 +12,29 @@ import { Colaborador, delete_user, user_edit } from '../../models/colaborador.in
   selector: 'app-form-users',
   templateUrl: './form-users.component.html',
   styleUrls: ['./form-users.component.scss'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   
 })
-export class FormUsersComponent implements OnInit {
+export class FormUsersComponent implements OnChanges {
 
- @Input() isSaved:boolean = false;
- @Input() isSave:boolean = true;
- @Input() userEdit:user_edit = {} as user_edit;
- @Output() onDelete:EventEmitter<any> = new EventEmitter();
- @Output() onSave:EventEmitter<Colaborador> = new EventEmitter();
- @Output() onUpdate:EventEmitter<user_edit> = new EventEmitter();
  
+ @Input() isSave:boolean = true;
+ 
+ @Input() userEdit:user_edit = {} as user_edit;
+ 
+ @Input() isSaved:boolean = false;
+ 
+ @Output() onDelete:EventEmitter<any> = new EventEmitter();
+ 
+ @Output() onSave:EventEmitter<Colaborador> = new EventEmitter();
+ 
+ @Output() onUpdate:EventEmitter<user_edit> = new EventEmitter();
 
-
-  
+ @Output() onLoadDataUpdate:EventEmitter<user_edit> = new EventEmitter();
 
   userForm = this.fb.group({
-    name: ['',[Validators.required, Validators.pattern(this.vs.nameAndLastNamePattern)]],
+    name: ['',[Validators.required ]],
     email: ['',[Validators.required, Validators.pattern(this.vs.emailPattern)]],
     charge: ['',[Validators.required, Validators.minLength(3)]],
     phone: [,[Validators.required, Validators.pattern(this.vs.phonePattern)]],    
@@ -42,22 +47,27 @@ export class FormUsersComponent implements OnInit {
     private readonly ms: MessageService
     ) { 
 
-      // console.log("desde el hijo", this.userEdit);
+      // //console.log("desde el hijo", this.userEdit);
+      
     }
-    
-   
-
-  ngOnInit(): void {
-    
+  ngOnChanges(changes: SimpleChanges): void {    
+    ////console.log("en el ngOnChanges", this.userEdit);
+    this.loaduserEdit();
+    if(this.isSaved){
+      this.userForm.reset();
+    }
+        
   }
 
 
   validateSubmit() {
 
+    ////console.log(">>>>>>>>>>>>>>>> validateSubmit:>> isSaved:"+this.isSaved, "value form", this.userForm.value);
+
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();     
     } else {
-      // console.log("en el submi>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", this.userForm.value);
+      // //console.log("en el submi>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", this.userForm.value);
       this.onSave.emit(this.userForm.value);
       if(this.isSaved){
       this.userForm.reset();
@@ -66,19 +76,15 @@ export class FormUsersComponent implements OnInit {
     
   }
 
-  updateUser() {  
-   
-    if(this.userForm.invalid){
-      
-      this.userForm.markAllAsTouched();
-
-     
+  updateUser() {
+    
+    if(this.userForm.invalid){     
+      this.userForm.markAllAsTouched();     
     } else {
       const user:user_edit = this.userForm.value;
       user.id = this.userEdit.id;
       this.onUpdate.emit(user);
-    }
-     
+    }     
   }
   
   confirm(event: Event) {
@@ -98,6 +104,18 @@ export class FormUsersComponent implements OnInit {
         }
     });
 }
+
+  loaduserEdit(){
+    this.userForm.reset(
+      {
+        name: this.userEdit.name,
+        email: this.userEdit.email,
+        charge: this.userEdit.charge,
+        phone: this.userEdit.phone
+
+      }
+    );
+  }
 
 
   validateField(field: string) {
@@ -138,6 +156,11 @@ export class FormUsersComponent implements OnInit {
     this.ms.add({ severity: 'error', summary: 'Cancelo', detail: `Sera en otra ocasión ${this.userEdit.name}...`});   //<-- Mensaje de error
   }
 
+  counterRender(): boolean{
+
+    //console.log("Render de FormUsersComponent");
+    return true;
+  }
   
 
 }

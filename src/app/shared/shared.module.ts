@@ -13,6 +13,13 @@ import { FinderOicComponent } from './pages/finder-oic/finder-oic.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormUsersComponent } from './pages/form-users/form-users.component';
 import { ViewUsersComponent } from './pages/view-users/view-users.component';
+import { SppinerComponent } from './pages/sppiner/sppiner.component';
+import { CardMenuComponent } from './pages/card-menu/card-menu.component';
+import { ViewConctactoComponent } from './pages/view-conctacto/view-conctacto.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { FormAddCdoComponent } from './pages/form-add-cdo/form-add-cdo.component';
+import { FormAddMemberComponent } from './pages/form-add-member/form-add-member.component';
+import { FormRegisterHistoryComponent } from './pages/form-register-history/form-register-history.component';
 
 
 
@@ -29,6 +36,13 @@ import { ViewUsersComponent } from './pages/view-users/view-users.component';
     FinderOicComponent,
     FormUsersComponent,
     ViewUsersComponent,
+    SppinerComponent,
+    CardMenuComponent,
+    ViewConctactoComponent,
+    StatisticsComponent,
+    FormAddCdoComponent,
+    FormAddMemberComponent,
+    FormRegisterHistoryComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +60,13 @@ import { ViewUsersComponent } from './pages/view-users/view-users.component';
     FinderOicComponent,
     FormUsersComponent,
     ViewUsersComponent,
+    SppinerComponent,
+    CardMenuComponent,
+    ViewConctactoComponent,
+    StatisticsComponent,
+    FormAddCdoComponent,
+    FormAddMemberComponent,
+    FormRegisterHistoryComponent
   ]
 })
 export class SharedModule { }

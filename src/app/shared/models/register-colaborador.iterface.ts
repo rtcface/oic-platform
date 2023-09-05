@@ -14,3 +14,25 @@ export interface UpdateColaborador {
 }
 }
 
+export interface registerMember {
+    registerMember: {
+    id: string;
+    email: string;
+}
+}
+
+export interface registerPresident {
+    registerPresident: {
+    id: string;
+    email: string;
+}
+}
+
+
+export interface findPresident{
+
+    PresidetByEnte:{
+        id: string;
+      }
+
+}

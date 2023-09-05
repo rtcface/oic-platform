@@ -1,0 +1,92 @@
+:host ::ng-deep .p-organizationchart {
+    .p-person {
+        padding: 0;
+        border: 0 none;
+    }
+
+    .node-header, .node-content {
+        padding: .5em .7rem;
+    }
+
+    .node-header {
+        background-color: #495ebb;
+        color: #ffffff;
+    }
+
+    .node-content {
+        text-align: center;
+        border: 1px solid #495ebb;
+    }
+
+    .node-content img {
+        border-radius: 50%;
+    }
+
+    .department-cfo {
+        background-color: #7247bc;
+        color: #ffffff;
+    }
+
+    .department-coo {
+        background-color: #a534b6;
+        color: #ffffff;
+    }
+
+    .department-cto {
+        background-color: #e9286f;
+        color: #ffffff;
+    }
+}
+
+.comite-etica{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        font-size: 3rem;
+        justify-content: center;
+        align-items: center;
+      
+    }
+}
+
+.search-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45rem;    
+}
+
+.txt{
+    width: 50rem;
+    size: 1.5rem;
+  }
+
+.label-buscar{
+    font-size: 1.5rem;
+    color: var(--text-color-secondary);
+    font-weight: bold;
+    padding-bottom: 1rem;
+}
+
+.img-org{    
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.img-hearder-card{    
+    width: 6rem;
+    height: 6rem;
+    padding: 1rem;
+}
+.img-cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-finder{
+    display: flex;
+}

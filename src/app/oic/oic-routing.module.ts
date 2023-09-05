@@ -7,6 +7,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { KpisComponent } from './pages/kpis/kpis.component';
 import { OicHomeComponent } from './pages/oic-home/oic-home.component';
 import { PlanTrabajoComponent } from './pages/plan-trabajo/plan-trabajo.component';
+import { PltHomeComponent } from './pages/plt-home/plt-home.component';
+import { PltCodigoEticaComponent } from './pages/plt-codigo-etica/plt-codigo-etica.component';
+import { PltComiteEticaComponent } from './pages/plt-comite-etica/plt-comite-etica.component';
+import { PltPreguntasComponent } from './pages/plt-preguntas/plt-preguntas.component';
+import { PltContactoComponent } from './pages/plt-contacto/plt-contacto.component';
 
 
 
@@ -16,8 +21,29 @@ const routes: Routes = [
     component: HomeComponent,
     children:[
       {
-        path: 'home',
-        component: OicHomeComponent
+        path: '',
+        component:OicHomeComponent
+      },     
+      {
+        path: 'plt',
+        component: PltHomeComponent, 
+            
+      },
+      {
+        path: 'plt-codigo-etica',
+        component: PltCodigoEticaComponent,
+      },
+      {
+        path: 'plt-comite-etica',
+        component: PltComiteEticaComponent,
+      },
+      {
+        path: 'plt-preguntas',
+        component: PltPreguntasComponent,
+      },
+      {
+        path: 'plt-contacto',
+        component: PltContactoComponent,
       },
       {
         path: 'datos-generales',
@@ -35,10 +61,10 @@ const routes: Routes = [
         path: 'adm-workplan',
         component: AdmWorkplanComponent , 
             
-      },
+      },      
       {
         path:'**',
-        redirectTo: 'home'
+        redirectTo: '/'
       }      
     ]
   }

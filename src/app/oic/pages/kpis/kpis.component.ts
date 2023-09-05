@@ -52,7 +52,7 @@ export class KpisComponent implements OnInit {
 
   loadChart($event: OicEnte) {
 
-    //console.log("en el load?>>>>>>>>>>>>>>>>>>>>>>>>>", $event);
+    ////console.log("en el load?>>>>>>>>>>>>>>>>>>>>>>>>>", $event);
     const fiter: kpiByEnteQueryInput = {
       ente_publico: $event.ente.id
     }
@@ -108,12 +108,12 @@ export class KpisComponent implements OnInit {
 
 
   loadkpi(filter:kpiByEnteQueryInput ) {
-  //  console.log("en el load?>>>>>>>>>>>>>>>>>>>>>>>>>", filter);
+  //  //console.log("en el load?>>>>>>>>>>>>>>>>>>>>>>>>>", filter);
     this.pt.getKpis(filter).subscribe({
       next: (results) => {
-        // console.log("results", results);
+        // //console.log("results", results);
         const { data } = results;
-        // console.log("data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data?.chart.length);
+        // //console.log("data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data?.chart.length);
         const labels:string[] = [];
         const res:number[] = [];
         data?.chart.forEach(element => {
@@ -139,14 +139,14 @@ export class KpisComponent implements OnInit {
               }]    
           };
         // this.resultGraph.length
-        // console.log("resultGraph>>>>>>>>", );
+        // //console.log("resultGraph>>>>>>>>", );
 
       },  
       error: (err) => {
-        // console.log("error", err);
+        // //console.log("error", err);
       },
       complete: () => {
-        // console.log("complete");
+        // //console.log("complete");
       }
     });
   }

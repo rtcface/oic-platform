@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { ValidatorsService } from '../../../shared/services/validators.service';
-import { SharedService } from 'src/app/shared/services/shared.service';
 import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -19,25 +19,38 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./login.component.scss'],
   providers: [MessageService]
 })
-export class LoginComponent implements OnInit {
-
+export class LoginComponent implements OnInit, OnDestroy {
+  //TODO: Remove USER DATA 
   myForm : FormGroup = this.fb.group({
+  // loginValue: ['crosalioev@gmail.com',[Validators.required, Validators.pattern(this.vs.emailPattern), Validators.minLength(3)]],
+  // passwordValue:  ['t3mp0r4l',[Validators.required]]
   loginValue: ['',[Validators.required, Validators.pattern(this.vs.emailPattern), Validators.minLength(3)]],
   passwordValue:  ['',[Validators.required]]
   });
     
   role = 'user';
+  route!: Subscription;
+  page = 'oic';
+  firstSignIn = false;
  
   constructor( 
     private fb : FormBuilder,
     private router:Router,
+    private ar: ActivatedRoute,
     private authService:AuthService,
-    private vs:ValidatorsService,
-    private sharedService:SharedService,
+    private vs:ValidatorsService,   
     private readonly ms: MessageService
     ) { }
 
+  ngOnDestroy(): void {
+    this.route.unsubscribe();
+  }
+
   ngOnInit(): void {
+    this.route = this.ar.queryParams.subscribe(params => {
+      this.page = params['page'];
+      ////console.log("page",this.page);
+    });
   }
 
   async login(){
@@ -45,47 +58,66 @@ export class LoginComponent implements OnInit {
     this.authService.logout();
 
     if(this.myForm.invalid){
-
       this.myForm.markAllAsTouched();      
-      return;
-
-   
+      return;   
     }
 
    const {loginValue,passwordValue} = this.myForm.value;
 
    try {
-    const res = await this.authService.login(loginValue,passwordValue).subscribe({
+    const res = await this.authService.login(loginValue,passwordValue,this.page).subscribe({
       next: (data) => {  
-
         this.role = data.data?.login?.user?.role!;
+        this.firstSignIn = data.data?.login?.user?.firstSignIn!;
         //console.log("role desde next",this.role);
        
       },
       error: (err) => {
         this.showError();
-      },
-      complete: () => {   
-        switch(this.role){
-          case 'user':
-            this.router.navigate(['/oic']);
-            break;
-          case 'admin':
-            this.router.navigate(['/protected-admin']);
-            break;
-          case 'contralor':
-            this.router.navigate(['/protected']);
-            break;
-          default:
-            this.router.navigate(['/oic']);
-            break;}
-      }
+      },  
+      complete: () => {  
+
+        if(this.role=='user' && this.page=='oic' && this.firstSignIn){
+          this.router.navigate(['/oic/oic']);
+          return;
+        }
+
+        if(this.role=='user' && this.page=='plt'  && this.firstSignIn){
+          this.router.navigate(['/oic/plt/plt']);
+          return;
+        }
+
+        if(this.role=='admin' && this.page=='oic'  && this.firstSignIn){
+          this.router.navigate(['/oic/oic/protected-admin']);
+          return;
+        }
+
+        if(this.role=='admin' && this.page=='plt'  && this.firstSignIn){
+          this.router.navigate(['/oic/plt/protected-admin']);
+          return;
+        }
+
+        if(this.role=='contralor' && this.page=='oic'  && this.firstSignIn){
+          //console.log("contralor", this.router);
+          this.router.navigate(['/protected/adm-users'],{queryParams: {type: 'oic'}});
+          return;
+        }
+        
+        if(this.role=='contralor' && this.page=='plt'  && this.firstSignIn){
+          this.router.navigate(['/protected/plt'],{queryParams: {type: 'plt'}});
+          return;
+        }
+
+        if(!this.firstSignIn){
+         this.router.navigate(['/auth/change-password']);
+        }
+       }
     });    
 
    
     
    } catch (error) {
-    //  console.log("Este es el error:===>",error);
+    //  //console.log("Este es el error:===>",error);
    }
   
    
@@ -105,7 +137,7 @@ export class LoginComponent implements OnInit {
 
 
   showError() {
-    this.ms.add({ severity: 'error', summary: 'Error', detail: 'Usuario y/o Contraña incorrectos'});   //<-- Mensaje de error
+    this.ms.add({ severity: 'error', summary: 'Error', detail: 'Usuario y/o Contraseña incorrectos'});   //<-- Mensaje de error
   }
 
 

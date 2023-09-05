@@ -1,0 +1,40 @@
+.img-hearder-card{    
+    width: 6rem;
+    height: 6rem;
+    padding: 1rem;
+}
+
+.label-datos{
+    font-size: .8rem;
+    font-weight: bold;
+}
+
+.contacto{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        font-size: 3rem;
+        justify-content: center;
+        align-items: center;
+      
+    }
+}
+
+.search-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 60rem;    
+}
+
+.form-item{
+    display: flex;   
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: .3rem;
+    width: 20rem;
+}
