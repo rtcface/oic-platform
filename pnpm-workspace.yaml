@@ -1,0 +1,9 @@
+allowBuilds:
+  '@angular/cli': false
+  core-js: false
+  esbuild: true
+  nice-napi: false
+  protobufjs: false
+audit: true
+ignoreScripts: true
+shamefullyHoist: true

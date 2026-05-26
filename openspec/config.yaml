@@ -1,0 +1,44 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Tech stack: Angular 13.1.4, Apollo Angular (GraphQL), PrimeNG 13.1.1, Firebase (demoangular-5bde2)
+  Architecture: Component-Based Architecture (auth, graphql, shared modules, selector prefix 'app-')
+  Testing: Karma + Jasmine (command: ng test)
+  Style: Strict TypeScript (strict: true, strictTemplates: true), strict imports order, custom error handling conventions
+
+testing:
+  strict_tdd: true
+  runner: "Karma"
+  test_command: "ng test --watch=false --browsers=ChromeHeadless"
+  coverage_tool: "karma-coverage"
+  coverage_dir: "./coverage/oic"
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Verify budget impact against Angular budget limits
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+    - Maintain components under 2kb style limit (4kb error)
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing code patterns
+    - Follow imports order: Angular core -> RxJS -> Third-party -> Interfaces -> Services -> Components
+    - Use try-catch in services, return of(false) or empty Observable on error
+    - Use errorPolicy: 'all' for GraphQL queries/mutations
+    - Form validation: use validateField() with touched check
+    - tdd: true
+    - test_command: "ng test --watch=false --browsers=ChromeHeadless"
+  verify:
+    - test_command: "ng test --watch=false --browsers=ChromeHeadless"
+    - build_command: "ng build"
+    - coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas

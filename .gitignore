@@ -45,3 +45,9 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# Skill Registry
+/.atl/
+
+# Antigravity CLI
+/.antigravitycli/
