@@ -117,10 +117,14 @@ export class ChangePasswordComponent implements OnInit {
       const passNewControl = formGroup.get(passNew);
       const passConfControl = formGroup.get(passConfirm);
 
-      if( passNewControl!.value === passConfControl!.value){
-        passConfControl!.setErrors(null);
-      }else{
-        passConfControl!.setErrors({noMatch:true});
+      if (passNewControl!.value === passConfControl!.value) {
+        const errors = passConfControl!.errors;
+        if (errors) {
+          delete errors['noMatch'];
+          passConfControl!.setErrors(Object.keys(errors).length ? errors : null);
+        }
+      } else {
+        passConfControl!.setErrors({ ...passConfControl!.errors, noMatch: true });
       }
 
     }

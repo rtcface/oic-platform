@@ -208,7 +208,7 @@ export class AuthService {
         fetchPolicy: 'no-cache'
       }).pipe(
         map( auth => {
-          if(auth.data)
+          if(auth.data && !auth.data.verify_authentication?.haveError && auth.data.verify_authentication?.user)
           {
           this._user_token = auth.data!;
           ////console.log('verify_authentication',this._user_token.verify_authentication.user.role);
@@ -223,7 +223,7 @@ export class AuthService {
               this.role = 'user';
             }
             this._menu = this.sharedService.get_menu_portal( this.params, this.queryParams );
-          return !auth.data?.verify_authentication.haveError;
+          return true;
           }else
           {
             return false;
