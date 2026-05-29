@@ -261,6 +261,25 @@ export class SharedService {
   get_menu_portal(params: params_menu, queryParametes: object): items[] {
     this.clean_menu();
     //console.log("params", params,"queryParams",queryParametes);
+
+    if (params.type === 'oic') {
+      this.items.push(
+        {
+          label: 'Prevención',
+          icon: 'pi pi-shield',
+          routerLink: '/prevencion/public',
+          queryParams: queryParametes,
+        },
+        {
+          label: 'Iniciar Sesión',
+          icon: 'pi pi-sign-in',
+          routerLink: '/auth/login',
+          queryParams: queryParametes,
+        }
+      );
+      return this.items;
+    }
+
     const GET_MENU_PORTAL = gql`
       query da_menu_portal($params: MenuQueryInput!) {
         items: getMenuByType(input: $params) {

@@ -35,6 +35,10 @@ const routes: Routes = [
     loadChildren: () => import('./oic/oic.module').then(m => m.OicModule),
   },
   {
+    path: 'prevencion',
+    loadChildren: () => import('./prevencion/prevencion.module').then(m => m.PrevencionModule),
+  },
+  {
     path: '**',
     redirectTo: 'auth'
   }

@@ -12,4 +12,5 @@ export interface menu {
 export interface params_menu {
     role: string;
     portal: string;
+    type?: string;
 }

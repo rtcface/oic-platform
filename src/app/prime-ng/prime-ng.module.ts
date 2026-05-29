@@ -18,14 +18,13 @@ import { OrganizationChartModule } from 'primeng/organizationchart';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PanelModule } from 'primeng/panel';
 import { PasswordModule } from 'primeng/password';
+import { TableModule } from 'primeng/table';
+import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
-
-
-
 
 @NgModule({
   exports:[
@@ -47,13 +46,14 @@ import { TreeSelectModule } from 'primeng/treeselect';
     OverlayPanelModule,
     PanelModule,
     PasswordModule,   
+    TableModule,
+    TabViewModule,
     ToastModule,
     ToolbarModule,
     TooltipModule,
     TreeModule,
     TreeSelectModule,
     ListboxModule
-
   ]
 })
 export class PrimeNgModule { }

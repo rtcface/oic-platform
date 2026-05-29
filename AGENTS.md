@@ -9,12 +9,12 @@
 
 ## Commands
 ```bash
-npm start              # Dev server
-ng test                # Run all tests
-ng test --include='**/name.spec.ts'  # Single test file
-ng build --configuration development  # Dev build
-ng build               # Production build
-ng deploy              # Firebase (demoangular-5bde2)
+pnpm start              # Dev server
+pnpm test                # Run all tests
+pnpm exec ng test --include='**/name.spec.ts'  # Single test file
+pnpm run build --configuration development  # Dev build
+pnpm run build               # Production build
+pnpm exec ng deploy              # Firebase (demoangular-5bde2)
 ```
 
 ## Critical Constraints
