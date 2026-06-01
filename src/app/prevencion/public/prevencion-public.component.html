@@ -1,0 +1,34 @@
+<div class="prevencion-public-container">
+  <h2>Prevención</h2>
+
+  <app-finder-oic (onSelectedOicChange)="onOicSelected($event)"></app-finder-oic>
+
+  <p-tabView>
+    <p-tabPanel header="Evidencia de Actividades">
+      <p-table [value]="activities">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Actividad</th>
+            <th>Fecha</th>
+            <th>Dependencia</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-act>
+          <tr>
+            <td>{{act.name}}</td>
+            <td>{{act.date}}</td>
+            <td>{{act.dependency}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="3">No hay actividades registradas para este OIC.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+    <p-tabPanel header="Quejas por Violencia Institucional">
+      <p-chart type="bar" [data]="chartData"></p-chart>
+    </p-tabPanel>
+  </p-tabView>
+</div>
