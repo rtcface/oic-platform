@@ -1,8 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PrevencionPublicComponent } from './public/prevencion-public.component';
+import { PrevencionAdminComponent } from './admin/prevencion-admin.component';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 const routes: Routes = [
-  // Routes for public and admin will be added here in phases 2 and 3
+  {
+    path: 'public',
+    component: PrevencionPublicComponent
+  },
+  {
+    path: 'admin',
+    component: PrevencionAdminComponent,
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard]
+  },
   {
     path: '',
     redirectTo: 'public',

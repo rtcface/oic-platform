@@ -1,0 +1,42 @@
+<p-toast></p-toast>
+<div class="prevencion-admin-container">
+  <h2>Administración de Prevención</h2>
+
+  <div class="forms-wrapper">
+    <!-- Formulario de Actividades -->
+    <div class="form-card">
+      <h3>Capturar Actividad</h3>
+      <form [formGroup]="activityForm" (ngSubmit)="submitActivity()">
+        <div class="p-field">
+          <label for="name">Nombre de la Actividad</label>
+          <input id="name" type="text" pInputText formControlName="name" />
+        </div>
+        <div class="p-field">
+          <label for="date">Fecha</label>
+          <input id="date" type="date" pInputText formControlName="date" />
+        </div>
+        <div class="p-field">
+          <label for="dependency">Dependencia / OIC</label>
+          <input id="dependency" type="text" pInputText formControlName="dependency" />
+        </div>
+        <button pButton type="submit" label="Guardar Actividad" [disabled]="!activityForm.valid"></button>
+      </form>
+    </div>
+
+    <!-- Formulario de Quejas -->
+    <div class="form-card">
+      <h3>Capturar Quejas por Violencia Institucional</h3>
+      <form [formGroup]="complaintForm" (ngSubmit)="submitComplaint()">
+        <div class="p-field">
+          <label for="municipality">Municipio</label>
+          <input id="municipality" type="text" pInputText formControlName="municipality" />
+        </div>
+        <div class="p-field">
+          <label for="total">Total de Quejas</label>
+          <input id="total" type="number" pInputText formControlName="total" />
+        </div>
+        <button pButton type="submit" label="Guardar Quejas" [disabled]="!complaintForm.valid"></button>
+      </form>
+    </div>
+  </div>
+</div>
