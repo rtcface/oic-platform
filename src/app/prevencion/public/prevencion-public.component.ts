@@ -1,100 +1,127 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
+import { map, shareReplay, catchError } from 'rxjs/operators';
 import { OicInterface } from '../../oic/models/oic.interface';
+import { PrevencionService } from '../services/prevencion.service';
+import { Activity, ChartData } from '../models/prevencion.interface';
+
+import { MenuItem } from 'primeng/api';
+import { user_card } from 'src/app/shared/models/colaborador.interface';
+import { Constantes } from 'src/assets/constantes/constantes';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-prevencion-public',
   templateUrl: './prevencion-public.component.html',
   styleUrls: ['./prevencion-public.component.scss']
 })
-export class PrevencionPublicComponent implements OnInit {
-  activities: any[] = [];
-  allActivities: any[] = [];
-  chartData: any;
-  allChartData: any;
-  selectedOic: OicInterface | null = null;
+export class PrevencionPublicComponent implements OnInit, OnDestroy {
+  private selectedOicSubject = new BehaviorSubject<OicInterface | null>(null);
 
-  constructor() { }
+  activities$!: Observable<Activity[]>;
+  chartData$!: Observable<ChartData | null>;
+
+  items: MenuItem[] = [];
+  header_title = Constantes.header_oic;
+  footer_title = Constantes.footer_oic;
+  user: user_card = {
+    name: 'User',
+    email: 'sn@sn.sn',
+    avatar: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+    isLogin: false
+  };
+
+  constructor(
+    private prevencionService: PrevencionService,
+    private ss: SharedService
+  ) { }
 
   ngOnInit(): void {
-    this.loadInitialData();
-  }
+    this.items = this.ss.get_menu_portal({ portal: 'oic', role: 'user' }, { page: 'oic' });
 
-  loadInitialData(): void {
-    this.allActivities = [
-      { name: 'Capacitación en ética', date: '2023-01-15', dependency: 'OIC Xalapa' },
-      { name: 'Revisión de procesos', date: '2023-02-10', dependency: 'OIC Veracruz' },
-      { name: 'Taller de transparencia', date: '2023-03-05', dependency: 'OIC Boca del Río' },
-      { name: 'Foro de prevención', date: '2023-04-20', dependency: 'OIC Xalapa' }
-    ];
-    this.activities = [...this.allActivities];
+    const oic$ = this.selectedOicSubject.asObservable();
 
-    this.allChartData = {
-      labels: ['OIC Xalapa', 'OIC Veracruz', 'OIC Boca del Río', 'OIC Coatzacoalcos', 'OIC Córdoba'],
-      datasets: [
-        {
-          label: 'Quejas por Violencia Institucional',
-          backgroundColor: '#42A5F5',
-          data: [12, 8, 5, 10, 3]
+    this.activities$ = combineLatest([
+      this.prevencionService.getActivities().pipe(catchError(() => of([]))),
+      oic$
+    ]).pipe(
+      map(([activities, oic]) => {
+        if (!oic || !oic.nombre_ente) {
+          return activities;
         }
-      ]
-    };
-    this.chartData = this.allChartData;
+        return activities.filter(act =>
+          act.dependency.toLowerCase().includes(oic.nombre_ente.toLowerCase())
+        );
+      }),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
+
+    this.chartData$ = combineLatest([
+      this.prevencionService.getChartData().pipe(catchError(() => of(null))),
+      oic$
+    ]).pipe(
+      map(([chartData, oic]) => {
+        if (!chartData || !chartData.datasets || chartData.datasets.length === 0) {
+          return chartData;
+        }
+
+        if (!oic || !oic.nombre_ente) {
+          return chartData;
+        }
+
+        const filteredLabels: string[] = [];
+        const filteredData: number[] = [];
+        const dataLength = chartData.datasets[0].data ? chartData.datasets[0].data.length : 0;
+
+        if (chartData.labels && chartData.labels.length > 0) {
+          chartData.labels.forEach((label: string, index: number) => {
+            if (!label) return;
+            const matchName = oic.nombre_ente.toLowerCase().includes(label.toLowerCase()) ||
+                              label.toLowerCase().includes(oic.nombre_ente.toLowerCase());
+
+            if (matchName && index < dataLength) {
+              const val = chartData.datasets[0].data[index];
+              if (val !== undefined && val !== null) {
+                filteredLabels.push(label);
+                filteredData.push(val);
+              }
+            }
+          });
+        }
+
+        if (filteredLabels.length > 0) {
+          return {
+            labels: filteredLabels,
+            datasets: [
+              {
+                label: chartData.datasets[0].label,
+                backgroundColor: chartData.datasets[0].backgroundColor,
+                data: filteredData
+              }
+            ]
+          };
+        } else {
+          return {
+            labels: [oic.nombre_ente],
+            datasets: [
+              {
+                label: chartData.datasets[0].label,
+                backgroundColor: chartData.datasets[0].backgroundColor,
+                data: [0]
+              }
+            ]
+          };
+        }
+      }),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
   }
 
   onOicSelected(oic: OicInterface): void {
-    this.selectedOic = oic;
-    this.filterData(oic);
+    this.selectedOicSubject.next(oic);
   }
 
-  filterData(oic: OicInterface): void {
-    if (!oic || !oic.nombre_ente) {
-      this.activities = [...this.allActivities];
-      this.chartData = this.allChartData;
-      return;
-    }
-
-    // Filter activities based on the OIC name or dependency
-    this.activities = this.allActivities.filter(act => 
-      act.dependency.toLowerCase().includes(oic.nombre_ente.toLowerCase())
-    );
-
-    const filteredLabels: string[] = [];
-    const filteredData: number[] = [];
-
-    this.allChartData.labels.forEach((label: string, index: number) => {
-      // Check if label is in oic's name
-      const matchName = oic.nombre_ente.toLowerCase().includes(label.toLowerCase()) || 
-                        label.toLowerCase().includes(oic.nombre_ente.toLowerCase());
-      
-      if (matchName) {
-        filteredLabels.push(label);
-        filteredData.push(this.allChartData.datasets[0].data[index]);
-      }
-    });
-
-    if (filteredLabels.length > 0) {
-      this.chartData = {
-        labels: filteredLabels,
-        datasets: [
-          {
-            label: 'Quejas por Violencia Institucional',
-            backgroundColor: '#42A5F5',
-            data: filteredData
-          }
-        ]
-      };
-    } else {
-      // Show empty chart if no match
-      this.chartData = {
-        labels: [oic.nombre_ente],
-        datasets: [
-          {
-            label: 'Quejas por Violencia Institucional',
-            backgroundColor: '#42A5F5',
-            data: [0]
-          }
-        ]
-      };
-    }
+  ngOnDestroy(): void {
+    this.selectedOicSubject.complete();
   }
 }

@@ -1,5 +1,8 @@
-<p-toast></p-toast>
-<div class="prevencion-admin-container">
+<app-header [title_page]="header_title"></app-header>
+<div class="master-body container">
+  <app-nav-menu *ngIf="items.length > 0 " [items]="items" [user]="user"></app-nav-menu>
+  <p-toast></p-toast>
+  <div class="prevencion-admin-container">
   <h2>Administración de Prevención</h2>
 
   <div class="forms-wrapper">
@@ -10,16 +13,19 @@
         <div class="p-field">
           <label for="name">Nombre de la Actividad</label>
           <input id="name" type="text" pInputText formControlName="name" />
+          <small class="p-error" *ngIf="validateField('activityForm', 'name')">El nombre es requerido</small>
         </div>
         <div class="p-field">
           <label for="date">Fecha</label>
           <input id="date" type="date" pInputText formControlName="date" />
+          <small class="p-error" *ngIf="validateField('activityForm', 'date')">La fecha es requerida</small>
         </div>
         <div class="p-field">
           <label for="dependency">Dependencia / OIC</label>
           <input id="dependency" type="text" pInputText formControlName="dependency" />
+          <small class="p-error" *ngIf="validateField('activityForm', 'dependency')">La dependencia es requerida</small>
         </div>
-        <button pButton type="submit" label="Guardar Actividad" [disabled]="!activityForm.valid"></button>
+        <button pButton type="submit" label="Guardar Actividad" [disabled]="!activityForm.valid || isActivityLoading"></button>
       </form>
     </div>
 
@@ -30,13 +36,17 @@
         <div class="p-field">
           <label for="municipality">Municipio</label>
           <input id="municipality" type="text" pInputText formControlName="municipality" />
+          <small class="p-error" *ngIf="validateField('complaintForm', 'municipality')">El municipio es requerido</small>
         </div>
         <div class="p-field">
           <label for="total">Total de Quejas</label>
           <input id="total" type="number" pInputText formControlName="total" />
+          <small class="p-error" *ngIf="validateField('complaintForm', 'total')">El total es requerido y debe ser mayor o igual a 0</small>
         </div>
-        <button pButton type="submit" label="Guardar Quejas" [disabled]="!complaintForm.valid"></button>
+        <button pButton type="submit" label="Guardar Quejas" [disabled]="!complaintForm.valid || isComplaintLoading"></button>
       </form>
     </div>
   </div>
+  </div>
 </div>
+<app-footer [text_footer]="footer_title"></app-footer>

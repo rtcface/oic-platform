@@ -93,6 +93,15 @@ export class SharedService {
               queryParams: {},
             });
           });
+
+          if (role === 'admin' || role === 'super') {
+            this.items.push({
+              label: 'Prevención Admin',
+              icon: 'pi pi-shield',
+              routerLink: '/prevencion/admin',
+              queryParams: {},
+            });
+          }
         }
       });
 
@@ -318,6 +327,15 @@ export class SharedService {
               });
             }
           });
+
+          if (params.role === 'admin' || params.role === 'super') {
+            this.items.push({
+              label: 'Prevención Admin',
+              icon: 'pi pi-shield',
+              routerLink: '/prevencion/admin',
+              queryParams: queryParametes,
+            });
+          }
         }
       });
 

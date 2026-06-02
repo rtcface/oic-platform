@@ -1,11 +1,14 @@
-<div class="prevencion-public-container">
+<app-header [title_page]="header_title"></app-header>
+<div class="container">
+  <app-nav-menu *ngIf="items.length > 0 " [items]="items" [user]="user"></app-nav-menu>
+  <div class="prevencion-public-container">
   <h2>Prevención</h2>
 
   <app-finder-oic (onSelectedOicChange)="onOicSelected($event)"></app-finder-oic>
 
   <p-tabView>
     <p-tabPanel header="Evidencia de Actividades">
-      <p-table [value]="activities">
+      <p-table [value]="(activities$ | async) || []">
         <ng-template pTemplate="header">
           <tr>
             <th>Actividad</th>
@@ -28,7 +31,11 @@
       </p-table>
     </p-tabPanel>
     <p-tabPanel header="Quejas por Violencia Institucional">
-      <p-chart type="bar" [data]="chartData"></p-chart>
+      <ng-container *ngIf="chartData$ | async as chartData">
+        <p-chart type="bar" [data]="chartData"></p-chart>
+      </ng-container>
     </p-tabPanel>
   </p-tabView>
+  </div>
 </div>
+<app-footer [text_footer]="footer_title"></app-footer>

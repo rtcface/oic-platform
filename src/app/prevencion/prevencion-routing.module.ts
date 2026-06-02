@@ -12,7 +12,6 @@ const routes: Routes = [
   {
     path: 'admin',
     component: PrevencionAdminComponent,
-    canLoad: [AuthGuard],
     canActivate: [AuthGuard]
   },
   {
