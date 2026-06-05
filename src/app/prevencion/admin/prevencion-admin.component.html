@@ -7,43 +7,69 @@
 
   <div class="forms-wrapper">
     <!-- Formulario de Actividades -->
-    <div class="form-card">
-      <h3>Capturar Actividad</h3>
-      <form [formGroup]="activityForm" (ngSubmit)="submitActivity()">
+    <div class="form-card activity-card">
+      <div class="card-header">
+        <i class="pi pi-calendar-plus card-icon"></i>
+        <h3>Registrar Actividad</h3>
+      </div>
+      <form [formGroup]="activityForm" (ngSubmit)="submitActivity()" class="admin-form">
         <div class="p-field">
-          <label for="name">Nombre de la Actividad</label>
-          <input id="name" type="text" pInputText formControlName="name" />
+          <label for="name">Nombre de la Actividad *</label>
+          <input id="name" type="text" pInputText formControlName="name" placeholder="Ej. Taller de Capacitación en Ética" />
           <small class="p-error" *ngIf="validateField('activityForm', 'name')">El nombre es requerido</small>
         </div>
         <div class="p-field">
-          <label for="date">Fecha</label>
-          <input id="date" type="date" pInputText formControlName="date" />
-          <small class="p-error" *ngIf="validateField('activityForm', 'date')">La fecha es requerida</small>
+          <label for="description">Descripción de la Actividad *</label>
+          <textarea id="description" pInputTextarea formControlName="description" rows="3" placeholder="Describe brevemente la actividad realizada..."></textarea>
+          <small class="p-error" *ngIf="validateField('activityForm', 'description')">La descripción es requerida</small>
         </div>
-        <div class="p-field">
-          <label for="dependency">Dependencia / OIC</label>
-          <input id="dependency" type="text" pInputText formControlName="dependency" />
-          <small class="p-error" *ngIf="validateField('activityForm', 'dependency')">La dependencia es requerida</small>
+
+        <div class="evidence-section" formArrayName="evidence">
+          <div class="evidence-header">
+            <h4>Evidencias</h4>
+            <button pButton type="button" label="Agregar Evidencia" icon="pi pi-plus" (click)="addEvidence()" class="p-button-outlined p-button-sm add-ev-btn"></button>
+          </div>
+          
+          <div *ngFor="let ev of evidence.controls; let i=index" [formGroupName]="i" class="evidence-row">
+            <div class="p-field col-ev-name">
+              <label [for]="'ev-name-' + i">Título de Evidencia *</label>
+              <input [id]="'ev-name-' + i" type="text" pInputText formControlName="name" placeholder="Ej. Minuta firmada" />
+            </div>
+            <div class="p-field col-ev-url">
+              <label [for]="'ev-url-' + i">Archivo (URL o Base64) *</label>
+              <input [id]="'ev-url-' + i" type="text" pInputText formControlName="url" placeholder="Ej. https://url-evidencia.pdf" />
+            </div>
+            <div class="col-ev-action">
+              <button pButton type="button" icon="pi pi-trash" class="p-button-danger p-button-text p-button-rounded" (click)="removeEvidence(i)" pTooltip="Eliminar Evidencia"></button>
+            </div>
+          </div>
+          <div *ngIf="evidence.controls.length === 0" class="no-evidence-msg">
+            <i class="pi pi-info-circle"></i> No hay evidencias agregadas aún.
+          </div>
         </div>
-        <button pButton type="submit" label="Guardar Actividad" [disabled]="!activityForm.valid || isActivityLoading"></button>
+
+        <button pButton type="submit" label="Guardar Actividad" icon="pi pi-save" class="submit-btn" [disabled]="!activityForm.valid || isActivityLoading"></button>
       </form>
     </div>
 
     <!-- Formulario de Quejas -->
-    <div class="form-card">
-      <h3>Capturar Quejas por Violencia Institucional</h3>
-      <form [formGroup]="complaintForm" (ngSubmit)="submitComplaint()">
+    <div class="form-card complaint-card">
+      <div class="card-header">
+        <i class="pi pi-file-edit card-icon"></i>
+        <h3>Registrar Quejas</h3>
+      </div>
+      <form [formGroup]="complaintForm" (ngSubmit)="submitComplaint()" class="admin-form">
         <div class="p-field">
-          <label for="municipality">Municipio</label>
-          <input id="municipality" type="text" pInputText formControlName="municipality" />
-          <small class="p-error" *ngIf="validateField('complaintForm', 'municipality')">El municipio es requerido</small>
+          <label for="procedentes">Cantidad de Quejas Procedentes *</label>
+          <input id="procedentes" type="number" pInputText formControlName="procedentes" min="0" placeholder="0" />
+          <small class="p-error" *ngIf="validateField('complaintForm', 'procedentes')">Es requerido y debe ser mayor o igual a 0</small>
         </div>
         <div class="p-field">
-          <label for="total">Total de Quejas</label>
-          <input id="total" type="number" pInputText formControlName="total" />
-          <small class="p-error" *ngIf="validateField('complaintForm', 'total')">El total es requerido y debe ser mayor o igual a 0</small>
+          <label for="improcedentes">Cantidad de Quejas Improcedentes *</label>
+          <input id="improcedentes" type="number" pInputText formControlName="improcedentes" min="0" placeholder="0" />
+          <small class="p-error" *ngIf="validateField('complaintForm', 'improcedentes')">Es requerido y debe ser mayor o igual a 0</small>
         </div>
-        <button pButton type="submit" label="Guardar Quejas" [disabled]="!complaintForm.valid || isComplaintLoading"></button>
+        <button pButton type="submit" label="Guardar Quejas" icon="pi pi-save" class="submit-btn" [disabled]="!complaintForm.valid || isComplaintLoading"></button>
       </form>
     </div>
   </div>

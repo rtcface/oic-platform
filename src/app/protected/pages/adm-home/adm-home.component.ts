@@ -51,10 +51,15 @@ export class AdmHomeComponent implements OnInit, OnDestroy {
 
         const datUser:data | undefined = this.authService.isLoggedIn;
 
-        if(datUser!=undefined){
+        if (datUser && datUser.verify_authentication?.user) {
           this.user.name = datUser.verify_authentication.user.name;
           this.user.email = datUser.verify_authentication.user.email;
           this.user.avatar = datUser.verify_authentication.user.avatar;
+          this.user.isLogin = true;
+        } else if (datUser && datUser.login?.user) {
+          this.user.name = datUser.login.user.name;
+          this.user.email = datUser.login.user.email;
+          this.user.avatar = datUser.login.user.avatar;
           this.user.isLogin = true;
         }
        
@@ -72,7 +77,7 @@ export class AdmHomeComponent implements OnInit, OnDestroy {
           this.header_title = Constantes.header_oic;
           this.footer_title = Constantes.footer_oic;
           //this.items=[];
-          this.items = this.ss.get_menu_portal(this.params,this.queryParams);
+          this.items = this.ss.get_menu_portal(this.params,this.queryParams, this.user.isLogin);
           //console.log("In OIC --==-0-Items",this.items);
         }
         if(type=='plt'){
@@ -83,7 +88,7 @@ export class AdmHomeComponent implements OnInit, OnDestroy {
                               ['page']: 'plt'
                             };
           //this.items=[];
-          this.items = this.ss.get_menu_portal(this.params,this.queryParams);
+          this.items = this.ss.get_menu_portal(this.params,this.queryParams, this.user.isLogin);
           //console.log("In PLT=====-Items",this.items);
           //console.log("log-home-count>>>>>>>>>>>>>",this.items.length);
         }

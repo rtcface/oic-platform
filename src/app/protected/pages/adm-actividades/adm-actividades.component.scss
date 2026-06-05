@@ -1,0 +1,59 @@
+.evidence-badge {
+  display: inline-block;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  margin: 0.15rem;
+  font-weight: 500;
+}
+
+.text-muted {
+  color: #64748b;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.file-upload-wrapper {
+  margin-top: 0.5rem;
+  
+  .custom-file-upload {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    width: 100%;
+    justify-content: center;
+
+    &:hover {
+      background-color: #f1f5f9;
+    }
+  }
+
+  .selected-file-info {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #0f172a;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem;
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    
+    i {
+      color: #3b82f6;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.text-center {
+  text-align: center;
+}

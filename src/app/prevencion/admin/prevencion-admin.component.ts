@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize, take } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { PrevencionService } from '../services/prevencion.service';
 import { Activity, Complaint } from '../models/prevencion.interface';
@@ -45,10 +45,15 @@ export class PrevencionAdminComponent implements OnInit {
 
   ngOnInit(): void {
     const datUser: data | undefined = this.authService.isLoggedIn;
-    if (datUser != undefined) {
+    if (datUser && datUser.verify_authentication?.user) {
       this.user.name = datUser.verify_authentication.user.name;
       this.user.email = datUser.verify_authentication.user.email;
       this.user.avatar = datUser.verify_authentication.user.avatar;
+      this.user.isLogin = true;
+    } else if (datUser && datUser.login?.user) {
+      this.user.name = datUser.login.user.name;
+      this.user.email = datUser.login.user.email;
+      this.user.avatar = datUser.login.user.avatar;
       this.user.isLogin = true;
     }
     
@@ -57,14 +62,30 @@ export class PrevencionAdminComponent implements OnInit {
 
     this.activityForm = this.fb.group({
       name: ['', Validators.required],
-      date: ['', Validators.required],
-      dependency: ['', Validators.required]
+      description: ['', Validators.required],
+      evidence: this.fb.array([])
     });
 
     this.complaintForm = this.fb.group({
-      municipality: ['', Validators.required],
-      total: ['', [Validators.required, Validators.min(0)]]
+      procedentes: [null, [Validators.required, Validators.min(0)]],
+      improcedentes: [null, [Validators.required, Validators.min(0)]]
     });
+  }
+
+  get evidence(): FormArray {
+    return this.activityForm.get('evidence') as FormArray;
+  }
+
+  addEvidence(): void {
+    this.evidence.push(this.fb.group({
+      name: ['', Validators.required],
+      url: ['', Validators.required],
+      type: ['document']
+    }));
+  }
+
+  removeEvidence(index: number): void {
+    this.evidence.removeAt(index);
   }
 
   validateField(formName: 'activityForm' | 'complaintForm', field: string): boolean {
@@ -75,7 +96,13 @@ export class PrevencionAdminComponent implements OnInit {
   submitActivity(): void {
     if (this.activityForm.valid && !this.isActivityLoading) {
       this.isActivityLoading = true;
-      const activity: Activity = this.activityForm.value;
+      const activity: Activity = {
+        name: this.activityForm.value.name,
+        description: this.activityForm.value.description,
+        evidence: this.activityForm.value.evidence,
+        date: '',
+        dependency: ''
+      };
       this.prevencionService.saveActivity(activity).pipe(
         take(1),
         finalize(() => this.isActivityLoading = false)
@@ -88,6 +115,7 @@ export class PrevencionAdminComponent implements OnInit {
               detail: 'Actividad guardada correctamente'
             });
             this.activityForm.reset();
+            this.evidence.clear();
           } else {
             this.messageService.add({
               severity: 'error',
@@ -110,7 +138,12 @@ export class PrevencionAdminComponent implements OnInit {
   submitComplaint(): void {
     if (this.complaintForm.valid && !this.isComplaintLoading) {
       this.isComplaintLoading = true;
-      const complaint: Complaint = this.complaintForm.value;
+      const complaint: Complaint = {
+        municipality: '',
+        total: 0,
+        procedentes: this.complaintForm.value.procedentes,
+        improcedentes: this.complaintForm.value.improcedentes
+      };
       this.prevencionService.saveComplaint(complaint).pipe(
         take(1),
         finalize(() => this.isComplaintLoading = false)

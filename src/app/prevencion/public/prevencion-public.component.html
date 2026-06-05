@@ -14,6 +14,7 @@
             <th>Actividad</th>
             <th>Fecha</th>
             <th>Dependencia</th>
+            <th style="width: 5rem">Detalles</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-act>
@@ -21,21 +22,63 @@
             <td>{{act.name}}</td>
             <td>{{act.date}}</td>
             <td>{{act.dependency}}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info p-button-text" (click)="showEvidence(act)" pTooltip="Ver evidencia" tooltipPosition="top"></button>
+            </td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
           <tr>
-            <td colspan="3">No hay actividades registradas para este OIC.</td>
+            <td colspan="4">No hay actividades registradas para este OIC.</td>
           </tr>
         </ng-template>
       </p-table>
     </p-tabPanel>
     <p-tabPanel header="Quejas por Violencia Institucional">
       <ng-container *ngIf="chartData$ | async as chartData">
-        <p-chart type="bar" [data]="chartData"></p-chart>
+        <div style="width: 400px; margin: 0 auto;">
+          <p-chart type="pie" [data]="chartData"></p-chart>
+        </div>
       </ng-container>
     </p-tabPanel>
   </p-tabView>
+
+  <p-dialog header="Evidencia de la Actividad" [(visible)]="displayEvidenceDialog" [modal]="true" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+    <div *ngIf="selectedActivity">
+      <h3>{{selectedActivity.name}}</h3>
+      <p><strong>Dependencia:</strong> {{selectedActivity.dependency}}</p>
+      <p><strong>Fecha:</strong> {{selectedActivity.date}}</p>
+      
+      <h4 class="mt-4">Archivos Adjuntos</h4>
+      <p-table [value]="selectedActivity.evidence || []">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">Tipo</th>
+            <th>Nombre del Archivo</th>
+            <th style="width: 6rem">Acción</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-doc>
+          <tr>
+            <td>
+              <i class="pi" [ngClass]="{'pi-file-pdf': doc.type === 'document', 'pi-image': doc.type === 'photo'}" style="font-size: 1.5rem"></i>
+            </td>
+            <td>{{doc.name}}</td>
+            <td>
+              <button pButton pRipple type="button" icon="pi pi-download" class="p-button-rounded p-button-success p-button-text"
+                      (click)="downloadEvidence(doc)" pTooltip="Descargar" tooltipPosition="top">
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="3">No hay evidencias registradas para esta actividad.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </p-dialog>
   </div>
 </div>
 <app-footer [text_footer]="footer_title"></app-footer>

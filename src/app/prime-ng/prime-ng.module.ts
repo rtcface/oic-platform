@@ -4,11 +4,14 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from "primeng/inputtext";
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { ListboxModule } from 'primeng/listbox';
 import { MenubarModule } from 'primeng/menubar';
 import { MessageModule } from 'primeng/message';
@@ -34,11 +37,14 @@ import { TreeSelectModule } from 'primeng/treeselect';
     CardModule,
     ChartModule,
     CheckboxModule,
+    ConfirmDialogModule,
     ConfirmPopupModule,
     DialogModule,
     DividerModule,
     FieldsetModule,
     InputTextModule,
+    InputTextareaModule,
+    InputNumberModule,
     MenubarModule,
     MessageModule,
     MessagesModule,

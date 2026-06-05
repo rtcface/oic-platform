@@ -12,6 +12,9 @@ import {  ReactiveFormsModule } from '@angular/forms';
 import { AdmPltCodigoEticaComponent } from './pages/adm-plt-codigo-etica/adm-plt-codigo-etica.component';
 import { AdmPltComiteComponent } from './pages/adm-plt-comite/adm-plt-comite.component';
 import { AdmPltRulesComponent } from './pages/adm-plt-rules/adm-plt-rules.component';
+import { AdmActividadesComponent } from './pages/adm-actividades/adm-actividades.component';
+import { AdmQuejasComponent } from './pages/adm-quejas/adm-quejas.component';
+import { AdmPrevencionComponent } from './pages/adm-prevencion/adm-prevencion.component';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import { AdmPltRulesComponent } from './pages/adm-plt-rules/adm-plt-rules.compon
     AdmHomeComponent,
     AdmPltCodigoEticaComponent,
     AdmPltComiteComponent,
-    AdmPltRulesComponent
+    AdmPltRulesComponent,
+    AdmActividadesComponent,
+    AdmQuejasComponent,
+    AdmPrevencionComponent
   ],
   imports: [
     CommonModule,

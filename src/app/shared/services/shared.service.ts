@@ -83,7 +83,6 @@ export class SharedService {
       })
       .pipe()
       .subscribe(({ data }) => {
-        ////console.log(data.items);
         if (this.items.length === 0) {
           data.items.forEach((element) => {
             this.items.push({
@@ -93,15 +92,6 @@ export class SharedService {
               queryParams: {},
             });
           });
-
-          if (role === 'admin' || role === 'super') {
-            this.items.push({
-              label: 'Prevención Admin',
-              icon: 'pi pi-shield',
-              routerLink: '/prevencion/admin',
-              queryParams: {},
-            });
-          }
         }
       });
 
@@ -267,26 +257,189 @@ export class SharedService {
     });
   }
 
-  get_menu_portal(params: params_menu, queryParametes: object): items[] {
+  save_Actividad(actividad: any): Observable<MutationResult<any>> {
+    const SAVE_ACTIVIDAD = gql`
+      mutation saveActividad($input: ActividadInput!) {
+        saveActividad(input: $input) {
+          id
+          success
+        }
+      }
+    `;
+
+    return this.apollo.mutate<any>({
+      mutation: SAVE_ACTIVIDAD,
+      variables: {
+        input: actividad,
+      },
+      fetchPolicy: 'no-cache',
+    });
+  }
+
+  add_Evidencia(actividadId: string, inputEv: any): Observable<MutationResult<any>> {
+    const ADD_EVIDENCIA = gql`
+      mutation addEvidencia($actividadId: String!, $input: EvidenceInput!) {
+        addEvidencia(actividadId: $actividadId, input: $input) {
+          id
+          success
+        }
+      }
+    `;
+
+    return this.apollo.mutate<any>({
+      mutation: ADD_EVIDENCIA,
+      variables: {
+        actividadId,
+        input: inputEv,
+      },
+      fetchPolicy: 'no-cache',
+    });
+  }
+
+  get_Actividades(): Observable<any> {
+    const GET_ACTIVIDADES = gql`
+      query GetActividades {
+        getActividades {
+          id
+          titulo
+          descripcion
+          createdAt
+          ente_publico {
+            id
+            nombre_ente
+          }
+          evidencias {
+            titulo
+            archivo
+          }
+        }
+      }
+    `;
+
+    return this.apollo.query<any>({
+      query: GET_ACTIVIDADES,
+      fetchPolicy: 'no-cache',
+    });
+  }
+
+  update_Actividad(id: string, input: { titulo?: string; descripcion?: string }): Observable<MutationResult<any>> {
+    const UPDATE_ACTIVIDAD = gql`
+      mutation updateActividad($id: String!, $input: ActividadUpdateInput!) {
+        updateActividad(id: $id, input: $input) {
+          id
+          titulo
+          descripcion
+          success
+        }
+      }
+    `;
+
+    return this.apollo.mutate<any>({
+      mutation: UPDATE_ACTIVIDAD,
+      variables: { id, input },
+      fetchPolicy: 'no-cache',
+    });
+  }
+
+  delete_Actividad(id: string): Observable<MutationResult<any>> {
+    const DELETE_ACTIVIDAD = gql`
+      mutation deleteActividad($id: String!) {
+        deleteActividad(id: $id) {
+          id
+          success
+        }
+      }
+    `;
+
+    return this.apollo.mutate<any>({
+      mutation: DELETE_ACTIVIDAD,
+      variables: { id },
+      fetchPolicy: 'no-cache',
+    });
+  }
+
+  save_Queja(queja: any): Observable<MutationResult<any>> {
+    const SAVE_QUEJA = gql`
+      mutation saveQueja($input: QuejaInput!) {
+        saveQueja(input: $input) {
+          success
+        }
+      }
+    `;
+
+    return this.apollo.mutate<any>({
+      mutation: SAVE_QUEJA,
+      variables: {
+        input: queja,
+      },
+      fetchPolicy: 'no-cache',
+    });
+  }
+
+  get_Quejas(): Observable<any> {
+    const GET_QUEJAS = gql`
+      query GetQuejas {
+        getQuejas {
+          id
+          procedentes
+          improcedentes
+          createdAt
+          ente_publico {
+            id
+            nombre_ente
+          }
+        }
+      }
+    `;
+
+    return this.apollo.query<any>({
+      query: GET_QUEJAS,
+      fetchPolicy: 'no-cache',
+    });
+  }
+
+  update_Queja(id: string, input: { procedentes?: number; improcedentes?: number }): Observable<MutationResult<any>> {
+    const UPDATE_QUEJA = gql`
+      mutation updateQueja($id: String!, $input: QuejaUpdateInput!) {
+        updateQueja(id: $id, input: $input) {
+          id
+          procedentes
+          improcedentes
+          success
+        }
+      }
+    `;
+
+    return this.apollo.mutate<any>({
+      mutation: UPDATE_QUEJA,
+      variables: { id, input },
+      fetchPolicy: 'no-cache',
+    });
+  }
+
+  delete_Queja(id: string): Observable<MutationResult<any>> {
+    const DELETE_QUEJA = gql`
+      mutation deleteQueja($id: String!) {
+        deleteQueja(id: $id) {
+          id
+          success
+        }
+      }
+    `;
+
+    return this.apollo.mutate<any>({
+      mutation: DELETE_QUEJA,
+      variables: { id },
+      fetchPolicy: 'no-cache',
+    });
+  }
+
+  get_menu_portal(params: params_menu, queryParametes: object, isAuth: boolean = false): items[] {
     this.clean_menu();
     //console.log("params", params,"queryParams",queryParametes);
 
     if (params.type === 'oic') {
-      this.items.push(
-        {
-          label: 'Prevención',
-          icon: 'pi pi-shield',
-          routerLink: '/prevencion/public',
-          queryParams: queryParametes,
-        },
-        {
-          label: 'Iniciar Sesión',
-          icon: 'pi pi-sign-in',
-          routerLink: '/auth/login',
-          queryParams: queryParametes,
-        }
-      );
-      return this.items;
+      // dead code removed
     }
 
     const GET_MENU_PORTAL = gql`
@@ -312,12 +465,14 @@ export class SharedService {
         if (this.items.length === 0) {
           data.items.forEach((element) => {
             if (element.label == 'Iniciar Sesión') {
-              this.items.push({
-                label: element.label,
-                icon: element.icon,
-                routerLink: element.routerLink,
-                queryParams: queryParametes,
-              });
+              if (!isAuth) {
+                this.items.push({
+                  label: element.label,
+                  icon: element.icon,
+                  routerLink: element.routerLink,
+                  queryParams: queryParametes,
+                });
+              }
             } else {
               this.items.push({
                 label: element.label,
@@ -327,15 +482,6 @@ export class SharedService {
               });
             }
           });
-
-          if (params.role === 'admin' || params.role === 'super') {
-            this.items.push({
-              label: 'Prevención Admin',
-              icon: 'pi pi-shield',
-              routerLink: '/prevencion/admin',
-              queryParams: queryParametes,
-            });
-          }
         }
       });
 

@@ -149,7 +149,7 @@ describe('LoginComponent', () => {
       expect(routerMock.navigate).toHaveBeenCalledWith(['/oic/plt/plt']);
     });
 
-    it('should navigate to /oic/oic/protected-admin on success for admin role in oic portal', async () => {
+    it('should navigate to /protected-admin on success for admin role in oic portal', async () => {
       component.myForm.controls['loginValue'].setValue('admin@test.com');
       component.myForm.controls['passwordValue'].setValue('password123');
       component.page = 'oic';
@@ -168,7 +168,7 @@ describe('LoginComponent', () => {
 
       await component.login();
 
-      expect(routerMock.navigate).toHaveBeenCalledWith(['/oic/oic/protected-admin']);
+      expect(routerMock.navigate).toHaveBeenCalledWith(['/protected-admin']);
     });
 
     it('should navigate to /protected/adm-users on success for contralor role in oic portal', async () => {

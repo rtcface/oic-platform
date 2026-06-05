@@ -7,6 +7,9 @@ import { AdmPltComiteComponent } from './pages/adm-plt-comite/adm-plt-comite.com
 import { AdmPltRulesComponent } from './pages/adm-plt-rules/adm-plt-rules.component';
 import { AdmUsersComponent } from './pages/adm-users/adm-users.component';
 import { AdmWorkplanComponent } from './pages/adm-workplan/adm-workplan.component';
+import { AdmActividadesComponent } from './pages/adm-actividades/adm-actividades.component';
+import { AdmQuejasComponent } from './pages/adm-quejas/adm-quejas.component';
+import { AdmPrevencionComponent } from './pages/adm-prevencion/adm-prevencion.component';
 
 const routes: Routes = [
   {
@@ -44,6 +47,10 @@ const routes: Routes = [
       {
         path:'adm-kpis',
         component: AdmKpisComponent
+      },
+      {
+        path: 'prevencion',
+        component: AdmPrevencionComponent
       },
       {
         path: '**',

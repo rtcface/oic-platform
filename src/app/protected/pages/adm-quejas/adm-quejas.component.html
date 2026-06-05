@@ -1,0 +1,106 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<!-- Registro de nueva queja -->
+<p-panel header="Registro de Quejas" class="mb-4">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid p-formgrid grid">
+      <div class="field col-12 md:col-6">
+        <label for="procedentes">Quejas Procedentes *</label>
+        <p-inputNumber id="procedentes" formControlName="procedentes" [min]="0" [showButtons]="true"></p-inputNumber>
+        <small class="p-error" *ngIf="registerForm.get('procedentes')?.invalid && registerForm.get('procedentes')?.touched">Requerido (mín. 0).</small>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="improcedentes">Quejas Improcedentes *</label>
+        <p-inputNumber id="improcedentes" formControlName="improcedentes" [min]="0" [showButtons]="true"></p-inputNumber>
+        <small class="p-error" *ngIf="registerForm.get('improcedentes')?.invalid && registerForm.get('improcedentes')?.touched">Requerido (mín. 0).</small>
+      </div>
+
+      <div class="col-12 mt-3">
+        <button pButton type="submit" label="Registrar Quejas" icon="pi pi-save"
+                class="p-button-primary" [disabled]="registerForm.invalid || isSaving">
+        </button>
+      </div>
+    </div>
+  </form>
+</p-panel>
+
+<!-- Tabla de quejas registradas -->
+<div class="card mt-4">
+  <div class="flex align-items-center justify-content-between mb-3">
+    <h3 class="m-0">Quejas Registradas</h3>
+    <div class="flex gap-3" *ngIf="quejas.length > 0">
+      <span class="p-tag p-tag-info">Total procedentes: {{ totalProcedentes }}</span>
+      <span class="p-tag p-tag-warning">Total improcedentes: {{ totalImprocedentes }}</span>
+    </div>
+  </div>
+
+  <p-table [value]="quejas" [loading]="isLoading" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Fecha de registro</th>
+        <th class="text-center">Procedentes</th>
+        <th class="text-center">Improcedentes</th>
+        <th class="text-center">Total</th>
+        <th style="width: 8rem" class="text-center">Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-queja>
+      <tr>
+        <td>{{ queja.createdAt | date:'dd/MM/yyyy' }}</td>
+        <td class="text-center">
+          <span class="p-tag p-tag-success">{{ queja.procedentes }}</span>
+        </td>
+        <td class="text-center">
+          <span class="p-tag p-tag-danger">{{ queja.improcedentes }}</span>
+        </td>
+        <td class="text-center font-bold">
+          {{ (queja.procedentes || 0) + (queja.improcedentes || 0) }}
+        </td>
+        <td class="text-center">
+          <button pButton pRipple type="button" icon="pi pi-pencil" pTooltip="Editar cantidades"
+                  class="p-button-rounded p-button-outlined p-button-warning p-button-sm mr-2"
+                  (click)="openEditDialog(queja)">
+          </button>
+          <button pButton pRipple type="button" icon="pi pi-trash" pTooltip="Eliminar"
+                  class="p-button-rounded p-button-outlined p-button-danger p-button-sm"
+                  (click)="confirmDelete(queja)">
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5" class="text-center">No hay quejas registradas para este ente público.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- Diálogo para Editar Queja -->
+<p-dialog header="Editar Cantidades de Queja" [(visible)]="showEditDialog" [modal]="true"
+          [style]="{width: '420px'}" [draggable]="false" [resizable]="false">
+  <form [formGroup]="editForm" (ngSubmit)="submitEdit()" class="p-fluid">
+    <div class="field mb-3">
+      <label for="edit_procedentes">Quejas Procedentes *</label>
+      <p-inputNumber id="edit_procedentes" formControlName="procedentes" [min]="0" [showButtons]="true"></p-inputNumber>
+      <small class="p-error" *ngIf="editForm.get('procedentes')?.invalid && editForm.get('procedentes')?.touched">Requerido (mín. 0).</small>
+    </div>
+
+    <div class="field mb-4">
+      <label for="edit_improcedentes">Quejas Improcedentes *</label>
+      <p-inputNumber id="edit_improcedentes" formControlName="improcedentes" [min]="0" [showButtons]="true"></p-inputNumber>
+      <small class="p-error" *ngIf="editForm.get('improcedentes')?.invalid && editForm.get('improcedentes')?.touched">Requerido (mín. 0).</small>
+    </div>
+
+    <div class="flex justify-content-end gap-2 mt-4">
+      <button pButton type="button" label="Cancelar" class="p-button-text p-button-secondary"
+              (click)="showEditDialog = false" [disabled]="isSavingEdit">
+      </button>
+      <button pButton type="submit" label="Guardar cambios" icon="pi pi-check"
+              class="p-button-warning" [disabled]="editForm.invalid || isSavingEdit">
+      </button>
+    </div>
+  </form>
+</p-dialog>

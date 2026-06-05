@@ -24,6 +24,11 @@ export class PrevencionPublicComponent implements OnInit, OnDestroy {
   items: MenuItem[] = [];
   header_title = Constantes.header_oic;
   footer_title = Constantes.footer_oic;
+  
+  // Variables para el modal de evidencias
+  displayEvidenceDialog: boolean = false;
+  selectedActivity: Activity | null = null;
+
   user: user_card = {
     name: 'User',
     email: 'sn@sn.sn',
@@ -49,68 +54,60 @@ export class PrevencionPublicComponent implements OnInit, OnDestroy {
         if (!oic || !oic.nombre_ente) {
           return activities;
         }
-        return activities.filter(act =>
-          act.dependency.toLowerCase().includes(oic.nombre_ente.toLowerCase())
-        );
+        return activities.filter(act => {
+          const dep = act.dependency.toLowerCase();
+          const ente = oic.nombre_ente.toLowerCase();
+          return dep.includes(ente) || ente.includes(dep);
+        });
       }),
       shareReplay({ bufferSize: 1, refCount: true })
     );
 
     this.chartData$ = combineLatest([
-      this.prevencionService.getChartData().pipe(catchError(() => of(null))),
+      this.prevencionService.getComplaints().pipe(catchError(() => of([]))),
       oic$
     ]).pipe(
-      map(([chartData, oic]) => {
-        if (!chartData || !chartData.datasets || chartData.datasets.length === 0) {
-          return chartData;
+      map(([complaints, oic]) => {
+        if (!oic || !oic.nombre_ente || !complaints || complaints.length === 0) {
+          return null;
         }
 
-        if (!oic || !oic.nombre_ente) {
-          return chartData;
-        }
+        const matchingComplaints = complaints.filter(c => {
+          const mun = c.municipality.toLowerCase();
+          const ente = oic.nombre_ente.toLowerCase();
+          return mun.includes(ente) || ente.includes(mun);
+        });
 
-        const filteredLabels: string[] = [];
-        const filteredData: number[] = [];
-        const dataLength = chartData.datasets[0].data ? chartData.datasets[0].data.length : 0;
+        if (matchingComplaints.length > 0) {
+          const totalProcedentes = matchingComplaints.reduce((sum, c) => sum + (c.procedentes || 0), 0);
+          const totalImprocedentes = matchingComplaints.reduce((sum, c) => sum + (c.improcedentes || 0), 0);
 
-        if (chartData.labels && chartData.labels.length > 0) {
-          chartData.labels.forEach((label: string, index: number) => {
-            if (!label) return;
-            const matchName = oic.nombre_ente.toLowerCase().includes(label.toLowerCase()) ||
-                              label.toLowerCase().includes(oic.nombre_ente.toLowerCase());
-
-            if (matchName && index < dataLength) {
-              const val = chartData.datasets[0].data[index];
-              if (val !== undefined && val !== null) {
-                filteredLabels.push(label);
-                filteredData.push(val);
-              }
-            }
-          });
-        }
-
-        if (filteredLabels.length > 0) {
           return {
-            labels: filteredLabels,
+            labels: [
+              `Procedentes (${totalProcedentes})`, 
+              `Improcedentes (${totalImprocedentes})`
+            ],
             datasets: [
               {
-                label: chartData.datasets[0].label,
-                backgroundColor: chartData.datasets[0].backgroundColor,
-                data: filteredData
+                label: 'Quejas por Violencia Institucional',
+                backgroundColor: ['#4CAF50', '#F44336'],
+                hoverBackgroundColor: ['#81C784', '#E57373'],
+                data: [totalProcedentes, totalImprocedentes]
               }
             ]
-          };
+          } as ChartData;
         } else {
+          // Si no hay datos, mostrar cero
           return {
-            labels: [oic.nombre_ente],
+            labels: ['Procedentes', 'Improcedentes'],
             datasets: [
               {
-                label: chartData.datasets[0].label,
-                backgroundColor: chartData.datasets[0].backgroundColor,
-                data: [0]
+                label: 'Sin quejas',
+                backgroundColor: ['#9E9E9E', '#9E9E9E'],
+                data: [0, 0]
               }
             ]
-          };
+          } as ChartData;
         }
       }),
       shareReplay({ bufferSize: 1, refCount: true })
@@ -119,6 +116,84 @@ export class PrevencionPublicComponent implements OnInit, OnDestroy {
 
   onOicSelected(oic: OicInterface): void {
     this.selectedOicSubject.next(oic);
+  }
+
+  showEvidence(activity: Activity): void {
+    this.selectedActivity = activity;
+    this.displayEvidenceDialog = true;
+  }
+
+  downloadEvidence(doc: any): void {
+    if (!doc.url) return;
+
+    // If it's not a data URL (e.g. it starts with http), open/download directly
+    if (!doc.url.startsWith('data:')) {
+      const link = document.createElement('a');
+      link.href = doc.url;
+      link.target = '_blank';
+      link.download = doc.name || 'evidencia';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      return;
+    }
+
+    try {
+      // Parse the data URL to a blob
+      const parts = doc.url.split(',');
+      const mime = parts[0].match(/:(.*?);/)?.[1] || 'application/octet-stream';
+      const bstr = atob(parts[1]);
+      let n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      const blob = new Blob([u8arr], { type: mime });
+      const blobUrl = URL.createObjectURL(blob);
+
+      // Determine proper file name with extension
+      const ext = this.getExtensionFromMime(mime);
+      let fileName = doc.name || 'evidencia';
+      if (ext && !fileName.toLowerCase().endsWith('.' + ext)) {
+        fileName = `${fileName}.${ext}`;
+      }
+
+      // Create link to trigger download
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Clean up object URL
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+    } catch (e) {
+      console.error('Error handling document download', e);
+      // Fallback to direct data URI trigger
+      const link = document.createElement('a');
+      link.href = doc.url;
+      link.download = doc.name || 'evidencia';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
+
+  getExtensionFromMime(mime: string): string {
+    const map: { [key: string]: string } = {
+      'application/pdf': 'pdf',
+      'image/png': 'png',
+      'image/jpeg': 'jpg',
+      'image/jpg': 'jpg',
+      'image/gif': 'gif',
+      'text/plain': 'txt',
+      'application/msword': 'doc',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+      'application/vnd.ms-excel': 'xls',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+    };
+    return map[mime] || '';
   }
 
   ngOnDestroy(): void {

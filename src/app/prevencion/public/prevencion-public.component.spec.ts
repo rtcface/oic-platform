@@ -9,6 +9,7 @@ import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { OicInterface } from '../../oic/models/oic.interface';
 import { PrevencionService } from '../services/prevencion.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 describe('PrevencionPublicComponent', () => {
   let component: PrevencionPublicComponent;
@@ -16,30 +17,25 @@ describe('PrevencionPublicComponent', () => {
   let prevencionServiceSpy: jasmine.SpyObj<PrevencionService>;
 
   beforeEach(async () => {
-    prevencionServiceSpy = jasmine.createSpyObj('PrevencionService', ['getActivities', 'getChartData']);
+    prevencionServiceSpy = jasmine.createSpyObj('PrevencionService', ['getActivities', 'getComplaints']);
 
     prevencionServiceSpy.getActivities.and.returnValue(of([
-      { name: 'Act1', date: '2023-01-01', dependency: 'OIC Test' },
-      { name: 'Act2', date: '2023-01-02', dependency: 'Other' }
+      { name: 'Act1', date: '2023-01-01', dependency: 'OIC Test', evidence: [] },
+      { name: 'Act2', date: '2023-01-02', dependency: 'Other', evidence: [] }
     ]));
     
-    prevencionServiceSpy.getChartData.and.returnValue(of({
-      labels: ['OIC Test', 'Other'],
-      datasets: [
-        {
-          label: 'Test',
-          backgroundColor: '#000',
-          data: [10, 5]
-        }
-      ]
-    }));
+    prevencionServiceSpy.getComplaints.and.returnValue(of([
+      { municipality: 'OIC Test', total: 15, procedentes: 10, improcedentes: 5 },
+      { municipality: 'Other', total: 8, procedentes: 5, improcedentes: 3 }
+    ]));
 
     await TestBed.configureTestingModule({
       imports: [PrevencionModule, HttpClientTestingModule, RouterTestingModule, ApolloTestingModule],
       declarations: [PrevencionPublicComponent],
       providers: [
         { provide: GetOicService, useValue: { getOicFromGraph: () => of([]) } },
-        { provide: PrevencionService, useValue: prevencionServiceSpy }
+        { provide: PrevencionService, useValue: prevencionServiceSpy },
+        { provide: SharedService, useValue: { get_menu_portal: () => [] } }
       ]
     }).compileComponents();
   });
@@ -72,6 +68,8 @@ describe('PrevencionPublicComponent', () => {
   });
 
   it('should contain p-chart in the second tab for complaints data', () => {
+    component.onOicSelected({ id: '1', nombre_ente: 'OIC Test', siglas_ente: 'OT', data: [] });
+    fixture.detectChanges();
     const chart = fixture.nativeElement.querySelector('p-chart');
     expect(chart).toBeTruthy();
   });

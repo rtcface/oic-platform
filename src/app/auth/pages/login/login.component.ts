@@ -88,12 +88,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
 
         if(this.role=='admin' && this.page=='oic'  && this.firstSignIn){
-          this.router.navigate(['/oic/oic/protected-admin']);
+          this.router.navigate(['/protected-admin']);
           return;
         }
 
         if(this.role=='admin' && this.page=='plt'  && this.firstSignIn){
-          this.router.navigate(['/oic/plt/protected-admin']);
+          this.router.navigate(['/protected-admin']);
           return;
         }
 

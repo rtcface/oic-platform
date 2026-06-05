@@ -1,0 +1,125 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<p-panel header="Registro de Actividades" class="mb-4">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="p-fluid p-formgrid grid">
+      <div class="field col-12">
+        <label for="titulo">Título de la actividad *</label>
+        <input id="titulo" type="text" pInputText formControlName="titulo" placeholder="Ej. Taller de Capacitación en Ética" />
+        <small class="p-error" *ngIf="form.get('titulo')?.invalid && form.get('titulo')?.touched">El título es requerido.</small>
+      </div>
+
+      <div class="field col-12">
+        <label for="descripcion">Descripción *</label>
+        <textarea id="descripcion" pInputTextarea formControlName="descripcion" rows="4" placeholder="Describe brevemente la actividad realizada..."></textarea>
+        <small class="p-error" *ngIf="form.get('descripcion')?.invalid && form.get('descripcion')?.touched">La descripción es requerida.</small>
+      </div>
+
+      <div class="col-12 mt-3">
+        <button pButton type="submit" label="Guardar Actividad" icon="pi pi-save" class="p-button-primary" [disabled]="form.invalid || isSavingActivity"></button>
+      </div>
+    </div>
+  </form>
+</p-panel>
+
+<!-- Listado de Actividades Registradas -->
+<div class="card mt-4">
+  <h3>Actividades Registradas</h3>
+  <p-table [value]="actividades" [loading]="isLoading" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Título</th>
+        <th>Descripción</th>
+        <th>Evidencias</th>
+        <th style="width: 16rem" class="text-center">Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-act>
+      <tr>
+        <td>{{ act.titulo }}</td>
+        <td>{{ act.descripcion }}</td>
+        <td>
+          <div *ngIf="act.evidencias && act.evidencias.length > 0; else noEv">
+            <span *ngFor="let ev of act.evidencias; let last=last" class="evidence-badge">
+              {{ ev.titulo }}{{ !last ? ', ' : '' }}
+            </span>
+          </div>
+          <ng-template #noEv>
+            <span class="text-muted">Sin evidencias</span>
+          </ng-template>
+        </td>
+        <td class="text-center">
+          <div class="flex gap-2 justify-content-center">
+            <button pButton pRipple type="button" icon="pi pi-paperclip" pTooltip="Adjuntar evidencia"
+                    class="p-button-rounded p-button-outlined p-button-info p-button-sm"
+                    (click)="openEvidenceDialog(act.id)"></button>
+            <button pButton pRipple type="button" icon="pi pi-pencil" pTooltip="Editar actividad"
+                    class="p-button-rounded p-button-outlined p-button-warning p-button-sm"
+                    (click)="openEditDialog(act)"></button>
+            <button pButton pRipple type="button" icon="pi pi-trash" pTooltip="Eliminar actividad"
+                    class="p-button-rounded p-button-outlined p-button-danger p-button-sm"
+                    (click)="confirmDelete(act)"></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4" class="text-center">No se encontraron actividades registradas.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- Diálogo para Adjuntar Evidencia -->
+<p-dialog header="Adjuntar Evidencia a Actividad" [(visible)]="showEvidenceDialog" [modal]="true" [style]="{width: '450px'}" [draggable]="false" [resizable]="false">
+  <form [formGroup]="evidenceForm" (ngSubmit)="submitEvidence()" class="p-fluid">
+    <div class="field mb-3">
+      <label for="titulo_evidencia">Título de la Evidencia *</label>
+      <input id="titulo_evidencia" type="text" pInputText formControlName="titulo_evidencia" placeholder="Ej. Lista de asistencia, Foto del taller" />
+      <small class="p-error" *ngIf="evidenceForm.get('titulo_evidencia')?.invalid && evidenceForm.get('titulo_evidencia')?.touched">El título es requerido.</small>
+    </div>
+
+    <div class="field mb-4">
+      <label>Archivo / Imagen *</label>
+      <div class="file-upload-wrapper">
+        <label class="custom-file-upload p-button p-button-outlined p-button-secondary">
+          <input type="file" (change)="onFileSelected($event)" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" style="display: none;" />
+          <i class="pi pi-cloud-upload mr-2"></i>
+          {{ selectedFileName ? 'Cambiar archivo' : 'Seleccionar archivo' }}
+        </label>
+        <div *ngIf="selectedFileName" class="selected-file-info mt-2">
+          <i class="pi pi-file mr-1"></i> <span>{{ selectedFileName }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-content-end gap-2 mt-4">
+      <button pButton type="button" label="Cancelar" class="p-button-text p-button-secondary" (click)="showEvidenceDialog = false" [disabled]="isSavingEvidence"></button>
+      <button pButton type="submit" label="Guardar Evidencia" icon="pi pi-check" class="p-button-primary" [disabled]="evidenceForm.invalid || !selectedFileBase64 || isSavingEvidence"></button>
+    </div>
+  </form>
+</p-dialog>
+
+<!-- Diálogo para Editar Actividad -->
+<p-dialog header="Editar Actividad" [(visible)]="showEditDialog" [modal]="true" [style]="{width: '480px'}" [draggable]="false" [resizable]="false">
+  <form [formGroup]="editForm" (ngSubmit)="submitEdit()" class="p-fluid">
+    <div class="field mb-3">
+      <label for="edit_titulo">Título *</label>
+      <input id="edit_titulo" type="text" pInputText formControlName="titulo" placeholder="Título de la actividad" />
+      <small class="p-error" *ngIf="editForm.get('titulo')?.invalid && editForm.get('titulo')?.touched">El título es requerido.</small>
+    </div>
+
+    <div class="field mb-4">
+      <label for="edit_descripcion">Descripción *</label>
+      <textarea id="edit_descripcion" pInputTextarea formControlName="descripcion" rows="4" placeholder="Descripción de la actividad"></textarea>
+      <small class="p-error" *ngIf="editForm.get('descripcion')?.invalid && editForm.get('descripcion')?.touched">La descripción es requerida.</small>
+    </div>
+
+    <div class="flex justify-content-end gap-2 mt-4">
+      <button pButton type="button" label="Cancelar" class="p-button-text p-button-secondary" (click)="showEditDialog = false" [disabled]="isSavingEdit"></button>
+      <button pButton type="submit" label="Guardar cambios" icon="pi pi-check" class="p-button-warning" [disabled]="editForm.invalid || isSavingEdit"></button>
+    </div>
+  </form>
+</p-dialog>
