@@ -61,6 +61,26 @@ export class ProtectedService {
     });
   }
 
+  addPlanWorkYear(idRoot: string, year: number): Observable<MutationResult> {
+    const ADD_PLAN_WORK_YEAR = gql`
+      mutation addPlanWorkYear($idRoot: String!, $year: Int!) {
+        addPlanWorkYear(idRoot: $idRoot, year: $year) {
+          id
+          label
+          data
+        }
+      }
+    `;
+    return this.apollo.mutate({
+      mutation: ADD_PLAN_WORK_YEAR,
+      variables: {
+        idRoot,
+        year
+      },
+      fetchPolicy: 'no-cache'
+    });
+  }
+
   // methods for kpis register
 
   saveKpi(kpiDataAdd: kpiAdd): Observable<MutationResult> {
@@ -83,8 +103,14 @@ export class ProtectedService {
   getKpis(ente_publico:kpiByEnteQueryInput): Observable<MutationResult<resp>> {
     const GET_KPIS = gql`query getKpiByEnte($ente_publico:KpisByEnteQueryInput!){
       chart:getKpisByEnte(input:$ente_publico){
+        id
         kpi
+        description
         total_casos
+        createdAt
+        updatedAt
+        status
+        ente_publico
       }
     }`;
     return this.apollo.query<resp>({
@@ -92,6 +118,39 @@ export class ProtectedService {
       variables: {
         ente_publico
       },
+      fetchPolicy: 'no-cache'
+    });
+  }
+
+  updateKpi(id: string, input: { kpi: string; description?: string; total_casos: number; updatedAt?: Date }): Observable<MutationResult> {
+    const UPDATE_KPI = gql`
+      mutation updateKpis($id: String!, $input: KpisUpdateInput!) {
+        updateKpis(id: $id, input: $input) {
+          id
+          kpi
+          description
+          total_casos
+        }
+      }
+    `;
+    return this.apollo.mutate({
+      mutation: UPDATE_KPI,
+      variables: { id, input },
+      fetchPolicy: 'no-cache'
+    });
+  }
+
+  deleteKpi(id: string): Observable<MutationResult> {
+    const DELETE_KPI = gql`
+      mutation deleteKpi($id: String!) {
+        inactivateKpi(id: $id) {
+          id
+        }
+      }
+    `;
+    return this.apollo.mutate({
+      mutation: DELETE_KPI,
+      variables: { id },
       fetchPolicy: 'no-cache'
     });
   }

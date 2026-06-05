@@ -67,3 +67,59 @@
     </p-panel>
   
   </div>
+
+  <div class="table-container mt-4" style="margin-top: 2rem;">
+      <p-panel header="Listado de Estadísticas de Procesos Registrados">
+          <p-table [value]="kpisList" responsiveLayout="scroll" [rows]="10" [paginator]="true">
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th>Estadística</th>
+                      <th>Cantidad</th>
+                      <th>Fecha de Registro</th>
+                      <th>Acciones</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-kpi>
+                  <tr>
+                      <td>{{ kpi.kpi }}</td>
+                      <td>{{ kpi.total_casos }}</td>
+                      <td>{{ kpi.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+                      <td>
+                          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-button-text mr-2" (click)="openEditDialog(kpi)"></button>
+                          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="confirmDelete($event, kpi)"></button>
+                      </td>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                  <tr>
+                      <td colspan="4" style="text-align: center; padding: 2rem;">No hay estadísticas registradas para este ente público.</td>
+                  </tr>
+              </ng-template>
+          </p-table>
+      </p-panel>
+  </div>
+
+  <p-dialog header="Editar Estadística" [(visible)]="displayEditDialog" [modal]="true" [style]="{width: '30vw'}">
+    <form [formGroup]="editForm" (ngSubmit)="saveEdit()" class="search-form" autocomplete="off" *ngIf="displayEditDialog">
+      <div class="field col-12 md:col-12 form-item">
+        <label for="editTypeCase" style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Seleccione tipo de caso</label>
+        <p-listbox [options]="optionKpi" optionLabel="name" id="editTypeCase" formControlName="typeCase"></p-listbox>
+      </div>
+      <div class="field col-12 md:col-12 form-item">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-chart-bar"></i>
+          </span>
+          <span class="p-float-label">
+            <input type="number" id="edit-total" pInputText formControlName="total">
+            <label for="edit-total">Total de casos</label>
+          </span>
+        </div>
+      </div>
+      <div class="field col-12 md:col-12 form-item">
+        <button pButton pRipple type="submit" label="Actualizar" class="p-button-outlined p-button-primary" icon="pi pi-check"></button>
+      </div>
+    </form>
+  </p-dialog>
+
+  <p-confirmPopup></p-confirmPopup>

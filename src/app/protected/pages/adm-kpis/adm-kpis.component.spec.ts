@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { of, throwError } from 'rxjs';
 import { AdmKpisComponent } from './adm-kpis.component';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -13,7 +13,8 @@ describe('AdmKpisComponent', () => {
   let component: AdmKpisComponent;
   let fixture: ComponentFixture<AdmKpisComponent>;
   let authServiceSpy: any;
-  let messageServiceSpy: any;
+  let messageService: MessageService;
+  let confirmationService: ConfirmationService;
   let protectedServiceSpy: any;
 
   beforeEach(async () => {
@@ -21,22 +22,18 @@ describe('AdmKpisComponent', () => {
       idEnteAuth: 'ente-123'
     };
 
-    messageServiceSpy = {
-      add: jasmine.createSpy('add'),
-      messageObserver: of(),
-      clearObserver: of()
-    };
-
     protectedServiceSpy = {
       getKpis: jasmine.createSpy('getKpis').and.returnValue(of({
         data: {
           chart: [
-            { kpi: 'Iniciados', total_casos: 5 },
-            { kpi: 'Concluidos', total_casos: 2 }
+            { id: 'kpi-1', kpi: 'Procedimientos iniciados', total_casos: 5 },
+            { id: 'kpi-2', kpi: 'Procedimientos concluidos', total_casos: 2 }
           ]
         }
       })),
-      saveKpi: jasmine.createSpy('saveKpi').and.returnValue(of({ data: { id: 'new-kpi' } }))
+      saveKpi: jasmine.createSpy('saveKpi').and.returnValue(of({ data: { id: 'new-kpi' } })),
+      updateKpi: jasmine.createSpy('updateKpi').and.returnValue(of({ data: { updateKpi: { id: 'kpi-1' } } })),
+      deleteKpi: jasmine.createSpy('deleteKpi').and.returnValue(of({ data: { deleteKpi: { id: 'kpi-2' } } }))
     };
 
     await TestBed.configureTestingModule({
@@ -52,7 +49,8 @@ describe('AdmKpisComponent', () => {
     .overrideComponent(AdmKpisComponent, {
       set: {
         providers: [
-          { provide: MessageService, useValue: messageServiceSpy }
+          MessageService,
+          ConfirmationService
         ]
       }
     })
@@ -62,6 +60,18 @@ describe('AdmKpisComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AdmKpisComponent);
     component = fixture.componentInstance;
+
+    messageService = fixture.debugElement.injector.get(MessageService);
+    confirmationService = fixture.debugElement.injector.get(ConfirmationService);
+
+    spyOn(messageService, 'add');
+    spyOn(confirmationService, 'confirm').and.callFake((options: any) => {
+      if (options.accept) {
+        options.accept();
+      }
+      return confirmationService;
+    });
+
     fixture.detectChanges();
   });
 
@@ -71,7 +81,7 @@ describe('AdmKpisComponent', () => {
 
   it('should load KPIs on init', () => {
     expect(protectedServiceSpy.getKpis).toHaveBeenCalledWith({ ente_publico: 'ente-123' });
-    expect(component.data.labels).toEqual(['Iniciados', 'Concluidos']);
+    expect(component.data.labels).toEqual(['Procedimientos iniciados (5)', 'Procedimientos concluidos (2)']);
     expect(component.data.datasets[0].data).toEqual([5, 2]);
     expect(component.optionKpi.length).toBe(3);
   });
@@ -105,7 +115,7 @@ describe('AdmKpisComponent', () => {
       kpi: 'Procedimientos concluidos',
       total_casos: 10
     });
-    expect(messageServiceSpy.add).toHaveBeenCalled();
+    expect(messageService.add).toHaveBeenCalled();
   });
 
   it('should handle saveKpi error gracefully', () => {
@@ -117,5 +127,51 @@ describe('AdmKpisComponent', () => {
     
     component.saveKpi();
     expect(protectedServiceSpy.saveKpi).toHaveBeenCalled();
+  });
+
+  it('should open edit dialog with loaded KPI data', () => {
+    const mockKpi = { id: 'kpi-1', kpi: 'Procedimientos iniciados', total_casos: 5 };
+    component.openEditDialog(mockKpi);
+    expect(component.selectedKpiId).toBe('kpi-1');
+    expect(component.displayEditDialog).toBeTrue();
+    expect(component.editForm.value).toEqual({
+      typeCase: { icon: 'pi pi-chart-bar', name: 'Procedimientos iniciados', value: 1 },
+      total: 5
+    });
+  });
+
+  it('should save edited KPI when editForm is valid', () => {
+    component.selectedKpiId = 'kpi-1';
+    component.editForm.setValue({
+      typeCase: { icon: 'pi pi-chart-bar', name: 'Procedimientos iniciados', value: 1 },
+      total: 15
+    });
+    component.saveEdit();
+    expect(protectedServiceSpy.updateKpi).toHaveBeenCalledWith('kpi-1', jasmine.objectContaining({
+      id: 'kpi-1',
+      kpi: 'Procedimientos iniciados',
+      total_casos: 15
+    }));
+    expect(component.displayEditDialog).toBeFalse();
+    expect(messageService.add).toHaveBeenCalled();
+  });
+
+  it('should not save edited KPI when editForm is invalid', () => {
+    component.editForm.setValue({
+      typeCase: '',
+      total: ''
+    });
+    component.saveEdit();
+    expect(component.editForm.touched).toBeTrue();
+    expect(protectedServiceSpy.updateKpi).not.toHaveBeenCalled();
+  });
+
+  it('should confirm and delete KPI', () => {
+    const mockKpi = { id: 'kpi-2', kpi: 'Procedimientos concluidos', total_casos: 2 };
+    const mockEvent = { target: {} } as any;
+    component.confirmDelete(mockEvent, mockKpi);
+    expect(confirmationService.confirm).toHaveBeenCalled();
+    expect(protectedServiceSpy.deleteKpi).toHaveBeenCalledWith('kpi-2');
+    expect(messageService.add).toHaveBeenCalled();
   });
 });

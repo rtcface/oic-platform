@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { kpiAdd, chart, kpiByEnteQueryInput, kpiSelector } from '../../models/kpis.interface';
 import { ProtectedService } from '../../services/protected.service';
@@ -9,7 +9,7 @@ import { ProtectedService } from '../../services/protected.service';
   selector: 'app-adm-kpis',
   templateUrl: './adm-kpis.component.html',
   styleUrls: ['./adm-kpis.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class AdmKpisComponent implements OnInit {
 
@@ -20,18 +20,27 @@ export class AdmKpisComponent implements OnInit {
   optionKpi:any[] = [];
   selectedKpi: any;
   
+  // Nuevas variables para la tabla y edición
+  kpisList: chart[] = [];
+  displayEditDialog: boolean = false;
+  selectedKpiId: string = '';
 
   saveForm = this.fb.group({
     typeCase: ['', Validators.required],   
-    total: ['',[Validators.required]],
+    total: ['', [Validators.required, Validators.min(0)]],
   });
 
+  editForm = this.fb.group({
+    typeCase: ['', Validators.required],
+    total: ['', [Validators.required, Validators.min(0)]]
+  });
 
   constructor( 
     private readonly auth: AuthService,
     private readonly fb: FormBuilder,
     private readonly ms: MessageService,
-    private readonly pt: ProtectedService ) { }
+    private readonly pt: ProtectedService,
+    private readonly confirmationService: ConfirmationService ) { }
 
   ngOnInit(): void {
     this.loadKpis();
@@ -92,14 +101,18 @@ export class AdmKpisComponent implements OnInit {
       next: (results) => {
         // //console.log("results", results);
         const { data } = results;
+        this.kpisList = data?.chart || [];
         // //console.log("data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data?.chart.length);
-        const labels:string[] = [];
-        const res:number[] = [];
+        const totals: { [key: string]: number } = {};
         data?.chart.forEach(element => {
-          labels.push(element.kpi);
-          res.push(element.total_casos);
-        }
-        );
+          totals[element.kpi] = (totals[element.kpi] || 0) + element.total_casos;
+        });
+        const labels: string[] = [];
+        const res: number[] = [];
+        Object.keys(totals).forEach(kpiName => {
+          labels.push(`${kpiName} (${totals[kpiName]})`);
+          res.push(totals[kpiName]);
+        });
         this.data = {
           labels: labels,
           datasets: [
@@ -139,5 +152,59 @@ export class AdmKpisComponent implements OnInit {
   }
   cambiaData(event: any) {
     ////console.log("event", event);
+  }
+
+  openEditDialog(kpi: chart) {
+    this.selectedKpiId = kpi.id || '';
+    const selectedOption = this.optionKpi.find(opt => opt.name === kpi.kpi);
+    this.editForm.setValue({
+      typeCase: selectedOption || '',
+      total: kpi.total_casos
+    });
+    this.displayEditDialog = true;
+  }
+
+  saveEdit() {
+    if (this.editForm.invalid) {
+      this.editForm.markAllAsTouched();
+      return;
+    }
+    const { typeCase, total } = this.editForm.value;
+    const input = {
+      id: this.selectedKpiId,
+      kpi: typeCase.name,
+      description: typeCase.name,
+      total_casos: Number(total),
+      updatedAt: new Date()
+    };
+    this.pt.updateKpi(this.selectedKpiId, input).subscribe({
+      next: () => {
+        this.displayEditDialog = false;
+        this.ms.add({ severity: 'success', summary: 'Éxito', detail: 'Estadística actualizada correctamente' });
+        this.loadKpis();
+      },
+      error: () => {
+        this.ms.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar la estadística' });
+      }
+    });
+  }
+
+  confirmDelete(event: Event, kpi: chart) {
+    this.confirmationService.confirm({
+      target: event.target!,
+      message: `¿Estás seguro de que querés eliminar el registro de ${kpi.kpi} con ${kpi.total_casos} casos?`,
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.pt.deleteKpi(kpi.id || '').subscribe({
+          next: () => {
+            this.ms.add({ severity: 'success', summary: 'Éxito', detail: 'Estadística eliminada correctamente' });
+            this.loadKpis();
+          },
+          error: () => {
+            this.ms.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar la estadística' });
+          }
+        });
+      }
+    });
   }
 }

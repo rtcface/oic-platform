@@ -12,8 +12,14 @@ export interface kpiByEnteQueryInput {
 }
 
 export interface chart{   
+    id?: string;
     kpi: string;
+    description?: string;
     total_casos: number;    
+    createdAt?: string;
+    updatedAt?: string;
+    status?: string;
+    ente_publico?: string;
 }
 
 export interface resp{
