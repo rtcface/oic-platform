@@ -107,7 +107,7 @@ describe('KpisComponent', () => {
 
     expect(mockProtectedService.getKpis).toHaveBeenCalledWith({ ente_publico: 'ente-123' });
     expect(component.data).toBeDefined();
-    expect(component.data.labels).toEqual(['Iniciados', 'Concluidos']);
+    expect(component.data.labels).toEqual(['Iniciados (15)', 'Concluidos (8)']);
     expect(component.data.datasets[0].data).toEqual([15, 8]);
   });
 

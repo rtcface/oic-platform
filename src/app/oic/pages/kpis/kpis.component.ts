@@ -114,13 +114,16 @@ export class KpisComponent implements OnInit {
         // //console.log("results", results);
         const { data } = results;
         // //console.log("data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data?.chart.length);
-        const labels:string[] = [];
-        const res:number[] = [];
+        const totals: { [key: string]: number } = {};
         data?.chart.forEach(element => {
-          labels.push(element.kpi);
-          res.push(element.total_casos);
-        }
-        );
+          totals[element.kpi] = (totals[element.kpi] || 0) + element.total_casos;
+        });
+        const labels: string[] = [];
+        const res: number[] = [];
+        Object.keys(totals).forEach(kpiName => {
+          labels.push(`${kpiName} (${totals[kpiName]})`);
+          res.push(totals[kpiName]);
+        });
         this.data = {
           labels: labels,
           datasets: [
