@@ -47,6 +47,7 @@ export class GetOicService {
   getWorkPlanFromGraph(ente:filterWpd): Observable<MutationResult<tree>>  {
     const GET_WORK_PLAN = gql`query planwork($ente:PlanWorkQueryInput!){  
            data:getPlanWorkData(input:$ente){
+             id
              label
              data
              expandedIcon

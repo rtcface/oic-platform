@@ -9,6 +9,9 @@
         placeholder="Seleccione el año para publicar su plan de trabajo"></p-treeSelect>
         <span *ngIf="!displayForm; else save"></span>          
       </div>
+      <div class="field col-12 md:col-4">
+        <button pButton pRipple type="button" label="Agregar Año" icon="pi pi-calendar-plus" class="p-button-outlined p-button-info" (click)="showAddYearDialog()"></button>
+      </div>
       <ng-template #save>
         <form class="search-form" [formGroup]="saveForm" autocomplete="off">       
           <div class="field col-12 md:col-4 form-item">
@@ -118,4 +121,24 @@
     <button pButton pRipple type="button" label="Actualizar" [formGroup]="updateForm" (click)="updateFile()" class="p-button-outlined p-button-primary" icon="pi pi-pencil"></button>  
     </div>
   </form>   
+</p-dialog>
+
+<p-dialog header="Agregar nuevo año" [(visible)]="displayAddYear" [modal]="true" [style]="{width: '30vw'}">
+  <form [formGroup]="yearForm" (ngSubmit)="saveYear()" class="search-form" autocomplete="off">
+    <div class="field col-12 md:col-12 form-item">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-calendar"></i>
+        </span>
+        <span class="p-float-label">
+          <input type="number" id="input-year" pInputText formControlName="year" min="2000" max="2100">
+          <label for="input-year">Año (Ej. 2026)</label>
+        </span>
+      </div>
+      <p-message *ngIf="validateYearField('year')" severity="error" text="Debe ingresar un año válido (2000 - 2100)"></p-message>
+    </div>
+    <div class="field col-12 md:col-12 form-item">
+      <button pButton pRipple type="submit" label="Guardar Año" class="p-button-primary" icon="pi pi-check"></button>
+    </div>
+  </form>
 </p-dialog>

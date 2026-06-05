@@ -22,7 +22,13 @@ export class AdmWorkplanComponent implements OnInit {
   selectedNode: any[] = [];
   display: boolean = false;
   displayForm: boolean = false;
+  displayAddYear: boolean = false;
   id_Anio: string='';
+  id_Root: string = '';
+
+  yearForm = this.fb.group({
+    year: ['', [Validators.required, Validators.min(2000), Validators.max(2100)]]
+  });
 
   update_wpd: planWork = {} as planWork;
 
@@ -130,7 +136,9 @@ export class AdmWorkplanComponent implements OnInit {
           //map to TreeNode
           this.files =[ res!.data].map(
             (item: root) => {
+              this.id_Root = item.id || '';
               return {
+                id: item.id,
                 label: item.label,
                 data: item.data,
                 children: item.children!.map(
@@ -342,6 +350,38 @@ updateFile(){
 
 noDelete() {
   this.ms.add({ severity: 'error', summary: 'Cancelo', detail: `Sera en otra ocasión ${this.update_wpd.label}...`});   //<-- Mensaje de error
+}
+
+showAddYearDialog() {
+  this.yearForm.reset();
+  this.displayAddYear = true;
+}
+
+validateYearField(field: string) {
+  return this.yearForm.get(field)?.invalid && this.yearForm.get(field)?.touched;
+}
+
+saveYear() {
+  if (this.yearForm.invalid) {
+    this.yearForm.markAllAsTouched();
+    return;
+  }
+  const yearVal = Number(this.yearForm.value.year);
+  if (!this.id_Root) {
+    this.ms.add({ severity: 'error', summary: 'Error', detail: 'No se encontró el ID raíz del plan de trabajo' });
+    return;
+  }
+  this.pt.addPlanWorkYear(this.id_Root, yearVal).subscribe({
+    next: () => {
+      this.displayAddYear = false;
+      this.yearForm.reset();
+      this.ms.add({ severity: 'success', summary: 'Información', detail: 'Se ha agregado el año exitosamente' });
+      this.loadWorkPlan();
+    },
+    error: (err) => {
+      this.ms.add({ severity: 'error', summary: 'Error', detail: 'No se pudo agregar el año' });
+    }
+  });
 }
 
 // reloadCurrentPage() {

@@ -4,6 +4,7 @@ export interface tree {
 }
 
 export interface root {
+    id?:           string;
     label:         string;
     data:          string;
     expandedIcon:  string;
